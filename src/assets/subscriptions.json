@@ -1,0 +1,147 @@
+{
+	"data": [
+		{
+			"id": 5182039654533,
+			"title": "Single Origin Series",
+			"vendor": "Peet's Coffee",
+			"product_type": "Subscription",
+			"status": "active",
+			"handle": "single-origin-series-subscription",
+			"variants": [
+				{
+					"product_id": 5182039654533,
+					"id": 34640623566981,
+					"title": "Whole Bean",
+					"sku": "single-origin-wholebean",
+					"option1": "Whole Bean",
+					"updated_at": "2022-08-27T00:08:45-07:00"
+				},
+				{
+					"product_id": 5182039654533,
+					"id": 34640623599749,
+					"title": "Drip",
+					"sku": "single-origin-drip",
+					"option1": "Drip",
+					"updated_at": "2022-08-26T20:33:05-07:00"
+				},
+				{
+					"product_id": 5182039654533,
+					"id": 34640623632517,
+					"title": "Press Pot / Percolator",
+					"sku": "single-origin-press-per",
+					"option1": "Press Pot / Percolator",
+					"updated_at": "2022-08-26T17:35:33-07:00"
+				}
+			]
+		},
+		{
+			"id": 5182038900869,
+			"title": "Small Batch Series",
+			"vendor": "Peet's Coffee",
+			"product_type": "Subscription",
+			"status": "active",
+			"handle": "small-batch-series-subscription",
+			"variants": [
+				{
+					"id": 34640621928581,
+					"product_id": 5182038900869,
+					"title": "Whole Bean",
+					"sku": "small-batch-series-wholebean",
+					"option1": "Whole Bean",
+					"updated_at": "2022-08-27T00:06:23-07:00"
+				},
+				{
+					"id": 34640622026885,
+					"product_id": 5182038900869,
+					"title": "Drip",
+					"sku": "small-batch-series-drip",
+					"updated_at": "2022-08-27T00:05:14-07:00"
+				},
+				{
+					"id": 34640622059653,
+					"product_id": 5182038900869,
+					"title": "Espresso",
+					"sku": "small-batch-series-espresso",
+					"option1": "Espresso",
+					"updated_at": "2022-08-27T00:08:25-07:00"
+				},
+				{
+					"id": 34640622092421,
+					"product_id": 5182038900869,
+					"title": "Press Pot / Percolator",
+					"sku": "small-batch-series-press-per",
+					"option1": "Press Pot / Percolator",
+					"updated_at": "2022-08-27T00:05:21-07:00"
+				}
+			]
+		},
+		{
+			"id": 5184747864197,
+			"title": "Aged Sumatra - Curated Subscription",
+			"vendor": "Peet's Coffee",
+			"product_type": "Coffee",
+			"status": "archived",
+			"handle": "aged-sumatra-curated-subscription",
+			"variants": [
+				{
+					"id": 34649290244229,
+					"product_id": 5184747864197,
+					"title": "Whole Bean",
+					"sku": "514040",
+					"option1": "Whole Bean",
+					"updated_at": "2022-08-29T00:10:43-07:00"
+				},
+				{
+					"id": 34649290309765,
+					"product_id": 5184747864197,
+					"title": "Drip",
+					"sku": "514041",
+					"option1": "Drip",
+					"updated_at": "2022-08-28T17:39:02-07:00"
+				},
+				{
+					"id": 34649290375301,
+					"product_id": 5184747864197,
+					"title": "Press Pot / Percolator",
+					"sku": "514042",
+					"option1": "Press Pot / Percolator",
+					"updated_at": "2022-08-28T17:40:46-07:00"
+				}
+			]
+		},
+		{
+			"id": 6552205492357,
+			"title": "Carbon Neutral Series",
+			"vendor": "Peet's Coffee",
+			"product_type": "Subscription",
+			"status": "Draft",
+			"handle": "carbon-neutral-series-subscription",
+			"variants": [
+				{
+					"product_id": 6552205492357,
+					"id": 39313991073925,
+					"title": "Whole Bean",
+					"sku": "carbon-neutral-series-wholebean",
+					"option1": "Whole Bean",
+					"updated_at": "2022-08-29T00:05:59-07:00"
+				},
+				{
+					"product_id": 6552205492357,
+					"id": 39313991139461,
+					"title": "Press Pot / Percolator",
+					"sku": "carbon-neutral-series-press-pot",
+					"option1": "Press Pot / Percolator",
+					"updated_at": "2022-08-29T00:06:02-07:00"
+				},
+				{
+					"product_id": 6552205492357,
+					"id": 39313991172229,
+					"title": "Drip",
+					"sku": "carbon-neutral-series-drip",
+					"option1": "Drip",
+					"updated_at": "2022-08-29T00:06:06-07:00"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,72 @@
+{
+    "products": [
+        {
+            "product_id": "34360235687980",
+            "title": "Aged Sumatra"
+        },
+        {
+            "product_id": "34360228708396",
+            "title": "Americano"
+        },
+        {
+            "product_id": "34360225366060",
+            "title": "Alfred Peet Book"
+        },
+        {
+            "product_id": "34360225529900",
+            "title": "Anniversary Blend 2022"
+        },
+        {
+            "product_id": "34360230281260",
+            "title": "Arabian Mocha-Java"
+        },
+        {
+            "product_id": "34360224874540",
+            "title": "Baridi Blend"
+        },
+        {
+            "product_id": "34360226709548",
+            "title": "Big Bang"
+        },
+        {
+            "product_id": "34360229724204",
+            "title": "Brew Book"
+        },
+        {
+            "product_id": "34360229560364",
+            "title": "Burundi Turashobora"
+        },
+        {
+            "product_id": "34360225726508",
+            "title": "Caffe Latte"
+        },
+        {
+            "product_id": "34360229068844",
+            "title": "Caramel Blended Iced"
+        },
+        {
+            "product_id": "34360229920812",
+            "title": "Black and White Iced Espresso"
+        },
+        {
+            "product_id": "34360229920816",
+            "title": "Brazil"
+        },
+        {
+            "product_id": "34360229920817",
+            "title": "Americas - Three Pound Sampler"
+        },
+        {
+            "product_id": "34360229920818",
+            "title": "Bali Blue Moon"
+        },
+        {
+            "product_id": "34360229920819",
+            "title": "Bacon & Cheddar Brioche"
+        },
+        {
+            "product_id": "34360229920811",
+            "title": "Brew Set"
+        }
+    ]
+}

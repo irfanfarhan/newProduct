@@ -1,0 +1,10 @@
+// -----------------------------------------------------------------------------
+// When having several themes, this file contains everything related to the
+// default one.
+// -----------------------------------------------------------------------------
+
+
+.bg-theme {
+  --bs-bg-opacity: 1;
+  background-color: $base-theme-color  !important;
+}

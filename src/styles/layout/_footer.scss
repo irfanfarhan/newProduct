@@ -1,0 +1,51 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the footer of the site/application.
+// -----------------------------------------------------------------------------
+
+.footer__company {
+    margin-bottom: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+.footer__company-logo {
+    margin-bottom: 0.9375rem;
+}
+.icon {
+    display: inline-block;
+}
+
+.icon--logo-p-cup:before {
+    background-position: 0 -167.875em;
+    width: 3.6875em;
+    height: 3.0625em;
+}
+.icon:before {
+    background-image: url(//cdn.shopify.com/s/files/1/0319/0764/3436/t/2/assets/sprite-icon-a478966c.svg?v=1146962…);
+    background-repeat: no-repeat;
+    background-size: 18.125em 258.4375em;
+    content: "";
+    display: block;
+    font-size: 1em;
+}
+
+.footer__company-text {
+    margin-bottom: 0.5rem;
+}
+.footer__company-text {
+    font-size: 1rem;
+    line-height: 1.71;
+    margin-bottom: 0.3125rem;
+    font-family: grad,serif;
+}
+
+.footer__company-est {
+    font-size: 2.625rem;
+    line-height: 1.33;
+    margin-bottom: 0;
+    font-family: grad,serif;
+}

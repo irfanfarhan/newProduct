@@ -1,0 +1,124 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  -o-opacity: $opacity;
+  -ms-opacity: $opacity;
+  -moz-opacity: $opacity;
+  -webkit-opacity: $opacity;
+  filter: alpha(opacity=#{$opacity * 100});
+}
+
+@mixin box-shadow($shadow...) {
+  box-shadow: $shadow;
+  -o-box-shadow: $shadow;
+  -ms-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  -webkit-box-shadow: $shadow;
+}
+
+@mixin border-radius($border-radius) {
+  border-radius: $border-radius;
+  -o-border-radius: $border-radius;
+  -ms-border-radius: $border-radius;
+  -moz-border-radius: $border-radius;
+  -webkit-border-radius: $border-radius;
+}
+
+@mixin transition($transition...) {
+  transition: $transition;
+  -o-transition: $transition;
+  -ms-transition: $transition;
+  -moz-transition: $transition;
+  -webkit-transition: $transition;
+}
+
+@mixin box-sizing($border-sizing) {
+  box-sizing: $border-sizing;
+  -o-box-sizing: $border-sizing;
+  -ms-box-sizing: $border-sizing;
+  -moz-box-sizing: $border-sizing;
+  -webkit-box-sizing: $border-sizing;
+}
+
+@mixin text-shadow($text-shadow...) {
+  text-shadow: $text-shadow;
+  -o-text-shadow: $text-shadow;
+  -ms-text-shadow: $text-shadow;
+  -moz-text-shadow: $text-shadow;
+  -webkit-text-shadow: $text-shadow;
+}
+
+@mixin respond-to($media) {
+  @media #{$media} {
+      @content;
+  }
+}
+@mixin user-select($user-select) {
+  user-select: $user-select;
+  -webkit-user-select: $user-select;
+  -moz-user-select: $user-select;
+  -ms-user-select: $user-select;
+}
+//Padding mixin
+@mixin padding($top: false, $right: false, $bottom: false, $left: false) {
+  @if $top {
+    padding-top: $top;
+  }
+  @if $right {
+    padding-right: $right;
+  }
+  @if $bottom {
+    padding-bottom: $bottom;
+  }
+  @if $left {
+    padding-left: $left;
+  }
+}
+
+//Margin mixin
+@mixin margin($top: false, $right: false, $bottom: false, $left: false) {
+  @if $top {
+    margin-top: $top;
+  }
+  @if $right {
+    margin-right: $right;
+  }
+  @if $bottom {
+    margin-bottom: $bottom;
+  }
+  @if $left {
+    margin-left: $left;
+  }
+}
+@mixin pseudo(
+  $pos: false,
+  $top: false,
+  $right: false,
+  $left: false,
+  $bottom: false,
+  $z-indexes: false
+) {
+  @if $pos {
+    position: $pos;
+  }
+  @if $top {
+    top: $top;
+  }
+  @if $right {
+    right: $right;
+  }
+  @if $left {
+    left: $left;
+  }
+  @if $bottom {
+    bottom: $bottom;
+  }
+  @if $z-indexes {
+    z-index: $z-indexes;
+  }
+}
+
