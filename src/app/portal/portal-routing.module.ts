@@ -12,6 +12,11 @@ const routes: Routes = [
         path: 'customer',
         loadChildren: () => import('./components/customer/customer.module').then((m) => m.CustomerModule),
         //canActivate: [MsalGuard]
+      },
+      {
+        path: 'transfer',
+        loadChildren: () => import('./components/transfer/transfer.module').then((m) => m.TransferModule),
+        //canActivate: [MsalGuard]
       }
     ]
   }
