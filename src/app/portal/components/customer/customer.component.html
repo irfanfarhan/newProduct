@@ -5,18 +5,19 @@
                 <h5 class="col-lg-12 mb-3">Profile Search</h5>
                 <div class="row flex-nowrap">
                     <div class="col-lg-3">
-                        <p-dropdown [options]="pCategory" [(ngModel)]="selectedCategory" optionLabel="name"></p-dropdown>
+                        <p-dropdown [options]="pCategory" [(ngModel)]="selectedCategory"
+                            optionLabel="name"></p-dropdown>
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-8">
                         <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input type="text" pInputText placeholder="Search" [(ngModel)]="value3" />
                         </span>
                     </div>
                     <div class="col-lg-1">
-                        <p-button label="Search" [loading]="loading[3]"></p-button>
+                        <button pButton pRipple type="button" label="Search" class="p-button-text"></button>
                     </div>
-                </div>               
+                </div>
             </div>
         </div>
     </div>
@@ -27,7 +28,7 @@
                     <div class="card-header d-flex flex-nowrap justify-content-between align-items-center">
                         <h5>Profile Details</h5>
                         <div class="action-wrapper">
-                            <button type="button btn-default" pButton icon="pi pi-bars" label="Actions" (click)="menu.toggle($event)"></button>
+                                <button pButton pRipple type="button" icon="pi pi-bars" label="Actions" class="p-button-text" (click)="menu.toggle($event)"></button>
                             <p-menu appendTo="body" #menu [popup]="true" [model]="items"></p-menu>
                         </div>
                     </div>
@@ -62,17 +63,125 @@
                                 <span>True</span>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
+                <div class="col-lg-12">
+                    <p-tabView styleClass="tabview-custom">
+                        <p-tabPanel>
+                            <ng-template pTemplate="header">
+                                <span>Stored value cards</span>
+                            </ng-template>
+                            <div class="row">
+                                <div class="col">
+                                    <p-table styleClass="main-table" #dt [value]="storedCards" dataKey="creditCardNumber" [rows]="10"
+                                        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+                                        [loading]="loading" [paginator]="true" selectionMode="single"
+                                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                        [globalFilterFields]="['creditCardNumber','value', 'primary', 'autoreload','aramount', 'arThreshold', 'cc']"
+                                        (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+                                        <ng-template pTemplate="caption">
+                                            <div class="flex">
+                                                <span class="p-input-icon-left w-100 pr-4">
+                                                    <i class="pi pi-search"></i>
+                                                    <input pInputText type="text" class="w-100"
+                                                        (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                        placeholder="Search keyword" />
+                                                </span>
+                                                <button pButton label="Add SV Card" class="p-button-outlined mr-3"
+                                                    icon="pi pi-plus"></button>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th pSortableColumn="creditCardNumber">Credit card Number <p-sortIcon
+                                                        field="creditCardNumber"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="value">Value <p-sortIcon
+                                                        field="value"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="primary">Primary <p-sortIcon
+                                                        field="primary"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="autoreload">Autoreload <p-sortIcon
+                                                        field="autoreload"></p-sortIcon>
+                                                <th pSortableColumn="aramount">ARAmount <p-sortIcon
+                                                        field="aramount"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="arThreshold">ARThreshold <p-sortIcon
+                                                        field="arThreshold"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="cc">CC <p-sortIcon field="cc"></p-sortIcon>
+                                                </th>
+                                                <th></th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-cards>
+                                            <tr [pSelectableRow]="cards">
+                                                <td>
+                                                    {{cards?.creditCardNumber}}
+                                                </td>
+                                                <td>
+                                                    {{cards?.value}}
+                                                </td>
+                                                <td>
+                                                    {{cards?.primary}}
+                                                </td>
+                                                <td>
+                                                    {{cards?.autoreload}}
+                                                </td>
+                                                <td>
+                                                    {{cards?.aramount}}
+                                                </td>
+                                                <td>
+                                                    {{cards?.arThreshold}}
+                                                </td>
+                                                <td>
+                                                    {{cards?.cc}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <i class="pi pi-ellipsis-v" (click)="action.toggle($event)"></i>
+                                                    <p-menu appendTo="body" #action [popup]="true"
+                                                        [model]="actions"></p-menu>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage">
+                                            <tr>
+                                                <td colspan="5">No subscriptions found.</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </p-tabPanel>
+                        <p-tabPanel header="Credit Cards">
+                            <ng-template pTemplate="header">
+                                <span>Credit Cards</span>
+                            </ng-template>
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                                architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+                                sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                                voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                            </p>
+                        </p-tabPanel>
+                        <p-tabPanel header="Kount">
+                            <ng-template pTemplate="header">
+                                <span>Kount</span>
+                            </ng-template>
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+                                voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
+                                occaecati
+                                cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi,
+                                id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
+                                distinctio.
+                                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                            </p>
+                        </p-tabPanel>
+                    </p-tabView>
+                </div>
             </div>
-            
-        </div>
-    </div>
-
-    <div class="col-lg-12">
-        <div class="card">
-            
         </div>
     </div>
 </div>

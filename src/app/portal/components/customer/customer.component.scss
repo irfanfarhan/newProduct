@@ -1,0 +1,13 @@
+:host ::ng-deep {
+    .p-dropdown-panel .p-dropdown-items {
+        padding: 0 !important;
+    }
+
+    .main-table.p-datatable .p-datatable-thead>tr>th {
+        padding: 0.8rem !important;
+    }
+
+    .main-table.p-datatable .p-datatable-tbody>tr>td {
+        padding: 0.8rem !important;
+    }
+}

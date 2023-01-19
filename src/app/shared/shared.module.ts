@@ -26,7 +26,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ImageModule } from 'primeng/image';
 import { MonthPipePipe } from './pipes/month-pipe.pipe';
 import { LoadingComponent } from './components/loading/loading.component';
-import {MenuModule} from 'primeng/menu';
+import { MenuModule } from 'primeng/menu';
+import { TabViewModule } from 'primeng/tabview';
 
 export const sharedModule = [
   CommonModule,
@@ -55,7 +56,7 @@ export const sharedModule = [
   ConfirmDialogModule,
   ImageModule,
   ReactiveFormsModule,
-  MenuModule];
+  MenuModule, TabViewModule];
 
 @NgModule({
   declarations: [CommonComponent, MonthPipePipe, LoadingComponent],
