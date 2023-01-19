@@ -76,11 +76,11 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
       useClass: MsalInterceptor,
       multi: true
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorInterceptor,
-      multi: true
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptorInterceptor,
+    //   multi: true
+    // },
     {
       provide: MSAL_INSTANCE,
       useFactory: MSALInstanceFactory
