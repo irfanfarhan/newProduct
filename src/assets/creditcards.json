@@ -1,0 +1,30 @@
+[
+    {
+        "creditCardNumber": "5555555555554444",
+        "type": "Visa",
+        "expiry": "202211",
+        "billingZip": "21075",
+        "primary": "True"
+    },
+    {
+        "creditCardNumber": "5105105105105100",
+        "type": "MasterCard",
+        "expiry": "202024",
+        "billingZip": "21175",
+        "primary": "False"
+    },
+    {
+        "creditCardNumber": "4012888888881881",
+        "type": "Visa",
+        "expiry": "202215",
+        "billingZip": "24575",
+        "primary": "True"
+    },
+    {
+        "creditCardNumber": "4111111111111111",
+        "type": "MasterCard",
+        "expiry": "202028",
+        "billingZip": "20075",
+        "primary": "False"
+    }
+]

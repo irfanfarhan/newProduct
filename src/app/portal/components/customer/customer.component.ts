@@ -15,6 +15,7 @@ export class CustomerComponent implements OnInit {
   items: MenuItem[] | undefined;
   actions: any[] = [];
   storedCards: any[] = [];
+  creditCards: any[] = [];
   loading: boolean = true;
   constructor(private customerService: CustomerService) { }
 
@@ -31,12 +32,16 @@ export class CustomerComponent implements OnInit {
       { label: 'Delete Profile' }
     ]
     this.actions = [
-      { label: 'Edit' },
-      { label: 'Delete' },
-      { label: 'Transfer balance to this card' }
+      { label: 'Edit', icon:'pi pi-pencil'},
+      { label: 'Delete', icon:'pi pi-trash' },
+      { label: 'Transfer balance to this card', icon:'pi pi-trash' }
     ]
     this.customerService.getStoredCards().subscribe(data => {
       this.storedCards = data;
+      this.loading = false;
+    });
+    this.customerService.getCreditCards().subscribe(data => {
+      this.creditCards = data;
       this.loading = false;
     });
   }

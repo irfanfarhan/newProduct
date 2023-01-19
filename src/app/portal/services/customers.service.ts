@@ -17,7 +17,9 @@ export class CustomerService {
   getStoredCards() {
     return this.http.get<any>('assets/storedCards.json');
   }
-
+  getCreditCards() {
+    return this.http.get<any>('assets/creditcards.json');
+  }
   public logout(): void {
     localStorage.clear();
     this.authService.logoutPopup({
