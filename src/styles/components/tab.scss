@@ -1,0 +1,14 @@
+.tabViewCustome{
+    .p-tabview-panels{
+        padding-left: 0;
+        padding-right: 0;
+        .p-tabview-panel{
+            > .row{
+               > .col{
+                padding-left: 0;
+                padding-right: 0;
+                }
+            }
+        }
+    }
+}
