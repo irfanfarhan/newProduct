@@ -26,15 +26,15 @@ export class CustomerComponent implements OnInit {
       { name: 'Restaurant' }
     ];
     this.items = [
-      { label: 'Edit Profile' },
-      { label: 'Subscribe to Listrak' },
-      { label: 'Reset Password' },
-      { label: 'Delete Profile' }
+      { label: 'Edit Profile', icon:'pi pi-pencil' },
+      { label: 'Subscribe to Listrak', icon:'pi pi-external-link' },
+      { label: 'Reset Password', icon:'pi pi-cog' },
+      { label: 'Delete Profile', icon:'pi pi-trash' }
     ]
     this.actions = [
       { label: 'Edit', icon:'pi pi-pencil'},
       { label: 'Delete', icon:'pi pi-trash' },
-      { label: 'Transfer balance to this card', icon:'pi pi-trash' }
+      { label: 'Transfer balance to this card', icon:'pi pi-credit-card' }
     ]
     this.customerService.getStoredCards().subscribe(data => {
       this.storedCards = data;
