@@ -8,22 +8,23 @@
         CX Loyalty Admin Tool
       </h1>
       <ul class="nav navbar navbar-right main-nav">
-        <li class="nav-item">
-          <a class="nav-link">Customer </a><span>|</span>
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a class="nav-link" [routerLink]="['/portal/customer']">Customer </a><span>|</span>
         </li>
-        <li class="nav-item">
-          <a class="nav-link">Transfer </a><span>|</span>
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a class="nav-link" [routerLink]="['/portal/transfer']">Transfer </a><span>|</span>
         </li>
-        <li class="nav-item">
-          <a class="nav-link">Reastouronts</a>
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a class="nav-link" [routerLink]="['/portal/customer']">Reastouronts</a>
         </li>
       </ul>
 
-     
+
       <div class="dropdown">
-        <button class="btn btn-transparent dropdown-toggle text-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-           Yakub Shaik
-           <i class="bi bi-person-circle fs-3"></i>
+        <button class="btn btn-transparent dropdown-toggle text-white" type="button" id="dropdownMenuButton1"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          Yakub Shaik
+          <i class="bi bi-person-circle fs-3"></i>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right fs-4 pr-1"></i> Logout</a></li>
@@ -36,7 +37,7 @@
           <hr class="d-lg-none text-white-50">
         </li>
         <li>
-          <p class="navbar-text m-0 fs-5" style="color: white;">Yakub Shaik <i class="bi bi-person-circle fs-3"></i> 
+          <p class="navbar-text m-0 fs-5" style="color: white;">Yakub Shaik <i class="bi bi-person-circle fs-3"></i>
           </p>
         </li>
         <li>
