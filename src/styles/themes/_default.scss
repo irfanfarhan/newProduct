@@ -8,3 +8,18 @@
   --bs-bg-opacity: 1;
   background-color: $base-theme-color  !important;
 }
+
+body{
+  background-color: $body-bg;
+}
+
+.dtc-page-wrapper{
+  display: flex;
+  flex-wrap : wrap;
+  .p-dropdown, .p-input-icon-left, .p-inputtext{
+    width: 100%;
+  }
+.dtc-customer-page-wrapper{
+  
+}
+}
