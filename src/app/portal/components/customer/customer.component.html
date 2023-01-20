@@ -28,8 +28,8 @@
                     <div class="card-header d-flex flex-nowrap justify-content-between align-items-center">
                         <h5>Profile Details</h5>
                         <div class="action-wrapper">
-                            <button pButton pRipple type="button" icon="pi pi-ellipsis-v" iconPos="right" label="Actions"
-                                class="pe-0 p-button-text" (click)="menu.toggle($event)"></button>
+                            <button pButton pRipple type="button" icon="pi pi-ellipsis-v" iconPos="right"
+                                label="Actions" class="pe-0 p-button-text" (click)="menu.toggle($event)"></button>
                             <p-menu appendTo="body" #menu [popup]="true" [model]="items"></p-menu>
                         </div>
                     </div>
@@ -147,7 +147,10 @@
                                                     {{cards?.cc}}
                                                 </td>
                                                 <td style="text-align:center">
-                                                    <i class="pi pi-ellipsis-v" (click)="action.toggle($event)"></i>
+                                                    <button pButton pRipple type="button"
+                                                        class="p-button-rounded p-button-text"
+                                                        icon="pi pi-ellipsis-v"
+                                                        (click)="action.toggle($event)"></button>
                                                     <p-menu appendTo="body" #action [popup]="true" [model]="actions">
                                                     </p-menu>
                                                 </td>
@@ -226,8 +229,9 @@
                                                 </td>
 
                                                 <td style="text-align:center">
-                                                    <button pButton pRipple icon="pi pi-trash" type="button" label="Delete"
-                                                        class="p-button-text"></button>
+                                                    <button pButton pRipple type="button"
+                                                        class="p-button-rounded p-button-danger p-button-text"
+                                                        icon="pi pi-trash"></button>
                                                 </td>
                                             </tr>
                                         </ng-template>
@@ -247,10 +251,9 @@
                             </ng-template>
                             <div class="row mx-0">
                                 <div class="col dataTableCustome">
-                                    <p-table styleClass="main-table" #dt2 [value]="orderHistory"
-                                        dataKey="orderNumber" [rows]="10" [showCurrentPageReport]="true"
-                                        [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
-                                        selectionMode="single"
+                                    <p-table styleClass="main-table" #dt2 [value]="orderHistory" dataKey="orderNumber"
+                                        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+                                        [loading]="loading" [paginator]="true" selectionMode="single"
                                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                                         [globalFilterFields]="['orderNumber','svCard', 'amount', 'cardNumber','cardType','tansactionDate','status']"
                                         (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
@@ -271,7 +274,8 @@
                                                 <th pSortableColumn="orderNumber">Order Number<p-sortIcon
                                                         field="orderNumber"></p-sortIcon>
                                                 </th>
-                                                <th pSortableColumn="svCard">SV Card <p-sortIcon field="svCard"></p-sortIcon>
+                                                <th pSortableColumn="svCard">SV Card <p-sortIcon
+                                                        field="svCard"></p-sortIcon>
                                                 </th>
                                                 <th pSortableColumn="amount">Amount <p-sortIcon field="amount">
                                                     </p-sortIcon>
@@ -282,12 +286,13 @@
                                                 <th pSortableColumn="cardType">Card Type <p-sortIcon field="cardType">
                                                     </p-sortIcon>
                                                 </th>
-                                                <th pSortableColumn="tansactionDate">Transaction Date <p-sortIcon field="tansactionDate">
-                                                </p-sortIcon>
-                                            </th>
-                                            <th pSortableColumn="status">Status <p-sortIcon field="status">
-                                            </p-sortIcon>
-                                        </th>
+                                                <th pSortableColumn="tansactionDate">Transaction Date <p-sortIcon
+                                                        field="tansactionDate">
+                                                    </p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="status">Status <p-sortIcon field="status">
+                                                    </p-sortIcon>
+                                                </th>
                                                 <th></th>
                                             </tr>
                                         </ng-template>
@@ -315,8 +320,9 @@
                                                     {{order?.status}}
                                                 </td>
                                                 <td style="text-align:center">
-                                                    <button pButton pRipple type="button" class="p-button-rounded p-button-danger p-button-text" icon="pi pi-trash"></button>
-                                                    <i pRipple type="button" class="p-button-danger p-button-text" icon="pi pi-trash"></i>
+                                                    <button pButton pRipple type="button"
+                                                        class="p-button-rounded p-button-danger p-button-text"
+                                                        icon="pi pi-trash"></button>
                                                 </td>
                                             </tr>
                                         </ng-template>
@@ -338,9 +344,11 @@
                                 <div class="card-header d-flex flex-nowrap justify-content-between align-items-center">
                                     <h5>Kount</h5>
                                     <div class="action-wrapper">
-                                        <button pButton pRipple type="button" icon="pi pi-ellipsis-v" iconPos="right" label="Actions"
-                                        class="pe-0 p-button-text" (click)="kountActions.toggle($event)"></button>
-                                    <p-menu appendTo="body" #kountActions [popup]="true" [model]="kountAction"></p-menu>
+                                        <button pButton pRipple type="button" icon="pi pi-ellipsis-v" iconPos="right"
+                                            label="Actions" class="pe-0 p-button-text"
+                                            (click)="kountActions.toggle($event)"></button>
+                                        <p-menu appendTo="body" #kountActions [popup]="true"
+                                            [model]="kountAction"></p-menu>
                                     </div>
                                 </div>
                                 <div class="card-body col-lg-12">
@@ -354,7 +362,7 @@
                                             <span>Approve</span>
                                         </div>
                                     </div>
-            
+
                                 </div>
                             </div>
                         </p-tabPanel>
