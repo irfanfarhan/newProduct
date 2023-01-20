@@ -30,7 +30,7 @@
                         <div class="action-wrapper">
                             <button pButton pRipple type="button" icon="pi pi-ellipsis-v" iconPos="right"
                                 label="Actions" class="pe-0 p-button-text" (click)="menu.toggle($event)"></button>
-                            <p-menu appendTo="body" #menu [popup]="true" [model]="items"></p-menu>
+                            <p-menu appendTo="body" #menu [popup]="true" [model]="items"[style]="{'width':'220px'}"></p-menu>
                         </div>
                     </div>
                     <div class="card-body col-lg-12">
@@ -151,7 +151,7 @@
                                                         class="p-button-rounded p-button-text" icon="pi pi-ellipsis-v"
                                                         (click)="action.toggle($event)"></button>
                                                     <p-menu #action appendTo="body" [popup]="true" [model]="actions"
-                                                        [style]="{'width':'250px'}">
+                                                        [style]="{'width':'280px'}">
                                                     </p-menu>
                                                 </td>
                                             </tr>
@@ -377,13 +377,31 @@
     <ng-template pTemplate="content">
         <div class="col">
             <form [formGroup]="editProfileForm" rule="form" novalidate>
-                <div class="field">
-                    <label for="productList">First Name</label>
-                    <input type="text" formControlName="firstName" pInputText>
-                </div>
-                <div class="field">
-                    <label for="productList">Last Name</label>
-                    <input type="text" formControlName="lastName" pInputText>
+                <div class="p-fluid grid">
+                    <div class="field md:col-6">
+                        <label for="productList">First Name</label>
+                        <input type="text" formControlName="firstName" pInputText>
+                    </div>
+                    <div class="field md:col-6">
+                        <label for="productList">Last Name</label>
+                        <input type="text" formControlName="lastName" pInputText>
+                    </div>
+                    <div class="field md:col-6">
+                        <label for="productList">Email</label>
+                        <input type="text" formControlName="firstName" pInputText>
+                    </div>
+                    <div class="field md:col-6">
+                        <label for="productList">Phone Number</label>
+                        <input type="text" formControlName="lastName" pInputText>
+                    </div>
+                    <div class="field md:col-6">
+                        <label for="productList">Zip</label>
+                        <input type="text" formControlName="firstName" pInputText>
+                    </div>
+                    <div class="field md:col-6">
+                        <label for="productList">Birthday</label>
+                        <input type="text" formControlName="lastName" pInputText>
+                    </div>
                 </div>
             </form>
         </div>
