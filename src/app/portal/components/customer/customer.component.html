@@ -21,6 +21,7 @@
             </div>
         </div>
     </div>
+    <p-messages [(value)]="messageShow"></p-messages>
     <div class="col-lg-12 mt-3">
         <div class="card dtc-card">
             <div class="card-body">
@@ -396,3 +397,5 @@
             (click)="submit()"></p-button>
     </ng-template>
 </p-dialog>
+
+<p-confirmDialog [style]="{width: '600px'}"></p-confirmDialog>
