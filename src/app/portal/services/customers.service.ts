@@ -20,6 +20,9 @@ export class CustomerService {
   getCreditCards() {
     return this.http.get<any>('assets/creditcards.json');
   }
+  getOrderHistory() {
+    return this.http.get<any>('assets/orderHistory.json');
+  }
   public logout(): void {
     localStorage.clear();
     this.authService.logoutPopup({

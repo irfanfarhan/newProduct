@@ -240,19 +240,123 @@
                                 </div>
                             </div>
                         </p-tabPanel>
+                        <p-tabPanel header="Order History">
+                            <ng-template pTemplate="header">
+                                <i class="pi pi-cart-plus pr-2"></i>
+                                <span>Order History</span>
+                            </ng-template>
+                            <div class="row mx-0">
+                                <div class="col dataTableCustome">
+                                    <p-table styleClass="main-table" #dt2 [value]="orderHistory"
+                                        dataKey="orderNumber" [rows]="10" [showCurrentPageReport]="true"
+                                        [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
+                                        selectionMode="single"
+                                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                        [globalFilterFields]="['orderNumber','svCard', 'amount', 'cardNumber','cardType','tansactionDate','status']"
+                                        (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+                                        <ng-template pTemplate="caption">
+                                            <div class="d-flex justify-content-between w-100">
+                                                <span class="p-input-icon-left w-75 pr-4">
+                                                    <i class="pi pi-search"></i>
+                                                    <input pInputText type="text" class="w-100"
+                                                        (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                                                        placeholder="Search keyword" />
+                                                </span>
+                                                <button pButton label="Add SV Card" class="p-button-outlined"
+                                                    icon="pi pi-plus"></button>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th pSortableColumn="orderNumber">Order Number<p-sortIcon
+                                                        field="orderNumber"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="svCard">SV Card <p-sortIcon field="svCard"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="amount">Amount <p-sortIcon field="amount">
+                                                    </p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="cardNumber">Card Number <p-sortIcon
+                                                        field="cardNumber"></p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="cardType">Card Type <p-sortIcon field="cardType">
+                                                    </p-sortIcon>
+                                                </th>
+                                                <th pSortableColumn="tansactionDate">Transaction Date <p-sortIcon field="tansactionDate">
+                                                </p-sortIcon>
+                                            </th>
+                                            <th pSortableColumn="status">Status <p-sortIcon field="status">
+                                            </p-sortIcon>
+                                        </th>
+                                                <th></th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-order>
+                                            <tr [pSelectableRow]="order">
+                                                <td>
+                                                    {{order?.orderNumber}}
+                                                </td>
+                                                <td>
+                                                    {{order?.svCard}}
+                                                </td>
+                                                <td>
+                                                    {{order?.amount}}
+                                                </td>
+                                                <td>
+                                                    {{order?.cardNumber}}
+                                                </td>
+                                                <td>
+                                                    {{order?.cardType}}
+                                                </td>
+                                                <td>
+                                                    {{order?.tansactionDate}}
+                                                </td>
+                                                <td>
+                                                    {{order?.status}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <button pButton pRipple type="button" class="p-button-rounded p-button-danger p-button-text" icon="pi pi-trash"></button>
+                                                    <i pRipple type="button" class="p-button-danger p-button-text" icon="pi pi-trash"></i>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage">
+                                            <tr>
+                                                <td colspan="5">No order history vailable.</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </p-tabPanel>
                         <p-tabPanel header="Kount">
                             <ng-template pTemplate="header">
                                 <i class="pi pi-shield pr-2"></i>
                                 <span>Kount</span>
                             </ng-template>
-                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-                                voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
-                                occaecati
-                                cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi,
-                                id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-                                distinctio.
-                                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
-                            </p>
+                            <div class="card dtc-profile-card">
+                                <div class="card-header d-flex flex-nowrap justify-content-between align-items-center">
+                                    <h5>Kount</h5>
+                                    <div class="action-wrapper">
+                                        <button pButton pRipple type="button" icon="pi pi-ellipsis-v" iconPos="right" label="Actions"
+                                        class="pe-0 p-button-text" (click)="kountActions.toggle($event)"></button>
+                                    <p-menu appendTo="body" #kountActions [popup]="true" [model]="kountAction"></p-menu>
+                                    </div>
+                                </div>
+                                <div class="card-body col-lg-12">
+                                    <div class="row  mx-0">
+                                        <div class="form-group col-6">
+                                            <label class="form-label col-lg-4 fw-bold">Full Name : </label>
+                                            <span>John Smith</span>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label class="form-label col-lg-4 fw-bold">Status : </label>
+                                            <span>Approve</span>
+                                        </div>
+                                    </div>
+            
+                                </div>
+                            </div>
                         </p-tabPanel>
                     </p-tabView>
                 </div>
