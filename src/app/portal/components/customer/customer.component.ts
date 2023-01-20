@@ -17,6 +17,8 @@ export class CustomerComponent implements OnInit {
   storedCards: any[] = [];
   creditCards: any[] = [];
   loading: boolean = true;
+  orderHistory: any[] = [];
+  kountAction: any[] = [];
   constructor(private customerService: CustomerService) { }
 
   ngOnInit(): void {
@@ -36,12 +38,19 @@ export class CustomerComponent implements OnInit {
       { label: 'Delete', icon:'pi pi-trash' },
       { label: 'Transfer balance to this card', icon:'pi pi-credit-card' }
     ]
+    this.kountAction = [
+      { label: 'Whitelist', icon:'pi pi-pencil'}
+    ]
     this.customerService.getStoredCards().subscribe(data => {
       this.storedCards = data;
       this.loading = false;
     });
     this.customerService.getCreditCards().subscribe(data => {
       this.creditCards = data;
+      this.loading = false;
+    });
+    this.customerService.getOrderHistory().subscribe(data => {
+      this.orderHistory = data;
       this.loading = false;
     });
   }
