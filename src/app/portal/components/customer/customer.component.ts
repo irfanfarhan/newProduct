@@ -21,24 +21,34 @@ export class CustomerComponent implements OnInit {
   creditCards: any[] = [];
   loading: boolean = true;
   orderHistory: any[] = [];
-  kountAction: any[] = [];
   editProfileForm: FormGroup = this.fb.group({});
+  resetPasswordForm: FormGroup = this.fb.group({});
   editProfileDialog: boolean = false;
+  resetPasswordDialog: boolean = false;
   messageShow: Message[] = [];
+  value1: number = 42723;
   constructor(private fb: FormBuilder,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
     private customerService: CustomerService) { }
 
   ngOnInit(): void {
     this.editProfileForm = this.fb.group({
       firstName: ['', Validators.required],
-      lastName: ['', Validators.required]
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
+      mobileNumber: ['', Validators.required],
+      zip: ['', Validators.required],
+      bod: ['', Validators.required]
+    });
+    this.resetPasswordForm = this.fb.group({
+      email: ['', Validators.required],
+      resetPassword: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
     });
     this.pCategory = [
       { name: 'Email' },
       { name: 'Loyalty Card' },
-      { name: 'Restaurant' }
+      { name: 'Restaurants' }
     ];
     this.items = [
       {
@@ -51,7 +61,11 @@ export class CustomerComponent implements OnInit {
           this.unsubscribeProfile();
         }
       },
-      { label: 'Reset Password', icon: 'pi pi-cog' },
+      {
+        label: 'Reset Password', icon: 'pi pi-cog', command: () => {
+          this.resetPassword();
+        }
+      },
       {
         label: 'Delete Profile', icon: 'pi pi-trash', command: () => {
           this.deleteProfile();
@@ -60,11 +74,12 @@ export class CustomerComponent implements OnInit {
     ]
     this.actions = [
       { label: 'Edit', icon: 'pi pi-pencil' },
-      { label: 'Delete', icon: 'pi pi-trash' },
+      {
+        label: 'Delete', icon: 'pi pi-trash', command: () => {
+          this.deleteStoredCard();
+        }
+      },
       { label: 'Transfer balance to this card', icon: 'pi pi-credit-card' }
-    ]
-    this.kountAction = [
-      { label: 'Whitelist', icon: 'pi pi-pencil' }
     ]
     this.customerService.getStoredCards().subscribe(data => {
       this.storedCards = data;
@@ -84,6 +99,10 @@ export class CustomerComponent implements OnInit {
     this.editProfileDialog = true;
   }
 
+  resetPassword() {
+    this.resetPasswordDialog = true;
+  }
+
   deleteProfile() {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete JohnSmith@gmail.com?',
@@ -92,6 +111,22 @@ export class CustomerComponent implements OnInit {
       accept: () => {
         this.messageShow = [
           { severity: 'success', summary: 'Success', detail: `JohnSmith@gmail.com deleted successfully`, life: 1000 }
+        ];
+        setTimeout(() => {
+          this.messageShow = [];
+        }, 3000);
+      }
+    });
+  }
+
+  deleteStoredCard() {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete?',
+      header: 'Confirm Delete',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.messageShow = [
+          { severity: 'success', summary: 'Success', detail: `Card deleted successfully`, life: 1000 }
         ];
         setTimeout(() => {
           this.messageShow = [];
@@ -118,6 +153,7 @@ export class CustomerComponent implements OnInit {
 
   hideDialog() {
     this.editProfileDialog = false;
+    this.resetPasswordDialog = false;
   }
 
   get form() {
@@ -126,6 +162,11 @@ export class CustomerComponent implements OnInit {
 
   submit() {
     console.log(this.editProfileForm?.getRawValue());
+    this.hideDialog();
+  }
+
+  reset() {
+    console.log(this.resetPasswordForm?.getRawValue());
     this.hideDialog();
   }
 

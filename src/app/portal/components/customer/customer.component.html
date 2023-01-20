@@ -31,7 +31,8 @@
                         <div class="action-wrapper">
                             <button pButton pRipple type="button" icon="pi pi-ellipsis-v" iconPos="right"
                                 label="Actions" class="pe-0 p-button-text" (click)="menu.toggle($event)"></button>
-                            <p-menu appendTo="body" #menu [popup]="true" [model]="items"[style]="{'width':'220px'}"></p-menu>
+                            <p-menu appendTo="body" #menu [popup]="true" [model]="items" [style]="{'width':'220px'}">
+                            </p-menu>
                         </div>
                     </div>
                     <div class="card-body col-lg-12">
@@ -188,8 +189,6 @@
                                                         (input)="dt1.filterGlobal($event.target.value, 'contains')"
                                                         placeholder="Search keyword" />
                                                 </span>
-                                                <button pButton label="Add SV Card" class="p-button-outlined"
-                                                    icon="pi pi-plus"></button>
                                             </div>
                                         </ng-template>
                                         <ng-template pTemplate="header">
@@ -232,7 +231,7 @@
                                                 <td style="text-align:center">
                                                     <button pButton pRipple type="button"
                                                         class="p-button-rounded p-button-danger p-button-text"
-                                                        icon="pi pi-trash"></button>
+                                                        icon="pi pi-trash" (click)="deleteStoredCard()"></button>
                                                 </td>
                                             </tr>
                                         </ng-template>
@@ -266,8 +265,6 @@
                                                         (input)="dt2.filterGlobal($event.target.value, 'contains')"
                                                         placeholder="Search keyword" />
                                                 </span>
-                                                <button pButton label="Add SV Card" class="p-button-outlined"
-                                                    icon="pi pi-plus"></button>
                                             </div>
                                         </ng-template>
                                         <ng-template pTemplate="header">
@@ -275,8 +272,8 @@
                                                 <th pSortableColumn="orderNumber">Order Number<p-sortIcon
                                                         field="orderNumber"></p-sortIcon>
                                                 </th>
-                                                <th pSortableColumn="svCard">SV Card <p-sortIcon
-                                                        field="svCard"></p-sortIcon>
+                                                <th pSortableColumn="svCard">SV Card <p-sortIcon field="svCard">
+                                                    </p-sortIcon>
                                                 </th>
                                                 <th pSortableColumn="amount">Amount <p-sortIcon field="amount">
                                                     </p-sortIcon>
@@ -323,7 +320,7 @@
                                                 <td style="text-align:center">
                                                     <button pButton pRipple type="button"
                                                         class="p-button-rounded p-button-danger p-button-text"
-                                                        icon="pi pi-trash"></button>
+                                                        icon="pi pi-trash" (click)="deleteStoredCard()"></button>
                                                 </td>
                                             </tr>
                                         </ng-template>
@@ -345,21 +342,18 @@
                                 <div class="card-header d-flex flex-nowrap justify-content-between align-items-center">
                                     <h5>Kount</h5>
                                     <div class="action-wrapper">
-                                        <button pButton pRipple type="button" icon="pi pi-ellipsis-v" iconPos="right"
-                                            label="Actions" class="pe-0 p-button-text"
-                                            (click)="kountActions.toggle($event)"></button>
-                                        <p-menu appendTo="body" #kountActions [popup]="true"
-                                            [model]="kountAction"></p-menu>
+                                        <button pButton pRipple type="button" icon="pi pi-pencil"
+                                            label="Whitelist" class="pe-0 p-button-text"></button>
                                     </div>
                                 </div>
                                 <div class="card-body col-lg-12">
                                     <div class="row  mx-0">
                                         <div class="form-group col-6">
-                                            <label class="form-label col-lg-4 fw-bold">Full Name : </label>
-                                            <span>John Smith</span>
+                                            <label class="form-label col-lg-4 fw-bold">Email : </label>
+                                            <span>JohnSmith@gmail.com</span>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label class="form-label col-lg-4 fw-bold">Status : </label>
+                                            <label class="form-label col-lg-4 fw-bold">Current Status : </label>
                                             <span>Approve</span>
                                         </div>
                                     </div>
@@ -374,34 +368,38 @@
     </div>
 </div>
 <p-dialog [(visible)]="editProfileDialog" [transitionOptions]="'0ms'" [style]="{width: '60vw'}" header="Edit profile"
-    [modal]="true" styleClass="p-fluid">
+    [modal]="true" styleClass="p-fluid" class="profileEditModal">
     <ng-template pTemplate="content">
         <div class="col">
             <form [formGroup]="editProfileForm" rule="form" novalidate>
                 <div class="p-fluid grid">
-                    <div class="field md:col-6">
-                        <label for="productList">First Name</label>
-                        <input type="text" formControlName="firstName" pInputText>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">First Name</label>
+                        <input type="text" formControlName="firstName" pInputText class="p-inputtext-sm">
                     </div>
-                    <div class="field md:col-6">
-                        <label for="productList">Last Name</label>
-                        <input type="text" formControlName="lastName" pInputText>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">Last Name</label>
+                        <input type="text" formControlName="lastName" pInputText class="p-inputtext-sm">
                     </div>
-                    <div class="field md:col-6">
-                        <label for="productList">Email</label>
-                        <input type="text" formControlName="firstName" pInputText>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">Email</label>
+                        <input type="email" formControlName="email" pInputText class="p-inputtext-sm">
                     </div>
-                    <div class="field md:col-6">
-                        <label for="productList">Phone Number</label>
-                        <input type="text" formControlName="lastName" pInputText>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">Phone Number</label>
+                        <input type="number" formControlName="mobileNumber" pInputText class="p-inputtext-sm">
                     </div>
-                    <div class="field md:col-6">
-                        <label for="productList">Zip</label>
-                        <input type="text" formControlName="firstName" pInputText>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">Zip</label>
+                        <input type="number" formControlName="zip" pInputText class="p-inputtext-sm">
                     </div>
-                    <div class="field md:col-6">
-                        <label for="productList">Birthday</label>
-                        <input type="text" formControlName="lastName" pInputText>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">Birthday</label>
+                        <p-calendar [showIcon]="true" inputId="icon" formControlName="bod"></p-calendar>
+                    </div>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData" class="mb-0 me-3">Email Opt-In</label>
+                        <p-checkbox [binary]="true" inputId="binary"></p-checkbox>
                     </div>
                 </div>
             </form>
@@ -417,3 +415,34 @@
 </p-dialog>
 
 <p-confirmDialog [style]="{width: '600px'}"></p-confirmDialog>
+
+<p-dialog [(visible)]="resetPasswordDialog" [transitionOptions]="'0ms'" [style]="{width: '60vw'}"
+    header="Reset Password" [modal]="true" styleClass="p-fluid" class="resetPasswordModal">
+    <ng-template pTemplate="content">
+        <div class="col">
+            <form [formGroup]="resetPasswordForm" rule="form" novalidate>
+                <div class="p-fluid grid">
+                    <div class="field col-12 md:col-6 mb-0">
+                        <label for="profileData">Email</label>
+                        <input type="email" formControlName="email" pInputText class="p-inputtext-sm">
+                    </div>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">Password</label>
+                        <input type="password" formControlName="resetPassword" pInputText class="p-inputtext-sm">
+                    </div>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">Confirm Password </label>
+                        <input type="password" formControlName="confirmPassword" pInputText class="p-inputtext-sm">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <p-divider></p-divider>
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <p-button label="Reset Password" icon="pi pi-check" class="p-button-text" [disabled]="resetPasswordForm.invalid"
+            (click)="reset()"></p-button>
+    </ng-template>
+</p-dialog>
