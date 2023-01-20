@@ -17,6 +17,11 @@ const routes: Routes = [
         path: 'transfer',
         loadChildren: () => import('./components/transfer/transfer.module').then((m) => m.TransferModule),
         //canActivate: [MsalGuard]
+      },
+      {
+        path: 'restaurants',
+        loadChildren: () => import('./components/restaurants/restaurants.module').then((m) => m.RestaurantsModule),
+        //canActivate: [MsalGuard]
       }
     ]
   }

@@ -26,3 +26,11 @@ body{
   background-color: white;
   opacity: 0.5;
 }
+.profileEditModal {
+  .p-dialog-content{
+    padding-bottom: 0;
+  }
+}
+.p-calendar{
+  height: 44px;
+}
