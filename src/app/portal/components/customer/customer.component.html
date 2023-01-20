@@ -151,7 +151,7 @@
                                                         class="p-button-rounded p-button-text"
                                                         icon="pi pi-ellipsis-v"
                                                         (click)="action.toggle($event)"></button>
-                                                    <p-menu appendTo="body" #action [popup]="true" [model]="actions">
+                                                    <p-menu #action appendTo="body" [popup]="true" [model]="actions" [style]="{'width':'250px'}">
                                                     </p-menu>
                                                 </td>
                                             </tr>
