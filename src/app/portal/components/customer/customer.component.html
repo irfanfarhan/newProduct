@@ -148,10 +148,10 @@
                                                 </td>
                                                 <td style="text-align:center">
                                                     <button pButton pRipple type="button"
-                                                        class="p-button-rounded p-button-text"
-                                                        icon="pi pi-ellipsis-v"
+                                                        class="p-button-rounded p-button-text" icon="pi pi-ellipsis-v"
                                                         (click)="action.toggle($event)"></button>
-                                                    <p-menu #action appendTo="body" [popup]="true" [model]="actions" [style]="{'width':'250px'}">
+                                                    <p-menu #action appendTo="body" [popup]="true" [model]="actions"
+                                                        [style]="{'width':'250px'}">
                                                     </p-menu>
                                                 </td>
                                             </tr>
@@ -372,3 +372,27 @@
         </div>
     </div>
 </div>
+<p-dialog [(visible)]="editProfileDialog" [transitionOptions]="'0ms'" [style]="{width: '60vw'}" header="Edit profile"
+    [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="col">
+            <form [formGroup]="editProfileForm" rule="form" novalidate>
+                <div class="field">
+                    <label for="productList">First Name</label>
+                    <input type="text" formControlName="firstName" pInputText>
+                </div>
+                <div class="field">
+                    <label for="productList">Last Name</label>
+                    <input type="text" formControlName="lastName" pInputText>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <p-divider></p-divider>
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <p-button label="Submit" icon="pi pi-check" class="p-button-text" [disabled]="editProfileForm.invalid"
+            (click)="submit()"></p-button>
+    </ng-template>
+</p-dialog>
