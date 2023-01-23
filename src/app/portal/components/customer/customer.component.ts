@@ -73,6 +73,7 @@ export class CustomerComponent implements OnInit {
     ];
     this.statuses = [
       { name: 'Approve' },
+      { name: 'Review' },
       { name: 'Decline' }
     ];
     this.items = [
