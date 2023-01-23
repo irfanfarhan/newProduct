@@ -100,7 +100,7 @@
                                                 </span>
                                                 <button pButton label="Add SV Card"
                                                     class="p-button-outlined fw-semibold p-button-rounded"
-                                                    icon="pi pi-plus"></button>
+                                                    icon="pi pi-plus" (click)="addSvCard()"></button>
                                             </div>
                                         </ng-template>
                                         <ng-template pTemplate="header">
@@ -313,7 +313,8 @@
                                                     {{order?.cardNumber}}
                                                 </td>
                                                 <td>
-                                                    <img width="60" height="60" src="assets/images/{{order?.cardType}}.png"
+                                                    <img width="60" height="60"
+                                                        src="assets/images/{{order?.cardType}}.png"
                                                         alt="{{order?.cardType}}">
                                                 </td>
                                                 <td>
@@ -326,7 +327,7 @@
                                                       }">{{order?.status | titlecase}}</span>
                                                 </td>
                                                 <td style="text-align:center">
-                                                    <button pButton pRipple type="button"
+                                                    <button pButton pRipple type="button" (click)="refund()"
                                                         class="p-button-text fw-semibold p-button-rounded"
                                                         label="Refund"></button>
                                                 </td>
@@ -351,7 +352,8 @@
                                     <h5>Kount</h5>
                                     <div class="action-wrapper">
                                         <button pButton pRipple type="button" icon="pi pi-pencil" label="Whitelist"
-                                            class="pe-0 p-button-text fw-bold p-button-rounded" (click)="Whitelist()"></button>
+                                            class="pe-0 p-button-text fw-bold p-button-rounded"
+                                            (click)="Whitelist()"></button>
                                     </div>
                                 </div>
                                 <div class="card-body col-lg-12">
@@ -395,15 +397,15 @@
                     </div>
                     <div class="field md:col-6 mb-0">
                         <label for="profileData">Phone Number</label>
-                        <input type="number" formControlName="mobileNumber" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="mobileNumber" pInputText class="p-inputtext-sm">
                     </div>
                     <div class="field md:col-6 mb-0">
                         <label for="profileData">Zip</label>
-                        <input type="number" formControlName="zip" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="zip" pInputText class="p-inputtext-sm">
                     </div>
                     <div class="field md:col-6 mb-0">
                         <label for="profileData">Birthday</label>
-                        <p-calendar [showIcon]="true" inputId="icon" formControlName="bod"></p-calendar>
+                        <p-calendar [showIcon]="true" appendTo="body" inputId="icon" formControlName="bod"></p-calendar>
                     </div>
                     <div class="field md:col-6 mb-0">
                         <label for="profileData" class="mb-0 me-3">Email Opt-In</label>
@@ -479,12 +481,14 @@
                     </div>
                     <div class="field md:col-6 mb-0">
                         <label for="profileData">Automatically Reload</label>
-                        <p-dropdown [options]="pCategory" formControlName="automaticallyReload" optionLabel="name">
+                        <p-dropdown [options]="accountAmounts" appendTo="body" formControlName="automaticallyReload"
+                            optionLabel="name">
                         </p-dropdown>
                     </div>
                     <div class="field md:col-6 mb-0">
                         <label for="profileData">When Account is Below</label>
-                        <p-dropdown [options]="pCategory" formControlName="account" optionLabel="name">
+                        <p-dropdown [options]="accountAmounts" appendTo="body" formControlName="account"
+                            optionLabel="name">
                         </p-dropdown>
                     </div>
                 </div>
@@ -508,15 +512,15 @@
                 <div class="p-fluid grid">
                     <div class="field col-12 md:col-6 mb-0">
                         <label for="profileData">To Card Number</label>
-                        <input type="number" formControlName="toCardNumber" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="toCardNumber" pInputText class="p-inputtext-sm">
                     </div>
                     <div class="field md:col-8 mb-0">
                         <label for="profileData">From Card Number</label>
-                        <input type="number" formControlName="fromCardNumber" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="fromCardNumber" pInputText class="p-inputtext-sm">
                     </div>
                     <div class="field md:col-4 mb-0">
                         <label for="profileData">From Pin </label>
-                        <input type="number" formControlName="fromPin" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="fromPin" pInputText class="p-inputtext-sm">
                     </div>
                 </div>
             </form>
@@ -551,6 +555,33 @@
         <p-divider></p-divider>
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
         <p-button label="Submit" icon="pi pi-check" class="p-button-text" [disabled]="whitelistForm.invalid"
+            (click)="reset()"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="addSvCardDialog" [transitionOptions]="'0ms'" [style]="{width: '40vw'}"
+    header="Add Stored Value to Profile" [modal]="true" styleClass="p-fluid" class="addSvCardModal">
+    <ng-template pTemplate="content">
+        <div class="col">
+            <form [formGroup]="addSvCardForm" rule="form" novalidate>
+                <div class="p-fluid grid">
+                    <div class="field md:col-8 mb-0">
+                        <label for="profileData">Card Number</label>
+                        <input type="text" formControlName="cardNumber" pInputText class="p-inputtext-sm">
+                    </div>
+                    <div class="field md:col-4 mb-0">
+                        <label for="profileData">Pin </label>
+                        <input type="text" formControlName="pin" pInputText class="p-inputtext-sm">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <p-divider></p-divider>
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <p-button label="Add Card" icon="pi pi-check" class="p-button-text" [disabled]="addSvCardForm.invalid"
             (click)="reset()"></p-button>
     </ng-template>
 </p-dialog>

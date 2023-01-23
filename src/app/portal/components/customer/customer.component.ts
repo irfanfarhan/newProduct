@@ -22,16 +22,19 @@ export class CustomerComponent implements OnInit {
   loading: boolean = true;
   orderHistory: any[] = [];
   statuses: any[] = [];
+  accountAmounts: any[] = [];
   editProfileForm: FormGroup = this.fb.group({});
   resetPasswordForm: FormGroup = this.fb.group({});
   editSvCardForm: FormGroup = this.fb.group({});
   transferBalanceForm: FormGroup = this.fb.group({});
   whitelistForm: FormGroup = this.fb.group({});
+  addSvCardForm: FormGroup = this.fb.group({});
   editProfileDialog: boolean = false;
   resetPasswordDialog: boolean = false;
   editSvCardDialog: boolean = false;
   transferBalanceDialog: boolean = false;
   whitelistDialog: boolean = false;
+  addSvCardDialog: boolean = false;
   messageShow: Message[] = [];
   value1: number = 42723;
   constructor(private fb: FormBuilder,
@@ -52,6 +55,11 @@ export class CustomerComponent implements OnInit {
       resetPassword: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     });
+
+    this.addSvCardForm = this.fb.group({
+      cardNumber: ['', Validators.required],
+      pin: ['', Validators.required]
+    });
     this.editSvCardForm = this.fb.group({
       cardNumber: ['', Validators.required],
       paymentMethod: ['', Validators.required],
@@ -68,14 +76,35 @@ export class CustomerComponent implements OnInit {
     });
     this.pCategory = [
       { name: 'Email' },
-      { name: 'Loyalty Card' },
-      { name: 'Restaurants' }
+      { name: 'Loyalty Card' }
     ];
     this.statuses = [
       { name: 'Approve' },
       { name: 'Review' },
       { name: 'Decline' }
     ];
+    this.accountAmounts = [
+      { name: '$5' },
+      { name: '$10' },
+      { name: '$15' },
+      { name: '$20' },
+      { name: '$25' },
+      { name: '$30' },
+      { name: '$35' },
+      { name: '$40' },
+      { name: '$45' },
+      { name: '$50' },
+      { name: '$55' },
+      { name: '$60' },
+      { name: '$65' },
+      { name: '$70' },
+      { name: '$75' },
+      { name: '$80' },
+      { name: '$85' },
+      { name: '$90' },
+      { name: '$95' },
+      { name: '$100' }
+    ]
     this.items = [
       {
         label: 'Edit Profile', icon: 'pi pi-pencil', command: () => {
@@ -137,6 +166,10 @@ export class CustomerComponent implements OnInit {
     this.editSvCardDialog = true;
   }
 
+  addSvCard() {
+    this.addSvCardDialog = true;
+  }
+
   transferBalance() {
     this.transferBalanceDialog = true;
   }
@@ -145,7 +178,7 @@ export class CustomerComponent implements OnInit {
     this.resetPasswordDialog = true;
   }
 
-  Whitelist(){
+  Whitelist() {
     this.whitelistDialog = true;
   }
 
@@ -181,6 +214,22 @@ export class CustomerComponent implements OnInit {
     });
   }
 
+  refund() {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to refund?',
+      header: 'Confirm Refund',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.messageShow = [
+          { severity: 'success', summary: 'Success', detail: `Refund successfully`, life: 1000 }
+        ];
+        setTimeout(() => {
+          this.messageShow = [];
+        }, 3000);
+      }
+    });
+  }
+
   unsubscribeProfile() {
     this.confirmationService.confirm({
       message: 'Are you sure you want to Unsubscribe?',
@@ -203,6 +252,7 @@ export class CustomerComponent implements OnInit {
     this.editSvCardDialog = false;
     this.transferBalanceDialog = false;
     this.whitelistDialog = false;
+    this.addSvCardDialog = false;
   }
 
   get form() {
