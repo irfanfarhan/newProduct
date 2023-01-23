@@ -18,4 +18,10 @@ export class TransferComponent implements OnInit {
     this.multiBalanceTransfer = [{ id: 0 }]
   }
 
+  add() {
+
+    this.multiBalanceTransfer.push({
+      id: this.multiBalanceTransfer.length + 1
+    })
+  }
 }

@@ -15,14 +15,14 @@
                         </span>
                     </div>
                     <div class="col-lg-2 px-0">
-                        <button pButton type="button" label="Search"></button>
+                        <button pButton type="button" class="p-button-rounded" label="Search"></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <p-messages [(value)]="messageShow"></p-messages>
-    <div class="col-lg-12 mt-3">
+    <div class="col-lg-12 mt-4">
         <div class="card dtc-card">
             <div class="card-body">
                 <div class="card dtc-profile-card">
@@ -30,7 +30,8 @@
                         <h5>Profile Details</h5>
                         <div class="action-wrapper">
                             <button pButton pRipple type="button" icon="pi pi-ellipsis-v" iconPos="right"
-                                label="Actions" class="pe-0 p-button-text" (click)="menu.toggle($event)"></button>
+                                label="Actions" class="pe-0 p-button-text fw-bold p-button-rounded"
+                                (click)="menu.toggle($event)"></button>
                             <p-menu appendTo="body" #menu [popup]="true" [model]="items" [style]="{'width':'220px'}">
                             </p-menu>
                         </div>
@@ -38,42 +39,42 @@
                     <div class="card-body col-lg-12">
                         <div class="row  mx-0">
                             <div class="form-group col-6">
-                                <label class="form-label col-lg-4 fw-bold">First Name : </label>
+                                <label class="form-label col-lg-4 fw-semibold">First Name : </label>
                                 <span>John</span>
                             </div>
                             <div class="form-group col-6">
-                                <label class="form-label col-lg-4 fw-bold">Last Name : </label>
+                                <label class="form-label col-lg-4 fw-semibold">Last Name : </label>
                                 <span>Smith</span>
                             </div>
                             <div class="form-group col-6">
-                                <label class="form-label col-lg-4 fw-bold">Email : </label>
+                                <label class="form-label col-lg-4 fw-semibold">Email : </label>
                                 <span>JohnSmith@gmail.com</span>
                             </div>
                             <div class="form-group col-6">
-                                <label class="form-label col-lg-4 fw-bold">Phone Number : </label>
+                                <label class="form-label col-lg-4 fw-semibold">Phone Number : </label>
                                 <span> 111-111-1111</span>
                             </div>
                             <div class="form-group col-6">
-                                <label class="form-label col-lg-4 fw-bold">Zip : </label>
+                                <label class="form-label col-lg-4 fw-semibold">Zip : </label>
                                 <span>21075</span>
                             </div>
                             <div class="form-group col-6">
-                                <label class="form-label col-lg-4 fw-bold">Birthday : </label>
+                                <label class="form-label col-lg-4 fw-semibold">Birthday : </label>
                                 <span>12-06-1956</span>
                             </div>
                             <div class="form-group col-6">
-                                <label class="form-label col-lg-4 fw-bold">VVID : </label>
+                                <label class="form-label col-lg-4 fw-semibold">VVID : </label>
                                 <span>00upADyh786jHTkl07</span>
                             </div>
                             <div class="form-group col-6">
-                                <label class="form-label col-lg-4 fw-bold">Email OptIn : </label>
+                                <label class="form-label col-lg-4 fw-semibold">Email OptIn : </label>
                                 <span>True</span>
                             </div>
                         </div>
 
                     </div>
                 </div>
-                <div class="col-lg-12 mt-3 tabViewCustome">
+                <div class="col-lg-12 mt-4 tabViewCustome">
                     <p-tabView styleClass="tabview-custom">
                         <p-tabPanel>
                             <ng-template pTemplate="header">
@@ -97,7 +98,8 @@
                                                         (input)="dt.filterGlobal($event.target.value, 'contains')"
                                                         placeholder="Search keyword" />
                                                 </span>
-                                                <button pButton label="Add SV Card" class="p-button-outlined"
+                                                <button pButton label="Add SV Card"
+                                                    class="p-button-outlined fw-semibold p-button-rounded"
                                                     icon="pi pi-plus"></button>
                                             </div>
                                         </ng-template>
@@ -140,7 +142,7 @@
                                                     {{cards?.autoreload}}
                                                 </td>
                                                 <td>
-                                                    {{cards?.aramount}}
+                                                    {{cards?.aramount | currency:'USD'}}
                                                 </td>
                                                 <td>
                                                     {{cards?.arThreshold}}
@@ -160,7 +162,7 @@
                                         </ng-template>
                                         <ng-template pTemplate="emptymessage">
                                             <tr>
-                                                <td colspan="5">No subscriptions found.</td>
+                                                <td colspan="5">No stored cards found.</td>
                                             </tr>
                                         </ng-template>
                                     </p-table>
@@ -216,7 +218,8 @@
                                                     {{ccards?.creditCardNumber}}
                                                 </td>
                                                 <td>
-                                                    {{ccards?.type}}
+                                                    <img width="60" height="60" src="assets/images/{{ccards?.type}}.png"
+                                                        alt="{{ccards?.type}}">
                                                 </td>
                                                 <td>
                                                     {{ccards?.expiry}}
@@ -230,8 +233,9 @@
 
                                                 <td style="text-align:center">
                                                     <button pButton pRipple type="button"
-                                                        class="p-button-rounded p-button-danger p-button-text"
-                                                        icon="pi pi-trash" (click)="deleteStoredCard()"></button>
+                                                        class="p-button-rounded fw-semibold p-button-danger p-button-text"
+                                                        icon="pi pi-trash" label="Delete"
+                                                        (click)="deleteStoredCard()"></button>
                                                 </td>
                                             </tr>
                                         </ng-template>
@@ -303,24 +307,28 @@
                                                     {{order?.svCard}}
                                                 </td>
                                                 <td>
-                                                    {{order?.amount}}
+                                                    {{order?.amount | currency:'USD'}}
                                                 </td>
                                                 <td>
                                                     {{order?.cardNumber}}
                                                 </td>
                                                 <td>
-                                                    {{order?.cardType}}
+                                                    <img width="60" height="60" src="assets/images/{{order?.cardType}}.png"
+                                                        alt="{{order?.cardType}}">
                                                 </td>
                                                 <td>
                                                     {{order?.tansactionDate}}
                                                 </td>
                                                 <td>
-                                                    {{order?.status}}
+                                                    <span class="badge" [ngClass]="{
+                                                        'text-bg-success': order?.status === 'Sent',
+                                                        'text-bg-warning': order?.status === 'Refund'
+                                                      }">{{order?.status | titlecase}}</span>
                                                 </td>
                                                 <td style="text-align:center">
                                                     <button pButton pRipple type="button"
-                                                        class="p-button-rounded p-button-danger p-button-text"
-                                                        icon="pi pi-trash" (click)="deleteStoredCard()"></button>
+                                                        class="p-button-text fw-semibold p-button-rounded"
+                                                        label="Refund"></button>
                                                 </td>
                                             </tr>
                                         </ng-template>
@@ -342,18 +350,18 @@
                                 <div class="card-header d-flex flex-nowrap justify-content-between align-items-center">
                                     <h5>Kount</h5>
                                     <div class="action-wrapper">
-                                        <button pButton pRipple type="button" icon="pi pi-pencil"
-                                            label="Whitelist" class="pe-0 p-button-text"></button>
+                                        <button pButton pRipple type="button" icon="pi pi-pencil" label="Whitelist"
+                                            class="pe-0 p-button-text fw-bold p-button-rounded" (click)="Whitelist()"></button>
                                     </div>
                                 </div>
                                 <div class="card-body col-lg-12">
                                     <div class="row  mx-0">
                                         <div class="form-group col-6">
-                                            <label class="form-label col-lg-4 fw-bold">Email : </label>
+                                            <label class="form-label col-lg-4 fw-semibold">Email : </label>
                                             <span>JohnSmith@gmail.com</span>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label class="form-label col-lg-4 fw-bold">Current Status : </label>
+                                            <label class="form-label col-lg-4 fw-semibold">Current Status : </label>
                                             <span>Approve</span>
                                         </div>
                                     </div>
@@ -416,7 +424,7 @@
 
 <p-confirmDialog [style]="{width: '600px'}"></p-confirmDialog>
 
-<p-dialog [(visible)]="resetPasswordDialog" [transitionOptions]="'0ms'" [style]="{width: '60vw'}"
+<p-dialog [(visible)]="resetPasswordDialog" [transitionOptions]="'0ms'" [style]="{width: '40vw'}"
     header="Reset Password" [modal]="true" styleClass="p-fluid" class="resetPasswordModal">
     <ng-template pTemplate="content">
         <div class="col">
@@ -443,6 +451,106 @@
         <p-divider></p-divider>
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
         <p-button label="Reset Password" icon="pi pi-check" class="p-button-text" [disabled]="resetPasswordForm.invalid"
+            (click)="reset()"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="editSvCardDialog" [transitionOptions]="'0ms'" [style]="{width: '60vw'}" header="Edit SV Card"
+    [modal]="true" styleClass="p-fluid" class="editSvCardModal">
+    <ng-template pTemplate="content">
+        <div class="col">
+            <form [formGroup]="editSvCardForm" rule="form" novalidate>
+                <div class="p-fluid grid">
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">Card Number</label>
+                        <input type="text" formControlName="cardNumber" pInputText class="p-inputtext-sm">
+                    </div>
+                    <div class="field md:col-6 mt-4 mb-0 d-flex flex-nowrap align-items-center">
+                        <label for="profileData" class="mb-0 me-3">Auto-Reload</label>
+                        <p-checkbox [binary]="true" inputId="binary"></p-checkbox>
+                    </div>
+                    <div class="field md:col-12 mb-0">
+                        <h6>Auto-Reload Preferences</h6>
+                    </div>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">Payment Method</label>
+                        <p-dropdown [options]="pCategory" formControlName="paymentMethod" optionLabel="name">
+                        </p-dropdown>
+                    </div>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">Automatically Reload</label>
+                        <p-dropdown [options]="pCategory" formControlName="automaticallyReload" optionLabel="name">
+                        </p-dropdown>
+                    </div>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">When Account is Below</label>
+                        <p-dropdown [options]="pCategory" formControlName="account" optionLabel="name">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <p-divider></p-divider>
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <p-button label="Submit" icon="pi pi-check" class="p-button-text" [disabled]="editSvCardForm.invalid"
+            (click)="submit()"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="transferBalanceDialog" [transitionOptions]="'0ms'" [style]="{width: '40vw'}"
+    header="Transfer Balance" [modal]="true" styleClass="p-fluid" class="resetPasswordModal">
+    <ng-template pTemplate="content">
+        <div class="col">
+            <form [formGroup]="transferBalanceForm" rule="form" novalidate>
+                <div class="p-fluid grid">
+                    <div class="field col-12 md:col-6 mb-0">
+                        <label for="profileData">To Card Number</label>
+                        <input type="number" formControlName="toCardNumber" pInputText class="p-inputtext-sm">
+                    </div>
+                    <div class="field md:col-8 mb-0">
+                        <label for="profileData">From Card Number</label>
+                        <input type="number" formControlName="fromCardNumber" pInputText class="p-inputtext-sm">
+                    </div>
+                    <div class="field md:col-4 mb-0">
+                        <label for="profileData">From Pin </label>
+                        <input type="number" formControlName="fromPin" pInputText class="p-inputtext-sm">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <p-divider></p-divider>
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <p-button label="Transfer Balance" icon="pi pi-check" class="p-button-text"
+            [disabled]="transferBalanceForm.invalid" (click)="reset()"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="whitelistDialog" [transitionOptions]="'0ms'" [style]="{width: '30vw'}" header="Whitelist"
+    [modal]="true" styleClass="p-fluid" class="whitelistModal">
+    <ng-template pTemplate="content">
+        <div class="col">
+            <form [formGroup]="whitelistForm" rule="form" novalidate>
+                <div class="p-fluid grid">
+                    <div class="field col-12 md:col-6 mb-5">
+                        <label for="profileData">Status</label>
+                        <p-dropdown [options]="statuses" formControlName="status" optionLabel="name">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <p-divider></p-divider>
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <p-button label="Submit" icon="pi pi-check" class="p-button-text" [disabled]="whitelistForm.invalid"
             (click)="reset()"></p-button>
     </ng-template>
 </p-dialog>

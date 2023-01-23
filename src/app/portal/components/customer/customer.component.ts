@@ -21,10 +21,17 @@ export class CustomerComponent implements OnInit {
   creditCards: any[] = [];
   loading: boolean = true;
   orderHistory: any[] = [];
+  statuses: any[] = [];
   editProfileForm: FormGroup = this.fb.group({});
   resetPasswordForm: FormGroup = this.fb.group({});
+  editSvCardForm: FormGroup = this.fb.group({});
+  transferBalanceForm: FormGroup = this.fb.group({});
+  whitelistForm: FormGroup = this.fb.group({});
   editProfileDialog: boolean = false;
   resetPasswordDialog: boolean = false;
+  editSvCardDialog: boolean = false;
+  transferBalanceDialog: boolean = false;
+  whitelistDialog: boolean = false;
   messageShow: Message[] = [];
   value1: number = 42723;
   constructor(private fb: FormBuilder,
@@ -45,10 +52,28 @@ export class CustomerComponent implements OnInit {
       resetPassword: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     });
+    this.editSvCardForm = this.fb.group({
+      cardNumber: ['', Validators.required],
+      paymentMethod: ['', Validators.required],
+      automaticallyReload: ['', Validators.required],
+      account: ['', Validators.required]
+    });
+    this.transferBalanceForm = this.fb.group({
+      toCardNumber: ['', Validators.required],
+      fromCardNumber: ['', Validators.required],
+      fromPin: ['', Validators.required]
+    });
+    this.whitelistForm = this.fb.group({
+      status: ['', Validators.required]
+    });
     this.pCategory = [
       { name: 'Email' },
       { name: 'Loyalty Card' },
       { name: 'Restaurants' }
+    ];
+    this.statuses = [
+      { name: 'Approve' },
+      { name: 'Decline' }
     ];
     this.items = [
       {
@@ -73,13 +98,21 @@ export class CustomerComponent implements OnInit {
       }
     ]
     this.actions = [
-      { label: 'Edit', icon: 'pi pi-pencil' },
+      {
+        label: 'Edit', icon: 'pi pi-pencil', command: () => {
+          this.editSvCard();
+        }
+      },
       {
         label: 'Delete', icon: 'pi pi-trash', command: () => {
           this.deleteStoredCard();
         }
       },
-      { label: 'Transfer balance to this card', icon: 'pi pi-credit-card' }
+      {
+        label: 'Transfer balance to this card', icon: 'pi pi-credit-card', command: () => {
+          this.transferBalance();
+        }
+      }
     ]
     this.customerService.getStoredCards().subscribe(data => {
       this.storedCards = data;
@@ -99,8 +132,20 @@ export class CustomerComponent implements OnInit {
     this.editProfileDialog = true;
   }
 
+  editSvCard() {
+    this.editSvCardDialog = true;
+  }
+
+  transferBalance() {
+    this.transferBalanceDialog = true;
+  }
+
   resetPassword() {
     this.resetPasswordDialog = true;
+  }
+
+  Whitelist(){
+    this.whitelistDialog = true;
   }
 
   deleteProfile() {
@@ -154,6 +199,9 @@ export class CustomerComponent implements OnInit {
   hideDialog() {
     this.editProfileDialog = false;
     this.resetPasswordDialog = false;
+    this.editSvCardDialog = false;
+    this.transferBalanceDialog = false;
+    this.whitelistDialog = false;
   }
 
   get form() {
