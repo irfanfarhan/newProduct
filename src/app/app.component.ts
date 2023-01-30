@@ -25,14 +25,14 @@ export class AppComponent implements OnInit {
     //     localStorage.setItem('token', `Bearer ${payload.accessToken}`);
     //     this.authService.instance.setActiveAccount(payload.account);
     //     if (result?.interactionType === 'redirect') {
-    //       this.router.navigate(['/portal/subscriptions']);
+    //       this.router.navigate(['/portal/customer']);
     //     }
     //   });
       
     // console.log(document.location);
     // console.log(this.authService.instance.getActiveAccount());
     // if(this.authService.instance.getActiveAccount() && document.location?.pathname === '/'){
-    //   this.router.navigate(['/portal/subscriptions']);
+    //   this.router.navigate(['/portal/customer']);
     // }
   }
 }
