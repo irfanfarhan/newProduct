@@ -7,55 +7,57 @@
         </i>
         CX Loyalty Admin Tool
       </h1>
-      <ul class="nav navbar navbar-right main-nav">
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          <a class="nav-link" [routerLink]="['/portal/customer']">Customer </a><span>|</span>
-        </li>
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          <a class="nav-link" [routerLink]="['/portal/transfer']">Transfer </a><span>|</span>
-        </li>
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          <a class="nav-link" [routerLink]="['/portal/restaurants']">Restaurants</a>
-        </li>
-      </ul>
-
-      <div class="vr-divider mx-3"></div>
-      <div class="dropdown">
-        <button class="btn btn-transparent dropdown-toggle text-white" type="button" id="dropdownMenuButton1"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          Yakub Shaik
-          <i class="bi bi-person-circle fs-3 pl-2"></i>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right fs-4 pr-1"></i> Logout</a></li>
+      <ng-container *ngIf="loginDisplay">
+        <ul class="nav navbar navbar-right main-nav">
+          <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a class="nav-link" [routerLink]="['/portal/customer']">Customer </a><span>|</span>
+          </li>
+          <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a class="nav-link" [routerLink]="['/portal/transfer']">Transfer </a><span>|</span>
+          </li>
+          <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a class="nav-link" [routerLink]="['/portal/restaurants']">Restaurants</a>
+          </li>
         </ul>
-      </div>
-      <!-- *ngIf="loginDisplay" -->
-      <ul class="nav navbar-nav navbar-right d-none">
-        <li class="nav-item py-1 col-12 col-lg-auto">
-          <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
-          <hr class="d-lg-none text-white-50">
-        </li>
-        <li>
-          <p class="navbar-text m-0 fs-5" style="color: white;">Yakub Shaik <i class="bi bi-person-circle fs-3"></i>
-          </p>
-        </li>
-        <li>
-          <p class="navbar-text m-0 pr-3 mt-1 fs-5"><a class="text-decoration-none" href="javascript:void(0)"
-              (click)="logout(true)">
-              <i class="bi bi-box-arrow-right fs-4 pr-1"></i>
-              Logout
-            </a></p>
-        </li>
-      </ul>
-      <!-- <ul class="nav navbar-nav navbar-right" *ngIf="!loginDisplay">
-        <li>
-          <p class="navbar-text m-0 pr-3 fs-5"><a class="text-decoration-none" href="javascript:void(0)"
-              (click)="loginRedirect()">
-              <i class="bi bi-box-arrow-in-right fs-4 pr-1"></i>
-              Login</a></p>
-        </li>
-      </ul> -->
+        <div class="vr-divider mx-3"></div>
+        <div class="dropdown">
+          <button class="btn btn-transparent dropdown-toggle text-white" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Yakub Shaik
+            <i class="bi bi-person-circle fs-3 pl-2"></i>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right fs-4 pr-1"></i> Logout</a></li>
+          </ul>
+        </div>
+        <ul class="nav navbar-nav navbar-right d-none">
+          <li class="nav-item py-1 col-12 col-lg-auto">
+            <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+            <hr class="d-lg-none text-white-50">
+          </li>
+          <li>
+            <p class="navbar-text m-0 fs-5" style="color: white;">Yakub Shaik <i class="bi bi-person-circle fs-3"></i>
+            </p>
+          </li>
+          <li>
+            <p class="navbar-text m-0 pr-3 mt-1 fs-5"><a class="text-decoration-none" href="javascript:void(0)"
+                (click)="logout(true)">
+                <i class="bi bi-box-arrow-right fs-4 pr-1"></i>
+                Logout
+              </a></p>
+          </li>
+        </ul>
+      </ng-container>
+      <ng-container *ngIf="!loginDisplay">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <p class="navbar-text m-0 pr-3 fs-5"><a class="text-decoration-none" href="javascript:void(0)"
+                (click)="loginRedirect()">
+                <i class="bi bi-box-arrow-in-right fs-4 pr-1"></i>
+                Login</a></p>
+          </li>
+        </ul>
+      </ng-container>
     </div>
   </nav>
 </header>
