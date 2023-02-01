@@ -27,16 +27,17 @@ export class CustomerComponent implements OnInit {
   resetPasswordForm: FormGroup = this.fb.group({});
   editSvCardForm: FormGroup = this.fb.group({});
   transferBalanceForm: FormGroup = this.fb.group({});
-  whitelistForm: FormGroup = this.fb.group({});
   addSvCardForm: FormGroup = this.fb.group({});
   editProfileDialog: boolean = false;
   resetPasswordDialog: boolean = false;
   editSvCardDialog: boolean = false;
   transferBalanceDialog: boolean = false;
-  whitelistDialog: boolean = false;
   addSvCardDialog: boolean = false;
   messageShow: Message[] = [];
   value1: number = 42723;
+  listrakOptions: any[] = [];
+  listrak: boolean = true;
+  whitelist: string = 'approve';
   constructor(private fb: FormBuilder,
     private confirmationService: ConfirmationService,
     private customerService: CustomerService) { }
@@ -71,17 +72,14 @@ export class CustomerComponent implements OnInit {
       fromCardNumber: ['', Validators.required],
       fromPin: ['', Validators.required]
     });
-    this.whitelistForm = this.fb.group({
-      status: ['', Validators.required]
-    });
     this.pCategory = [
       { name: 'Email' },
       { name: 'Loyalty Card' }
     ];
     this.statuses = [
-      { name: 'Approve' },
-      { name: 'Review' },
-      { name: 'Decline' }
+      { label: 'Approve', value: 'approve' },
+      { label: 'Review', value: 'review' },
+      { label: 'Decline', value: 'decline' }
     ];
     this.accountAmounts = [
       { name: '$5' },
@@ -104,16 +102,11 @@ export class CustomerComponent implements OnInit {
       { name: '$90' },
       { name: '$95' },
       { name: '$100' }
-    ]
+    ];
     this.items = [
       {
         label: 'Edit Profile', icon: 'pi pi-pencil', command: () => {
           this.editProfile();
-        }
-      },
-      {
-        label: 'Subscribe to Listrak', icon: 'pi pi-external-link', command: () => {
-          this.unsubscribeProfile();
         }
       },
       {
@@ -126,7 +119,7 @@ export class CustomerComponent implements OnInit {
           this.deleteProfile();
         }
       }
-    ]
+    ];
     this.actions = [
       {
         label: 'Edit', icon: 'pi pi-pencil', command: () => {
@@ -143,7 +136,8 @@ export class CustomerComponent implements OnInit {
           this.transferBalance();
         }
       }
-    ]
+    ];
+    this.listrakOptions = [{ label: 'Unsubscribe', value: false }, { label: 'Subscribe', value: true }];
     this.customerService.getStoredCards().subscribe(data => {
       this.storedCards = data;
       this.loading = false;
@@ -176,10 +170,6 @@ export class CustomerComponent implements OnInit {
 
   resetPassword() {
     this.resetPasswordDialog = true;
-  }
-
-  Whitelist() {
-    this.whitelistDialog = true;
   }
 
   deleteProfile() {
@@ -230,28 +220,11 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  unsubscribeProfile() {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to Unsubscribe?',
-      header: 'Confirm Unsubscribe',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.messageShow = [
-          { severity: 'success', summary: 'Success', detail: `Unsubscribe successfully`, life: 1000 }
-        ];
-        setTimeout(() => {
-          this.messageShow = [];
-        }, 3000);
-      }
-    });
-  }
-
   hideDialog() {
     this.editProfileDialog = false;
     this.resetPasswordDialog = false;
     this.editSvCardDialog = false;
     this.transferBalanceDialog = false;
-    this.whitelistDialog = false;
     this.addSvCardDialog = false;
   }
 

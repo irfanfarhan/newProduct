@@ -15,7 +15,8 @@
                         </span>
                     </div>
                     <div class="col-lg-2 px-0">
-                        <button pButton type="button" icon="pi pi-search" class="p-button-rounded" label="Search"></button>
+                        <button pButton type="button" icon="pi pi-search" class="p-button-rounded"
+                            label="Search"></button>
                     </div>
                 </div>
             </div>
@@ -328,7 +329,8 @@
                                                 </td>
                                                 <td style="text-align:center">
                                                     <button pButton pRipple type="button" (click)="refund()"
-                                                    icon="pi pi-replay" class="p-button-text fw-semibold p-button-rounded"
+                                                        icon="pi pi-replay"
+                                                        class="p-button-text fw-semibold p-button-rounded"
                                                         label="Refund"></button>
                                                 </td>
                                             </tr>
@@ -342,29 +344,29 @@
                                 </div>
                             </div>
                         </p-tabPanel>
-                        <p-tabPanel header="Kount">
+                        <p-tabPanel header="Third Party">
                             <ng-template pTemplate="header">
                                 <i class="pi pi-shield pr-2"></i>
-                                <span>Kount</span>
+                                <span>Third Party</span>
                             </ng-template>
                             <div class="card dtc-profile-card">
                                 <div class="card-header d-flex flex-nowrap justify-content-between align-items-center">
-                                    <h5>Kount</h5>
-                                    <div class="action-wrapper">
-                                        <button pButton pRipple type="button" icon="pi pi-pencil" label="Whitelist"
-                                            class="pe-0 p-button-text fw-bold p-button-rounded"
-                                            (click)="Whitelist()"></button>
-                                    </div>
+                                    <h5>Third Party</h5>
                                 </div>
                                 <div class="card-body col-lg-12">
                                     <div class="row  mx-0">
-                                        <div class="form-group col-6">
-                                            <label class="form-label col-lg-4 fw-semibold">Email : </label>
-                                            <span>JohnSmith@gmail.com</span>
+                                        <div class="form-group d-flex col-12">
+                                            <label class="form-label col-lg-4 fw-semibold align-self-center m-0">Listrak
+                                                : </label>
+                                            <p-selectButton [options]="listrakOptions" [(ngModel)]="listrak"
+                                                optionLabel="label" optionValue="value"></p-selectButton>
                                         </div>
-                                        <div class="form-group col-6">
-                                            <label class="form-label col-lg-4 fw-semibold">Current Status : </label>
-                                            <span class="badge text-bg-success">Approve</span>
+                                        <div class="form-group d-flex col-12">
+                                            <label
+                                                class="form-label col-lg-4 fw-semibold align-self-center m-0">Kount
+                                                : </label>
+                                            <p-selectButton [options]="statuses" [(ngModel)]="whitelist"
+                                                optionLabel="label" optionValue="value"></p-selectButton>
                                         </div>
                                     </div>
 
@@ -532,30 +534,6 @@
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
         <p-button label="Transfer Balance" icon="pi pi-check" class="p-button-text"
             [disabled]="transferBalanceForm.invalid" (click)="reset()"></p-button>
-    </ng-template>
-</p-dialog>
-
-<p-dialog [(visible)]="whitelistDialog" [transitionOptions]="'0ms'" [style]="{width: '30vw'}" header="Whitelist"
-    [modal]="true" styleClass="p-fluid" class="whitelistModal">
-    <ng-template pTemplate="content">
-        <div class="col">
-            <form [formGroup]="whitelistForm" rule="form" novalidate>
-                <div class="p-fluid grid">
-                    <div class="field col-12 md:col-6" style="margin-bottom: '5rem';">
-                        <label for="profileData">Status</label>
-                        <p-dropdown [options]="statuses" formControlName="status" optionLabel="name">
-                        </p-dropdown>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </ng-template>
-
-    <ng-template pTemplate="footer">
-        <p-divider></p-divider>
-        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <p-button label="Submit" icon="pi pi-check" class="p-button-text" [disabled]="whitelistForm.invalid"
-            (click)="reset()"></p-button>
     </ng-template>
 </p-dialog>
 

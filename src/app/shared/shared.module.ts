@@ -28,7 +28,8 @@ import { MonthPipePipe } from './pipes/month-pipe.pipe';
 import { LoadingComponent } from './components/loading/loading.component';
 import { MenuModule } from 'primeng/menu';
 import { TabViewModule } from 'primeng/tabview'
-import {CheckboxModule} from 'primeng/checkbox';
+import { CheckboxModule } from 'primeng/checkbox';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 export const sharedModule = [
   CommonModule,
@@ -57,8 +58,10 @@ export const sharedModule = [
   ConfirmDialogModule,
   ImageModule,
   ReactiveFormsModule,
-  MenuModule, TabViewModule,
-  CheckboxModule];
+  MenuModule,
+  TabViewModule,
+  CheckboxModule,
+  SelectButtonModule];
 
 @NgModule({
   declarations: [CommonComponent, MonthPipePipe, LoadingComponent],
