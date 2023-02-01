@@ -23,9 +23,10 @@
                             <div class="d-flex flex-row justify-content-between">
                                 <b>Balance: $12</b>
                                 <div class="action-wrapper">
-                                    <button pButton type="button" class="me-3 p-button-rounded" icon="pi pi-sync" label="Check Balance"></button>
-                                    <button pButton type="button" icon="pi pi-times" class="p-button-outlined fw-semibold p-button-rounded"
-                                        label="Clear"></button>
+                                    <button pButton type="button" class="me-3 p-button-rounded" icon="pi pi-sync"
+                                        label="Check Balance"></button>
+                                    <button pButton type="button" icon="pi pi-times"
+                                        class="p-button-outlined fw-semibold p-button-rounded" label="Clear"></button>
                                 </div>
                             </div>
 
@@ -39,7 +40,8 @@
                         <ng-template pTemplate="caption">
                             <div class="d-flex justify-content-between w-100">
                                 <h5>Multiple Balance Transfer</h5>
-                                <button pButton label="Add" class="p-button-outlined fw-semibold p-button-rounded" (click)="add()" icon="pi pi-plus"></button>
+                                <button pButton label="Add" class="p-button-outlined fw-semibold p-button-rounded"
+                                    (click)="add()" icon="pi pi-plus"></button>
                             </div>
                         </ng-template>
                         <ng-template pTemplate="header">
@@ -62,7 +64,13 @@
                                 </td>
                                 <td class="d-flex align-items-center justify-content-between">
                                     <span>$12</span>
-                                    <button pButton type="button" icon="pi pi-sync" class="p-button-rounded" label="Check Balance"></button>
+                                    <div>
+                                        <button pButton type="button" icon="pi pi-sync" class="p-button-rounded"
+                                            label="Check Balance"></button>
+                                        <button pButton pRipple type="button" *ngIf="multiBalanceTransfer?.length > 1"
+                                            class="p-button-rounded fw-semibold p-button-danger p-button-text ms-2"
+                                            icon="pi pi-trash" label="Delete" (click)="delete()"></button>
+                                    </div>
                                 </td>
                             </tr>
                         </ng-template>
@@ -72,9 +80,11 @@
                             </tr>
                         </ng-template>
                     </p-table>
-                    <div class="col-md-4 offset-md-8 d-flex flex-row justify-content-between align-items-center mt-3">
-                        <b class="me-3">Total: $12</b>
-                        <button pButton type="button" icon="pi pi-credit-card" class="p-button-rounded" label="Transfer"></button>
+                    <div class="col-md-6 offset-md-6 d-flex flex-row justify-content-between align-items-center mt-3">
+                        <b [ngStyle]="{'padding-left':multiBalanceTransfer?.length === 1 ? '13.6rem' : '5.6rem' }">Total:
+                            {{total | currency:'USD'}}</b>
+                        <button pButton type="button" icon="pi pi-credit-card" class="p-button-rounded"
+                            label="Transfer"></button>
                     </div>
                 </div>
             </div>
@@ -82,3 +92,4 @@
     </div>
 
 </div>
+<p-confirmDialog [style]="{width: '600px'}"></p-confirmDialog>

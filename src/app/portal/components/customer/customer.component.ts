@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConfirmationService, MenuItem, Message, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, Message } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CustomerService } from '../../services/customers.service';
 
