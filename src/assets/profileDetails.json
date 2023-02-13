@@ -1,0 +1,33 @@
+{
+    "result": {
+        "uuid": "00ujk2xkz3sGAqPMj0h7",
+        "firstname": "JustinL",
+        "lastname": "KaufmanususxdL",
+        "email": "jksfbay@gmail.com",
+        "phone": "3333333333",
+        "birthday": "1995-02-26T00:00:00",
+        "postalcode": "21075",
+        "emailOptIn": false,
+        "creditcards": {},
+        "storedvaluecards": {},
+        "loyaltyaccountnumber": "6307910262",
+        "kountResponse": {
+            "status": "ok",
+            "count": {
+                "success": 1,
+                "failure": 0
+            },
+            "errors": [],
+            "result": "approve"
+        }
+    },
+    "id": 583,
+    "exception": null,
+    "status": 5,
+    "isCanceled": false,
+    "isCompleted": true,
+    "isCompletedSuccessfully": true,
+    "creationOptions": 0,
+    "asyncState": null,
+    "isFaulted": false
+}

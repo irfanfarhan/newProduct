@@ -14,15 +14,22 @@ export class CustomerService {
     private router: Router,
     private authService: MsalService) { }
 
+  getProfileDetails(searchValue: any) {
+    return this.http.get<any>('assets/profileDetails.json');
+  }
+
   getStoredCards() {
     return this.http.get<any>('assets/storedCards.json');
   }
+
   getCreditCards() {
     return this.http.get<any>('assets/creditcards.json');
   }
+
   getOrderHistory() {
     return this.http.get<any>('assets/orderHistory.json');
   }
+
   public logout(): void {
     localStorage.clear();
     this.authService.logoutPopup({
