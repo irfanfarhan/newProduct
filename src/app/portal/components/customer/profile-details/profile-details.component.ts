@@ -203,7 +203,7 @@ export class ProfileDetailsComponent implements OnInit {
       this.profileDetails = null;
       this.loading = false;
       this.messageShow = [
-        { severity: 'success', summary: 'Success', detail: `${this.profileDetails?.email} deleted successfully`, life: 1000 }
+        { severity: 'success', summary: 'Success', detail: `Profile has been deleted successfully`, life: 1000 }
       ];
       setTimeout(() => {
         this.messageShow = [];
