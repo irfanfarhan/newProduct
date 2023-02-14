@@ -174,7 +174,7 @@ export class ProfileDetailsComponent implements OnInit {
     console.log(payload);
     this.customerService.updateProfile(payload).subscribe(data => {
       console.log(data);
-      this.profileDetails = data?.result;
+      this.profileDetails = data;
       this.loading = false;
       this.messageShow = [
         { severity: 'success', summary: 'Success', detail: `Profile updated successfully`, life: 1000 }
