@@ -18,6 +18,10 @@ export class CustomerService {
     return this.http.get<any>('assets/profileDetails.json');
   }
 
+  deleteProfile(email: any) {
+    return this.http.get<any>('assets/profileDetails.json');
+  }
+
   getStoredCards() {
     return this.http.get<any>('assets/storedCards.json');
   }

@@ -8,7 +8,7 @@
                     <div class="action-wrapper">
                         <button pButton pRipple type="button" icon="pi pi-ellipsis-v" iconPos="right" label="Actions"
                             class="pe-0 p-button-text fw-bold p-button-rounded" (click)="menu.toggle($event)"></button>
-                        <p-menu appendTo="body" #menu [popup]="true" [model]="items" [style]="{'width':'220px'}">
+                        <p-menu appendTo="body" #menu [popup]="true" [model]="profileDetailsItems" [style]="{'width':'220px'}">
                         </p-menu>
                     </div>
                 </div>
@@ -358,31 +358,33 @@
                 <div class="p-fluid grid">
                     <div class="field md:col-6 mb-0">
                         <label for="profileData">First Name</label>
-                        <input type="text" formControlName="firstName" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="firstname" pInputText pKeyFilter="alpha">
                     </div>
                     <div class="field md:col-6 mb-0">
                         <label for="profileData">Last Name</label>
-                        <input type="text" formControlName="lastName" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="lastname" pInputText pKeyFilter="alpha">
                     </div>
                     <div class="field md:col-6 mb-0">
                         <label for="profileData">Email</label>
-                        <input type="email" formControlName="email" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="email" pInputText>
                     </div>
                     <div class="field md:col-6 mb-0">
                         <label for="profileData">Phone Number</label>
-                        <input type="text" formControlName="mobileNumber" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="phone" pInputText pKeyFilter="num">
                     </div>
                     <div class="field md:col-6 mb-0">
                         <label for="profileData">Zip</label>
-                        <input type="text" formControlName="zip" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="postalcode" pInputText pKeyFilter="num">
                     </div>
                     <div class="field md:col-6 mb-0">
                         <label for="profileData">Birthday</label>
-                        <p-calendar [showIcon]="true" appendTo="body" inputId="icon" formControlName="bod"></p-calendar>
+                        <p-calendar [showIcon]="true" appendTo="body" inputId="icon"
+                            formControlName="birthday"></p-calendar>
                     </div>
                     <div class="field md:col-6 mb-0">
                         <label for="profileData" class="mb-0 me-3">Email Opt-In</label>
-                        <p-checkbox [binary]="true" inputId="binary"></p-checkbox>
+                        <p-checkbox [binary]="true" [formControl]="editProfileFormControl?.emailOptIn"
+                            inputId="binary"></p-checkbox>
                     </div>
                 </div>
             </form>
@@ -392,8 +394,8 @@
     <ng-template pTemplate="footer">
         <p-divider></p-divider>
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <p-button label="Submit" icon="pi pi-check" class="p-button-text" [disabled]="editProfileForm.invalid"
-            (click)="submit()"></p-button>
+        <p-button label="Submit" icon="pi pi-check" class="p-button-text" (click)="updateProfile()"
+            [disabled]="editProfileForm.invalid"></p-button>
     </ng-template>
 </p-dialog>
 
@@ -407,15 +409,15 @@
                 <div class="p-fluid grid">
                     <div class="field col-12 md:col-6 mb-0">
                         <label for="profileData">Email</label>
-                        <input type="email" formControlName="email" pInputText class="p-inputtext-sm">
+                        <input type="email" formControlName="email" pInputText>
                     </div>
                     <div class="field md:col-6 mb-0">
                         <label for="profileData">Password</label>
-                        <input type="password" formControlName="resetPassword" pInputText class="p-inputtext-sm">
+                        <input type="password" formControlName="resetPassword" pInputText>
                     </div>
                     <div class="field md:col-6 mb-0">
                         <label for="profileData">Confirm Password </label>
-                        <input type="password" formControlName="confirmPassword" pInputText class="p-inputtext-sm">
+                        <input type="password" formControlName="confirmPassword" pInputText>
                     </div>
                 </div>
             </form>
@@ -438,7 +440,7 @@
                 <div class="p-fluid grid">
                     <div class="field md:col-6 mb-0">
                         <label for="profileData">Card Number</label>
-                        <input type="text" formControlName="cardNumber" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="cardNumber" pInputText>
                     </div>
                     <div class="field md:col-6 mt-4 mb-0 d-flex flex-nowrap align-items-center">
                         <label for="profileData" class="mb-0 me-3">Auto-Reload</label>
@@ -485,15 +487,15 @@
                 <div class="p-fluid grid">
                     <div class="field col-12 md:col-6 mb-0">
                         <label for="profileData">To Card Number</label>
-                        <input type="text" formControlName="toCardNumber" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="toCardNumber" pInputText>
                     </div>
                     <div class="field md:col-8 mb-0">
                         <label for="profileData">From Card Number</label>
-                        <input type="text" formControlName="fromCardNumber" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="fromCardNumber" pInputText>
                     </div>
                     <div class="field md:col-4 mb-0">
                         <label for="profileData">From Pin </label>
-                        <input type="text" formControlName="fromPin" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="fromPin" pInputText>
                     </div>
                 </div>
             </form>
@@ -516,11 +518,11 @@
                 <div class="p-fluid grid">
                     <div class="field md:col-8 mb-0">
                         <label for="profileData">Card Number</label>
-                        <input type="text" formControlName="cardNumber" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="cardNumber" pInputText>
                     </div>
                     <div class="field md:col-4 mb-0">
                         <label for="profileData">Pin </label>
-                        <input type="text" formControlName="pin" pInputText class="p-inputtext-sm">
+                        <input type="text" formControlName="pin" pInputText>
                     </div>
                 </div>
             </form>

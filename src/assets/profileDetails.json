@@ -7,7 +7,7 @@
         "phone": "3333333333",
         "birthday": "1995-02-26T00:00:00",
         "postalcode": "21075",
-        "emailOptIn": false,
+        "emailOptIn": true,
         "creditcards": {},
         "storedvaluecards": {},
         "loyaltyaccountnumber": "6307910262",
