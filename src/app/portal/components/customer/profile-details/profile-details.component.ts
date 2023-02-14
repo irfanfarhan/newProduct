@@ -172,7 +172,18 @@ export class ProfileDetailsComponent implements OnInit {
     console.log(this.editProfileForm?.getRawValue());
     const payload = new ProfileDetailModel({ ...this.profileDetails, ...this.editProfileForm?.getRawValue() });
     console.log(payload);
-    this.hideDialog();
+    this.customerService.updateProfile(payload).subscribe(data => {
+      console.log(data);
+      this.profileDetails = data?.result;
+      this.loading = false;
+      this.messageShow = [
+        { severity: 'success', summary: 'Success', detail: `Profile updated successfully`, life: 1000 }
+      ];
+      setTimeout(() => {
+        this.messageShow = [];
+      }, 3000);
+      this.hideDialog();
+    });
   }
 
   deleteProfile() {

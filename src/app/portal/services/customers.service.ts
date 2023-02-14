@@ -22,6 +22,10 @@ export class CustomerService {
     return this.http.get<any>('assets/profileDetails.json');
   }
 
+  updateProfile(payload: any) {
+    return this.http.get<any>('assets/profileDetails.json');
+  }
+
   getStoredCards() {
     return this.http.get<any>('assets/storedCards.json');
   }
