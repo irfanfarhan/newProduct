@@ -162,8 +162,7 @@ export class ProfileDetailsComponent implements OnInit {
   getResetPasswordForm = () => {
     this.resetPasswordForm = this.fb.group({
       email: new FormControl('', [
-        Validators.required,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+        Validators.required]),
       password: [
         null,
         Validators.compose([
@@ -171,10 +170,6 @@ export class ProfileDetailsComponent implements OnInit {
           // check whether the entered password has a number
           CustomValidators.patternValidator(/\d/, {
             hasNumber: true
-          }),
-          // check whether the entered password has upper case letter
-          CustomValidators.patternValidator(/[A-Z]/, {
-            hasCapitalCase: true
           }),
           // check whether the entered password has a lower case letter
           CustomValidators.patternValidator(/[a-z]/, {

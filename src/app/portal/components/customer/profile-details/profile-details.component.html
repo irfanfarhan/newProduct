@@ -419,7 +419,7 @@
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-6 mb-0">
                             <label for="email">Email</label>
-                            <input type="email" inputId="email" formControlName="email" pInputText>
+                            <input type="email" inputId="email" formControlName="email" pInputText disabled="true">
                         </div>
                         <div class="field md:col-6 mb-0">
                             <label for="password">Password</label>
@@ -447,22 +447,6 @@
                                             class="bi bi-x-circle-fill"></i>
                                         <i *ngIf="!(resetPasswordForm.get('password').hasError('required') || 
                                         resetPasswordForm.get('password').hasError('minlength'))"
-                                            class="bi bi-check-circle-fill"></i>
-                                    </span>
-                                </li>
-                                <li [ngClass]="{
-                                    'text-success fw-semibold':!(resetPasswordForm.get('password').hasError('required') || 
-                                    resetPasswordForm.get('password').hasError('hasCapitalCase')),
-                                    '': !resetPasswordForm.get('password').dirty,
-                                    'text-danger fw-semibold': resetPasswordForm.get('password').dirty && (resetPasswordForm.get('password').hasError('required') || 
-                                    resetPasswordForm.get('password').hasError('hasCapitalCase'))
-                                  }">At least one uppercase alphabetic character (A-Z).
-                                    <span class="ps-1 fs-5">
-                                        <i *ngIf="resetPasswordForm.get('password').dirty && (resetPasswordForm.get('password').hasError('required') || 
-                                    resetPasswordForm.get('password').hasError('hasCapitalCase'))"
-                                            class="bi bi-x-circle-fill"></i>
-                                        <i *ngIf="!(resetPasswordForm.get('password').hasError('required') || 
-                                    resetPasswordForm.get('password').hasError('hasCapitalCase'))"
                                             class="bi bi-check-circle-fill"></i>
                                     </span>
                                 </li>
