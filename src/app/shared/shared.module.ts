@@ -31,6 +31,7 @@ import { TabViewModule } from 'primeng/tabview'
 import { CheckboxModule } from 'primeng/checkbox';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { KeyFilterModule } from 'primeng/keyfilter';
+import {PasswordModule} from 'primeng/password';
 
 export const sharedModule = [
   CommonModule,
@@ -63,7 +64,8 @@ export const sharedModule = [
   TabViewModule,
   CheckboxModule,
   SelectButtonModule,
-  KeyFilterModule];
+  KeyFilterModule,
+  PasswordModule];
 
 @NgModule({
   declarations: [CommonComponent, MonthPipePipe, LoadingComponent],

@@ -363,34 +363,37 @@
                 <form [formGroup]="editProfileForm" rule="form" novalidate>
                     <div class="p-fluid grid">
                         <div class="field md:col-6 mb-0">
-                            <label for="profileData">First Name</label>
-                            <input type="text" formControlName="firstname" pInputText pKeyFilter="alpha">
+                            <label for="firstname">First Name</label>
+                            <input type="text" inputId="firstname" formControlName="firstname" pInputText
+                                pKeyFilter="alpha">
                         </div>
                         <div class="field md:col-6 mb-0">
-                            <label for="profileData">Last Name</label>
-                            <input type="text" formControlName="lastname" pInputText pKeyFilter="alpha">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" inputId="lastname" formControlName="lastname" pInputText
+                                pKeyFilter="alpha">
                         </div>
                         <div class="field md:col-6 mb-0">
-                            <label for="profileData">Email</label>
-                            <input type="text" formControlName="email" pInputText>
+                            <label for="email">Email</label>
+                            <input type="text" inputId="email" formControlName="email" pInputText>
                         </div>
                         <div class="field md:col-6 mb-0">
-                            <label for="profileData">Phone Number</label>
-                            <input type="text" formControlName="phone" pInputText pKeyFilter="num">
+                            <label for="phone">Phone Number</label>
+                            <input type="text" inputId="phone" formControlName="phone" pInputText pKeyFilter="num">
                         </div>
                         <div class="field md:col-6 mb-0">
-                            <label for="profileData">Zip</label>
-                            <input type="text" formControlName="postalcode" pInputText pKeyFilter="num">
+                            <label for="postalcode">Zip</label>
+                            <input type="text" inputId="postalcode" formControlName="postalcode" pInputText
+                                pKeyFilter="num">
                         </div>
                         <div class="field md:col-6 mb-0">
-                            <label for="profileData">Birthday</label>
-                            <p-calendar [showIcon]="true" appendTo="body" inputId="icon"
+                            <label for="birthday">Birthday</label>
+                            <p-calendar [showIcon]="true" appendTo="body" inputId="icon" inputId="birthday"
                                 formControlName="birthday"></p-calendar>
                         </div>
                         <div class="field md:col-6 mb-0">
-                            <label for="profileData" class="mb-0 me-3">Email Opt-In</label>
-                            <p-checkbox [binary]="true" [formControl]="editProfileFormControl?.emailOptIn"
-                                inputId="binary"></p-checkbox>
+                            <label for="emailOptIn" class="mb-0 me-3">Email Opt-In</label>
+                            <p-checkbox [binary]="true" inputId="emailOptIn"
+                                [formControl]="editProfileFormControl?.emailOptIn" inputId="binary"></p-checkbox>
                         </div>
                     </div>
                 </form>
@@ -401,7 +404,7 @@
             <p-divider></p-divider>
             <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
                 (click)="hideDialog()"></button>
-            <p-button label="Submit" icon="pi pi-check" class="p-button-text" (click)="updateProfile()"
+            <p-button label="Save" icon="pi pi-check" class="p-button-text" (click)="updateProfile()"
                 [disabled]="editProfileForm.invalid"></p-button>
         </ng-template>
     </p-dialog>
@@ -415,16 +418,103 @@
                 <form [formGroup]="resetPasswordForm" rule="form" novalidate>
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-6 mb-0">
-                            <label for="profileData">Email</label>
-                            <input type="email" formControlName="email" pInputText>
+                            <label for="email">Email</label>
+                            <input type="email" inputId="email" formControlName="email" pInputText>
                         </div>
                         <div class="field md:col-6 mb-0">
-                            <label for="profileData">Password</label>
-                            <input type="password" formControlName="resetPassword" pInputText>
+                            <label for="password">Password</label>
+                            <p-password inputId="password" formControlName="password" [toggleMask]="true"
+                                [feedback]="false"></p-password>
                         </div>
                         <div class="field md:col-6 mb-0">
-                            <label for="profileData">Confirm Password </label>
-                            <input type="password" formControlName="confirmPassword" pInputText>
+                            <label for="confirmPassword">Confirm Password </label>
+                            <p-password inputId="password" inputId="confirmPassword" formControlName="confirmPassword"
+                                [toggleMask]="true" [feedback]="false"></p-password>
+                        </div>
+                        <div class="field col-12 md:col-6 mb-0">
+                            <ul class="pl-2 ml-2 mt-2 mb-0">
+                                <li [ngClass]="{
+                                    'text-success fw-semibold':!(resetPasswordForm.get('password').hasError('required') || 
+                                    resetPasswordForm.get('password').hasError('minlength')),
+                                    '': !resetPasswordForm.get('password').dirty,
+                                    'text-danger fw-semibold': resetPasswordForm.get('password').dirty && (resetPasswordForm.get('password').hasError('required') || 
+                                    resetPasswordForm.get('password').hasError('minlength'))
+                                  }">
+                                    Password requires at least 6 characters.
+                                    <span class="ps-1 fs-5">
+                                        <i *ngIf="resetPasswordForm.get('password').dirty && (resetPasswordForm.get('password').hasError('required') || 
+                                        resetPasswordForm.get('password').hasError('minlength'))"
+                                            class="bi bi-x-circle-fill"></i>
+                                        <i *ngIf="!(resetPasswordForm.get('password').hasError('required') || 
+                                        resetPasswordForm.get('password').hasError('minlength'))"
+                                            class="bi bi-check-circle-fill"></i>
+                                    </span>
+                                </li>
+                                <li [ngClass]="{
+                                    'text-success fw-semibold':!(resetPasswordForm.get('password').hasError('required') || 
+                                    resetPasswordForm.get('password').hasError('hasCapitalCase')),
+                                    '': !resetPasswordForm.get('password').dirty,
+                                    'text-danger fw-semibold': resetPasswordForm.get('password').dirty && (resetPasswordForm.get('password').hasError('required') || 
+                                    resetPasswordForm.get('password').hasError('hasCapitalCase'))
+                                  }">At least one uppercase alphabetic character (A-Z).
+                                    <span class="ps-1 fs-5">
+                                        <i *ngIf="resetPasswordForm.get('password').dirty && (resetPasswordForm.get('password').hasError('required') || 
+                                    resetPasswordForm.get('password').hasError('hasCapitalCase'))"
+                                            class="bi bi-x-circle-fill"></i>
+                                        <i *ngIf="!(resetPasswordForm.get('password').hasError('required') || 
+                                    resetPasswordForm.get('password').hasError('hasCapitalCase'))"
+                                            class="bi bi-check-circle-fill"></i>
+                                    </span>
+                                </li>
+                                <li [ngClass]="{
+                                    'text-success fw-semibold':!(resetPasswordForm.get('password').hasError('required') || 
+                                    resetPasswordForm.get('password').hasError('hasSmallCase')),
+                                    '': !resetPasswordForm.get('password').dirty,
+                                    'text-danger fw-semibold': resetPasswordForm.get('password').dirty && (resetPasswordForm.get('password').hasError('required') || 
+                                    resetPasswordForm.get('password').hasError('hasSmallCase'))
+                                  }">At least one lowercase alphabetic character (a-z).
+                                    <span class="ps-1 fs-5">
+                                        <i *ngIf="resetPasswordForm.get('password').dirty && (resetPasswordForm.get('password').hasError('required') || 
+                                    resetPasswordForm.get('password').hasError('hasSmallCase'))"
+                                            class="bi bi-x-circle-fill"></i>
+                                        <i *ngIf="!(resetPasswordForm.get('password').hasError('required') || 
+                                    resetPasswordForm.get('password').hasError('hasSmallCase'))"
+                                            class="bi bi-check-circle-fill"></i>
+                                    </span>
+                                </li>
+                                <li [ngClass]="{
+                                    'text-success fw-semibold':!(resetPasswordForm.get('password').hasError('required') || 
+                                    resetPasswordForm.get('password').hasError('hasNumber')),
+                                    '': !resetPasswordForm.get('password').dirty,
+                                    'text-danger fw-semibold': resetPasswordForm.get('password').dirty && (resetPasswordForm.get('password').hasError('required') || 
+                                    resetPasswordForm.get('password').hasError('hasNumber'))
+                                  }">At least one number (0-9).
+                                    <span class="ps-1 fs-5">
+                                        <i *ngIf="resetPasswordForm.get('password').dirty && (resetPasswordForm.get('password').hasError('required') || 
+                                resetPasswordForm.get('password').hasError('hasNumber'))"
+                                            class="bi bi-x-circle-fill"></i>
+                                        <i *ngIf="!(resetPasswordForm.get('password').hasError('required') || 
+                                resetPasswordForm.get('password').hasError('hasNumber'))"
+                                            class="bi bi-check-circle-fill"></i>
+                                    </span>
+                                </li>
+                                <li [ngClass]="{
+                                    'text-success fw-semibold':!(resetPasswordForm.get('confirmPassword').hasError('required') || 
+                                    resetPasswordForm.get('confirmPassword').hasError('NoPassswordMatch')),
+                                    '': !resetPasswordForm.get('confirmPassword').dirty,
+                                    'text-danger fw-semibold': resetPasswordForm.get('confirmPassword').dirty && (resetPasswordForm.get('confirmPassword').hasError('required') || 
+                                    resetPasswordForm.get('confirmPassword').hasError('NoPassswordMatch'))
+                                  }">Confirm Password Match.
+                                    <span class="ps-1 fs-5">
+                                        <i *ngIf="resetPasswordForm.get('confirmPassword').dirty && (resetPasswordForm.get('confirmPassword').hasError('required') || 
+                            resetPasswordForm.get('confirmPassword').hasError('NoPassswordMatch'))"
+                                            class="bi bi-x-circle-fill"></i>
+                                        <i *ngIf="!(resetPasswordForm.get('confirmPassword').hasError('required') || 
+                            resetPasswordForm.get('confirmPassword').hasError('NoPassswordMatch'))"
+                                            class="bi bi-check-circle-fill"></i>
+                                    </span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </form>
@@ -436,7 +526,7 @@
             <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
                 (click)="hideDialog()"></button>
             <p-button label="Reset Password" icon="pi pi-check" class="p-button-text"
-                [disabled]="resetPasswordForm.invalid" (click)="reset()"></p-button>
+                [disabled]="resetPasswordForm.invalid" (click)="updateProfilePassword()"></p-button>
         </ng-template>
     </p-dialog>
 

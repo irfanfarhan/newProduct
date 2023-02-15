@@ -4,6 +4,7 @@ import { ConfirmationService, MenuItem, Message } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ProfileDetailModel } from 'src/app/portal/models/customer.model';
 import { CustomerService } from 'src/app/portal/services/customers.service';
+import { CustomValidators } from 'src/app/shared/pipes/custom-validators';
 
 @Component({
   selector: 'app-profile-details',
@@ -42,11 +43,7 @@ export class ProfileDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProfileDetails();
-    this.resetPasswordForm = this.fb.group({
-      email: ['', Validators.required],
-      resetPassword: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
-    });
+    this.getResetPasswordForm();
 
     this.addSvCardForm = this.fb.group({
       cardNumber: ['', Validators.required],
@@ -123,10 +120,6 @@ export class ProfileDetailsComponent implements OnInit {
     });
   }
 
-  get editProfileFormControl() {
-    return this.editProfileForm?.controls;
-  }
-
   getProfileDetails = () => {
     this.editProfileForm = this.fb.group({
       firstname: ['', Validators.required],
@@ -162,6 +155,46 @@ export class ProfileDetailsComponent implements OnInit {
     ];
   }
 
+  get editProfileFormControl() {
+    return this.editProfileForm?.controls;
+  }
+
+  getResetPasswordForm = () => {
+    this.resetPasswordForm = this.fb.group({
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      password: [
+        null,
+        Validators.compose([
+          Validators.required,
+          // check whether the entered password has a number
+          CustomValidators.patternValidator(/\d/, {
+            hasNumber: true
+          }),
+          // check whether the entered password has upper case letter
+          CustomValidators.patternValidator(/[A-Z]/, {
+            hasCapitalCase: true
+          }),
+          // check whether the entered password has a lower case letter
+          CustomValidators.patternValidator(/[a-z]/, {
+            hasSmallCase: true
+          }),
+          Validators.minLength(6)
+        ])
+      ],
+      confirmPassword: [null, Validators.compose([Validators.required])]
+    },
+      {
+        // check whether our password and confirm password match
+        validator: CustomValidators.passwordMatchValidator
+      });
+  }
+
+  get resetPasswordFormControl() {
+    return this.resetPasswordForm?.controls;
+  }
+
   editProfile() {
     this.editProfileDialog = true;
     this.profileDetails.birthday = new Date(this.profileDetails.birthday);
@@ -169,15 +202,13 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   updateProfile() {
-    console.log(this.editProfileForm?.getRawValue());
     const payload = new ProfileDetailModel({ ...this.profileDetails, ...this.editProfileForm?.getRawValue() });
-    console.log(payload);
     this.customerService.updateProfile(payload).subscribe(data => {
       console.log(data);
       this.profileDetails = data;
       this.loading = false;
       this.messageShow = [
-        { severity: 'success', summary: 'Success', detail: `Profile updated successfully`, life: 1000 }
+        { severity: 'success', summary: 'Success', detail: `Profile has been updated successfully`, life: 1000 }
       ];
       setTimeout(() => {
         this.messageShow = [];
@@ -211,6 +242,27 @@ export class ProfileDetailsComponent implements OnInit {
     });
   }
 
+  resetPassword() {
+    this.resetPasswordDialog = true;
+    this.resetPasswordForm.reset();
+    this.resetPasswordFormControl['email'].setValue(this.profileDetails.email);
+  }
+
+  updateProfilePassword() {
+    const payload = this.resetPasswordForm?.getRawValue();
+    this.customerService.resetPassword(payload).subscribe(data => {
+      console.log(data);
+      this.loading = false;
+      this.messageShow = [
+        { severity: 'success', summary: 'Success', detail: `Password has been updated successfully`, life: 1000 }
+      ];
+      setTimeout(() => {
+        this.messageShow = [];
+      }, 3000);
+      this.hideDialog();
+    });
+  }
+
   editSvCard() {
     this.editSvCardDialog = true;
   }
@@ -221,10 +273,6 @@ export class ProfileDetailsComponent implements OnInit {
 
   transferBalance() {
     this.transferBalanceDialog = true;
-  }
-
-  resetPassword() {
-    this.resetPasswordDialog = true;
   }
 
   deleteStoredCard() {
@@ -265,11 +313,6 @@ export class ProfileDetailsComponent implements OnInit {
     this.editSvCardDialog = false;
     this.transferBalanceDialog = false;
     this.addSvCardDialog = false;
-  }
-
-  reset() {
-    console.log(this.resetPasswordForm?.getRawValue());
-    this.hideDialog();
   }
 
   onRowSelect(event: any) {

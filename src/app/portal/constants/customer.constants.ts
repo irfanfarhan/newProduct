@@ -1,6 +1,6 @@
 export const ProfileSearchDropDown = [
-    { name: 'Email' },
-    { name: 'Loyalty Card' }
+    'Email',
+    'Loyalty Card'
 ];
 
 Object.freeze(ProfileSearchDropDown);

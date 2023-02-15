@@ -26,6 +26,10 @@ export class CustomerService {
     return this.http.get<any>('assets/profileDetails.json');
   }
 
+  resetPassword(payload: any) {
+    return this.http.put<any>('assets/profileDetails.json', payload);
+  }
+
   getStoredCards() {
     return this.http.get<any>('assets/storedCards.json');
   }
