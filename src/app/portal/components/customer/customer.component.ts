@@ -24,7 +24,7 @@ export class CustomerComponent implements OnInit {
   search = () => {
     this.customerService.getProfileDetails(this.searchValue.value).subscribe(data => {
       console.log(data);
-      this.profileDetails = data?.result;
+      this.profileDetails = data;
       this.loading = false;
     });
   }

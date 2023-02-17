@@ -3,7 +3,7 @@
     "svCard": "6307910262",
     "amount": "1000",
     "cardNumber": "11111",
-    "cardType": "Visa",
+    "cardType": "MasterCard",
     "tansactionDate": "11/28/2001 9:07:13 pm",
     "status": "Refund"
 },
@@ -21,7 +21,7 @@
     "svCard": "6307910345",
     "amount": "7000",
     "cardNumber": "33333",
-    "cardType": "discover",
+    "cardType": "Discover",
     "tansactionDate": "16/18/2010 9:07:13 pm",
     "status": "Refund"
 },
@@ -39,7 +39,7 @@
     "svCard": "6307910450",
     "amount": "10000",
     "cardNumber": "55555",
-    "cardType": "american-express",
+    "cardType": "AmericanExpress",
     "tansactionDate": "21/28/2011 9:07:13 pm",
     "status": "Sent"
 }]

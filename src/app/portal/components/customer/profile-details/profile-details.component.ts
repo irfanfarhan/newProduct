@@ -44,7 +44,8 @@ export class ProfileDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.getProfileDetails();
     this.getResetPasswordForm();
-
+    this.storedCards = this.profileDetails?.storedvaluecards?.list;
+    this.creditCards = this.profileDetails?.creditcards?.list;
     this.addSvCardForm = this.fb.group({
       cardNumber: ['', Validators.required],
       pin: ['', Validators.required]
@@ -63,7 +64,8 @@ export class ProfileDetailsComponent implements OnInit {
     this.statuses = [
       { label: 'Approve', value: 'approve' },
       { label: 'Review', value: 'review' },
-      { label: 'Decline', value: 'decline' }
+      { label: 'Decline', value: 'decline' },
+      { label: 'None', value: 'none' }
     ];
     this.accountAmounts = [
       { name: '$5' },
@@ -106,14 +108,6 @@ export class ProfileDetailsComponent implements OnInit {
       }
     ];
     this.listrakOptions = [{ label: 'Unsubscribe', value: false }, { label: 'Subscribe', value: true }];
-    this.customerService.getStoredCards().subscribe(data => {
-      this.storedCards = data;
-      this.loading = false;
-    });
-    this.customerService.getCreditCards().subscribe(data => {
-      this.creditCards = data;
-      this.loading = false;
-    });
     this.customerService.getOrderHistory().subscribe(data => {
       this.orderHistory = data;
       this.loading = false;

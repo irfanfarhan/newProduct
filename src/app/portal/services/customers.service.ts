@@ -30,14 +30,6 @@ export class CustomerService {
     return this.http.put<any>('assets/profileDetails.json', payload);
   }
 
-  getStoredCards() {
-    return this.http.get<any>('assets/storedCards.json');
-  }
-
-  getCreditCards() {
-    return this.http.get<any>('assets/creditcards.json');
-  }
-
   getOrderHistory() {
     return this.http.get<any>('assets/orderHistory.json');
   }

@@ -62,12 +62,11 @@
                             </ng-template>
                             <div class="row mx-0">
                                 <div class="col dataTableCustome">
-                                    <p-table styleClass="main-table" #dt [value]="storedCards"
-                                        dataKey="creditCardNumber" [rows]="10" [showCurrentPageReport]="true"
-                                        [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
-                                        selectionMode="single"
+                                    <p-table styleClass="main-table" #dt [value]="storedCards" dataKey="number"
+                                        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+                                        [loading]="loading" [paginator]="true" selectionMode="single"
                                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                                        [globalFilterFields]="['creditCardNumber','value', 'primary', 'autoreload','aramount', 'arThreshold', 'cc']"
+                                        [globalFilterFields]="['number','value', 'isprimary', 'autoreload.active','autoreload.amount', 'autoreload.threshold']"
                                         (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
                                         <ng-template pTemplate="caption">
                                             <div class="d-flex justify-content-between w-100">
@@ -84,24 +83,23 @@
                                         </ng-template>
                                         <ng-template pTemplate="header">
                                             <tr>
-                                                <th pSortableColumn="creditCardNumber">Credit card Number <p-sortIcon
-                                                        field="creditCardNumber"></p-sortIcon>
+                                                <th pSortableColumn="number">Number <p-sortIcon
+                                                        field="number"></p-sortIcon>
                                                 </th>
                                                 <th pSortableColumn="value">Value <p-sortIcon field="value">
                                                     </p-sortIcon>
                                                 </th>
-                                                <th pSortableColumn="primary">Primary <p-sortIcon field="primary">
+                                                <th pSortableColumn="isprimary">Primary <p-sortIcon field="isprimary">
                                                     </p-sortIcon>
                                                 </th>
-                                                <th pSortableColumn="autoreload">Autoreload <p-sortIcon
-                                                        field="autoreload"></p-sortIcon>
-                                                <th pSortableColumn="aramount">ARAmount <p-sortIcon field="aramount">
+                                                <th pSortableColumn="autoreload.active">Auto Reload <p-sortIcon
+                                                        field="autoreload.active"></p-sortIcon>
+                                                <th pSortableColumn="autoreload.amount">Auto Reload Amount <p-sortIcon
+                                                        field="autoreload.amount">
                                                     </p-sortIcon>
                                                 </th>
-                                                <th pSortableColumn="arThreshold">ARThreshold <p-sortIcon
-                                                        field="arThreshold"></p-sortIcon>
-                                                </th>
-                                                <th pSortableColumn="cc">CC <p-sortIcon field="cc"></p-sortIcon>
+                                                <th pSortableColumn="autoreload.threshold">Auto Reload Threshold
+                                                    <p-sortIcon field="autoreload.threshold"></p-sortIcon>
                                                 </th>
                                                 <th></th>
                                             </tr>
@@ -109,25 +107,22 @@
                                         <ng-template pTemplate="body" let-cards>
                                             <tr [pSelectableRow]="cards">
                                                 <td>
-                                                    {{cards?.creditCardNumber}}
+                                                    {{cards?.number}}
                                                 </td>
                                                 <td>
                                                     {{cards?.value}}
                                                 </td>
                                                 <td>
-                                                    {{cards?.primary}}
+                                                    {{cards?.isprimary}}
                                                 </td>
                                                 <td>
-                                                    {{cards?.autoreload}}
+                                                    {{cards?.autoreload?.active}}
                                                 </td>
                                                 <td>
-                                                    {{cards?.aramount | currency:'USD'}}
+                                                    {{cards?.autoreload?.amount | currency:'USD'}}
                                                 </td>
                                                 <td>
-                                                    {{cards?.arThreshold}}
-                                                </td>
-                                                <td>
-                                                    {{cards?.cc}}
+                                                    {{cards?.autoreload?.threshold}}
                                                 </td>
                                                 <td style="text-align:center">
                                                     <button pButton pRipple type="button"
@@ -155,12 +150,11 @@
                             </ng-template>
                             <div class="row mx-0">
                                 <div class="col dataTableCustome">
-                                    <p-table styleClass="main-table" #dt1 [value]="creditCards"
-                                        dataKey="creditCardNumber" [rows]="10" [showCurrentPageReport]="true"
-                                        [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
-                                        selectionMode="single"
+                                    <p-table styleClass="main-table" #dt1 [value]="creditCards" dataKey="cardnumber"
+                                        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+                                        [loading]="loading" [paginator]="true" selectionMode="single"
                                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                                        [globalFilterFields]="['creditCardNumber','type', 'expiry', 'billingZip','primary']"
+                                        [globalFilterFields]="['cardnumber','cardtype', 'expires', 'billingAddress.postalcode','isdefault']"
                                         (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
                                         <ng-template pTemplate="caption">
                                             <div class="d-flex justify-content-between w-100">
@@ -174,18 +168,19 @@
                                         </ng-template>
                                         <ng-template pTemplate="header">
                                             <tr>
-                                                <th pSortableColumn="creditCardNumber">Credit Card Number <p-sortIcon
-                                                        field="creditCardNumber"></p-sortIcon>
+                                                <th pSortableColumn="cardnumber">Credit Card Number <p-sortIcon
+                                                        field="cardnumber"></p-sortIcon>
                                                 </th>
-                                                <th pSortableColumn="type">Type <p-sortIcon field="type"></p-sortIcon>
+                                                <th pSortableColumn="cardtype">Type <p-sortIcon
+                                                        field="cardtype"></p-sortIcon>
                                                 </th>
-                                                <th pSortableColumn="expiry">Expiry <p-sortIcon field="expiry">
+                                                <th pSortableColumn="expires">Expiry <p-sortIcon field="expires">
                                                     </p-sortIcon>
                                                 </th>
-                                                <th pSortableColumn="billingZip">Billing Zip <p-sortIcon
-                                                        field="billingZip"></p-sortIcon>
+                                                <th pSortableColumn="billingAddress.postalcode">Billing Zip <p-sortIcon
+                                                        field="billingAddress.postalcode"></p-sortIcon>
                                                 </th>
-                                                <th pSortableColumn="primary">Primary <p-sortIcon field="primary">
+                                                <th pSortableColumn="isdefault">Primary <p-sortIcon field="isdefault">
                                                     </p-sortIcon>
                                                 </th>
                                                 <th></th>
@@ -194,20 +189,21 @@
                                         <ng-template pTemplate="body" let-ccards>
                                             <tr [pSelectableRow]="ccards">
                                                 <td>
-                                                    {{ccards?.creditCardNumber}}
+                                                    {{ccards?.cardnumber}}
                                                 </td>
                                                 <td>
-                                                    <img width="60" height="60" src="assets/images/{{ccards?.type}}.png"
-                                                        alt="{{ccards?.type}}">
+                                                    <img width="60" height="60"
+                                                        src="assets/images/{{ccards?.cardtype}}.svg"
+                                                        alt="{{ccards?.cardtype}}">
                                                 </td>
                                                 <td>
-                                                    {{ccards?.expiry}}
+                                                    {{ccards?.expires}}
                                                 </td>
                                                 <td>
-                                                    {{ccards?.billingZip}}
+                                                    {{ccards?.billingAddress?.postalcode}}
                                                 </td>
                                                 <td>
-                                                    {{ccards?.primary}}
+                                                    {{ccards?.isdefault}}
                                                 </td>
 
                                                 <td style="text-align:center">
@@ -293,7 +289,7 @@
                                                 </td>
                                                 <td>
                                                     <img width="60" height="60"
-                                                        src="assets/images/{{order?.cardType}}.png"
+                                                        src="assets/images/{{order?.cardType}}.svg"
                                                         alt="{{order?.cardType}}">
                                                 </td>
                                                 <td>
@@ -324,29 +320,33 @@
                         </p-tabPanel>
                         <p-tabPanel header="Third Party">
                             <ng-template pTemplate="header">
-                                <i class="pi pi-shield pr-2"></i>
+                                <i class="pi pi-users pr-2"></i>
                                 <span>Third Party</span>
                             </ng-template>
-                            <div class="card dtc-profile-card">
+                            <div class="card dtc-profile-card mb-4">
                                 <div class="card-header d-flex flex-nowrap justify-content-between align-items-center">
-                                    <h5>Third Party</h5>
+                                    <h5>Listrak</h5>
                                 </div>
                                 <div class="card-body col-lg-12">
                                     <div class="row  mx-0">
                                         <div class="form-group d-flex col-12">
-                                            <label class="form-label col-lg-4 fw-semibold align-self-center m-0">Listrak
-                                                : </label>
                                             <p-selectButton [options]="listrakOptions" [(ngModel)]="listrak"
                                                 optionLabel="label" optionValue="value"></p-selectButton>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card dtc-profile-card">
+                                <div class="card-header d-flex flex-nowrap justify-content-between align-items-center">
+                                    <h5>Kount</h5>
+                                </div>
+                                <div class="card-body col-lg-12">
+                                    <div class="row  mx-0">
                                         <div class="form-group d-flex col-12">
-                                            <label class="form-label col-lg-4 fw-semibold align-self-center m-0">Kount
-                                                : </label>
                                             <p-selectButton [options]="statuses" [(ngModel)]="whitelist"
                                                 optionLabel="label" optionValue="value"></p-selectButton>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </p-tabPanel>
