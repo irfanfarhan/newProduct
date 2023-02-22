@@ -1,0 +1,177 @@
+<div class="stored-cards">
+    <p-table styleClass="main-table" #dt [value]="storedCards" dataKey="number" [rows]="10"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
+        selectionMode="single" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="['number','value', 'isprimary', 'autoreload.active','autoreload.amount', 'autoreload.threshold']">
+        <ng-template pTemplate="caption">
+            <div class="d-flex justify-content-between w-100">
+                <span class="p-input-icon-left w-75 pr-4">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="w-100"
+                        (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                </span>
+                <button pButton label="Add SV Card" class="p-button-outlined fw-semibold p-button-rounded"
+                    icon="pi pi-plus" (click)="addSvCard()"></button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="number">Number <p-sortIcon field="number"></p-sortIcon>
+                </th>
+                <th pSortableColumn="value">Value <p-sortIcon field="value">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="isprimary">Primary <p-sortIcon field="isprimary">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="autoreload.active">Auto Reload <p-sortIcon field="autoreload.active"></p-sortIcon>
+                <th pSortableColumn="autoreload.amount">Auto Reload Amount <p-sortIcon field="autoreload.amount">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="autoreload.threshold">Auto Reload Threshold
+                    <p-sortIcon field="autoreload.threshold"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cards>
+            <tr [pSelectableRow]="cards">
+                <td>
+                    {{cards?.number}}
+                </td>
+                <td>
+                    {{cards?.value}}
+                </td>
+                <td>
+                    {{cards?.isprimary}}
+                </td>
+                <td>
+                    {{cards?.autoreload?.active}}
+                </td>
+                <td>
+                    {{cards?.autoreload?.amount | currency:'USD'}}
+                </td>
+                <td>
+                    {{cards?.autoreload?.threshold}}
+                </td>
+                <td style="text-align:center">
+                    <button pButton pRipple type="button" class="p-button-rounded p-button-text" icon="pi pi-ellipsis-v"
+                        (click)="action.toggle($event)"></button>
+                    <p-menu #action appendTo="body" [popup]="true" [model]="actions" [style]="{'width':'280px'}">
+                    </p-menu>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5">No stored cards found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="editSvCardDialog" [transitionOptions]="'0ms'" [style]="{width: '60vw'}" header="Edit SV Card"
+    [modal]="true" styleClass="p-fluid" class="editSvCardModal">
+    <ng-template pTemplate="content">
+        <div class="col">
+            <form [formGroup]="editSvCardForm" rule="form" novalidate>
+                <div class="p-fluid grid">
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">Card Number</label>
+                        <input type="text" formControlName="cardNumber" pInputText>
+                    </div>
+                    <div class="field md:col-6 mt-4 mb-0 d-flex flex-nowrap align-items-center">
+                        <label for="profileData" class="mb-0 me-3">Auto-Reload</label>
+                        <p-checkbox [binary]="true" inputId="binary"></p-checkbox>
+                    </div>
+                    <div class="field md:col-12 mb-0">
+                        <h6>Auto-Reload Preferences</h6>
+                    </div>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">Payment Method</label>
+                        <p-dropdown [options]="pCategory" formControlName="paymentMethod" optionLabel="name">
+                        </p-dropdown>
+                    </div>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">Automatically Reload</label>
+                        <p-dropdown [options]="accountAmounts" appendTo="body" formControlName="automaticallyReload"
+                            optionLabel="name">
+                        </p-dropdown>
+                    </div>
+                    <div class="field md:col-6 mb-0">
+                        <label for="profileData">When Account is Below</label>
+                        <p-dropdown [options]="accountAmounts" appendTo="body" formControlName="account"
+                            optionLabel="name">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <p-divider></p-divider>
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <p-button label="Submit" icon="pi pi-check" class="p-button-text" [disabled]="editSvCardForm.invalid"
+            (click)="submit()"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="transferBalanceDialog" [transitionOptions]="'0ms'" [style]="{width: '40vw'}"
+    header="Transfer Balance" [modal]="true" styleClass="p-fluid" class="resetPasswordModal">
+    <ng-template pTemplate="content">
+        <div class="col">
+            <form [formGroup]="transferBalanceForm" rule="form" novalidate>
+                <div class="p-fluid grid">
+                    <div class="field col-12 md:col-6 mb-0">
+                        <label for="profileData">To Card Number</label>
+                        <input type="text" formControlName="toCardNumber" pInputText>
+                    </div>
+                    <div class="field md:col-8 mb-0">
+                        <label for="profileData">From Card Number</label>
+                        <input type="text" formControlName="fromCardNumber" pInputText>
+                    </div>
+                    <div class="field md:col-4 mb-0">
+                        <label for="profileData">From Pin </label>
+                        <input type="text" formControlName="fromPin" pInputText>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <p-divider></p-divider>
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <p-button label="Transfer Balance" icon="pi pi-check" class="p-button-text"
+            [disabled]="transferBalanceForm.invalid" (click)="reset()"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="addSvCardDialog" [transitionOptions]="'0ms'" [style]="{width: '40vw'}"
+    header="Add Stored Value to Profile" [modal]="true" styleClass="p-fluid" class="addSvCardModal">
+    <ng-template pTemplate="content">
+        <div class="col">
+            <form [formGroup]="addSvCardForm" rule="form" novalidate>
+                <div class="p-fluid grid">
+                    <div class="field md:col-8 mb-0">
+                        <label for="profileData">Card Number</label>
+                        <input type="text" formControlName="cardNumber" pInputText>
+                    </div>
+                    <div class="field md:col-4 mb-0">
+                        <label for="profileData">Pin </label>
+                        <input type="text" formControlName="pin" pInputText>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <p-divider></p-divider>
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <p-button label="Add Card" icon="pi pi-check" class="p-button-text" [disabled]="addSvCardForm.invalid"
+            (click)="reset()"></p-button>
+    </ng-template>
+</p-dialog>
+<p-confirmDialog [style]="{width: '600px'}"></p-confirmDialog>

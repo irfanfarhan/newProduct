@@ -1,45 +1,11 @@
-[{
-    "orderNumber": "API-00031370",
-    "svCard": "6307910262",
-    "amount": "1000",
-    "cardNumber": "11111",
-    "cardType": "MasterCard",
-    "tansactionDate": "11/28/2001 9:07:13 pm",
-    "status": "Refund"
-},
-{
-    "orderNumber": "API-00031348",
-    "svCard": "6307910525",
-    "amount": "11000",
-    "cardNumber": "22222",
-    "cardType": "Visa",
-    "tansactionDate": "09/08/2021 9:07:13 pm",
-    "status": "Sent"
-},
-{
-    "orderNumber": "API-00031451",
-    "svCard": "6307910345",
-    "amount": "7000",
-    "cardNumber": "33333",
-    "cardType": "Discover",
-    "tansactionDate": "16/18/2010 9:07:13 pm",
-    "status": "Refund"
-},
-{
-    "orderNumber": "API-00031111",
-    "svCard": "6307910111",
-    "amount": "9000",
-    "cardNumber": "44444",
-    "cardType": "Visa",
-    "tansactionDate": "10/19/2021 9:07:13 pm",
-    "status": "Sent"
-},
-{
-    "orderNumber": "API-00031390",
-    "svCard": "6307910450",
-    "amount": "10000",
-    "cardNumber": "55555",
-    "cardType": "AmericanExpress",
-    "tansactionDate": "21/28/2011 9:07:13 pm",
-    "status": "Sent"
-}]
+[
+    {
+        "salesId": "API-00031370",
+        "storedValueNumber": "6307910262",
+        "amount": 1.0000,
+        "cardNumber": "11111",
+        "cardType": "VI",
+        "authDate": "2021-11-28T13:07:13.477",
+        "status": "Sent"
+    }
+]

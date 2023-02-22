@@ -5,7 +5,8 @@
                 <h5 class="col-lg-12 mb-3">Profile Search</h5>
                 <div class="row mx-0 flex-nowrap">
                     <div class="col-lg-3 ps-0">
-                        <p-dropdown [options]="profileSearchValues" [(ngModel)]="selectedValue" (onChange)="changeProfileSearch()">
+                        <p-dropdown [options]="profileSearchValues" [(ngModel)]="selectedValue"
+                            (onChange)="changeProfileSearch()">
                         </p-dropdown>
                     </div>
                     <div class="col-lg-7">
@@ -16,8 +17,8 @@
                         </span>
                     </div>
                     <div class="col-lg-2 px-0">
-                        <button pButton type="button" icon="pi pi-search" class="p-button-rounded ms-2 w-8" label="Search"
-                            [disabled]="searchValue.invalid" (click)="search()"></button>
+                        <button pButton type="button" icon="pi pi-search" class="p-button-rounded ms-2 w-8"
+                            label="Search" [disabled]="searchValue.invalid" (click)="search()"></button>
                     </div>
                 </div>
             </div>

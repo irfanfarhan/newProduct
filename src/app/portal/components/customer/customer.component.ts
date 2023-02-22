@@ -17,12 +17,15 @@ export class CustomerComponent implements OnInit {
     Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
   profileDetails: any;
   loading: boolean = true;
+  searchOption: any;
   constructor(private customerService: CustomerService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.searchOption = ProfileSearchDropDown[0].code;
+  }
 
   search = () => {
-    this.customerService.getProfileDetails(this.searchValue.value).subscribe(data => {
+    this.customerService.getProfileDetails(this.searchValue.value, this.searchOption).subscribe(data => {
       console.log(data);
       this.profileDetails = data;
       this.loading = false;
@@ -30,11 +33,14 @@ export class CustomerComponent implements OnInit {
   }
 
   changeProfileSearch = () => {
-    if (this.selectedValue === ProfileSearchDropDown[0]) {
+    console.log(this.selectedValue);
+    if (this.selectedValue === ProfileSearchDropDown[0].label) {
+      this.searchOption = ProfileSearchDropDown[0].code;
       this.searchValue = new FormControl('', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
-    } else if (this.selectedValue === ProfileSearchDropDown[1]) {
+    } else if (this.selectedValue === ProfileSearchDropDown[1].label) {
+      this.searchOption = ProfileSearchDropDown[1].code;
       this.searchValue = new FormControl('', [
         Validators.required,
         Validators.pattern("^[0-9]*$")]);

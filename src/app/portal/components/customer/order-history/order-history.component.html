@@ -1,0 +1,79 @@
+<div class="order-history">
+    <p-table styleClass="main-table" #dt2 [value]="orderHistory" dataKey="salesId" [rows]="10"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
+        selectionMode="single" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="['salesId','storedValueNumber', 'amount', 'cardNumber','cardType','authDate','status']">
+        <ng-template pTemplate="caption">
+            <div class="d-flex justify-content-between w-100">
+                <span class="p-input-icon-left w-75 pr-4">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="w-100"
+                        (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="salesId">Order Number<p-sortIcon field="salesId"></p-sortIcon>
+                </th>
+                <th pSortableColumn="storedValueNumber">SV Card <p-sortIcon field="storedValueNumber">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="amount">Amount <p-sortIcon field="amount">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="cardNumber">Card Number <p-sortIcon field="cardNumber"></p-sortIcon>
+                </th>
+                <th pSortableColumn="cardType">Card Type <p-sortIcon field="cardType">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="authDate">Transaction Date <p-sortIcon field="authDate">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="status">Status <p-sortIcon field="status">
+                    </p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-order>
+            <tr [pSelectableRow]="order">
+                <td>
+                    {{order?.salesId}}
+                </td>
+                <td>
+                    {{order?.storedValueNumber}}
+                </td>
+                <td>
+                    {{order?.amount | currency:'USD'}}
+                </td>
+                <td>
+                    {{order?.cardNumber}}
+                </td>
+                <td>
+                    <img width="60" height="60" src="assets/images/{{order?.cardType}}.svg" alt="{{order?.cardType}}">
+                </td>
+                <td>
+                    {{order?.authDate}}
+                </td>
+                <td>
+                    <span class="badge" [ngClass]="{
+                            'text-bg-success': order?.status === 'Sent',
+                            'text-bg-warning': order?.status === 'Refund'
+                          }">{{order?.status | titlecase}}</span>
+                </td>
+                <td style="text-align:center">
+                    <button pButton pRipple type="button" (click)="refund()" icon="pi pi-replay"
+                        class="p-button-text fw-semibold p-button-rounded" label="Refund"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5">No order history vailable.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-confirmDialog [style]="{width: '600px'}"></p-confirmDialog>

@@ -1,0 +1,66 @@
+<div class="credit-cards">
+    <p-table styleClass="main-table" #dt1 [value]="creditCards" dataKey="cardnumber" [rows]="10"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
+        selectionMode="single" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="['cardnumber','cardtype', 'expires', 'billingAddress.postalcode','isdefault']">
+        <ng-template pTemplate="caption">
+            <div class="d-flex justify-content-between w-100">
+                <span class="p-input-icon-left w-75 pr-4">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="w-100"
+                        (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="cardnumber">Credit Card Number <p-sortIcon field="cardnumber"></p-sortIcon>
+                </th>
+                <th pSortableColumn="cardtype">Type <p-sortIcon field="cardtype"></p-sortIcon>
+                </th>
+                <th pSortableColumn="expires">Expiry <p-sortIcon field="expires">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="billingAddress.postalcode">Billing Zip <p-sortIcon
+                        field="billingAddress.postalcode"></p-sortIcon>
+                </th>
+                <th pSortableColumn="isdefault">Primary <p-sortIcon field="isdefault">
+                    </p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ccards>
+            <tr [pSelectableRow]="ccards">
+                <td>
+                    {{ccards?.cardnumber}}
+                </td>
+                <td>
+                    <img width="60" height="60" src="assets/images/{{ccards?.cardtype}}.svg" alt="{{ccards?.cardtype}}">
+                </td>
+                <td>
+                    {{ccards?.expires}}
+                </td>
+                <td>
+                    {{ccards?.billingAddress?.postalcode}}
+                </td>
+                <td>
+                    {{ccards?.isdefault}}
+                </td>
+
+                <td style="text-align:center">
+                    <button pButton pRipple type="button"
+                        class="p-button-outlined fw-semibold p-button-rounded p-button-danger" icon="pi pi-trash"
+                        label="Delete" (click)="deleteCreditCard(ccards)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5">No credit cards found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-confirmDialog [style]="{width: '600px'}"></p-confirmDialog>

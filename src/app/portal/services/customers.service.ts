@@ -14,7 +14,7 @@ export class CustomerService {
     private router: Router,
     private authService: MsalService) { }
 
-  getProfileDetails(searchValue: any) {
+  getProfileDetails(searchValue: any, code: any) {
     return this.http.get<any>('assets/profileDetails.json');
   }
 
@@ -30,8 +30,28 @@ export class CustomerService {
     return this.http.put<any>('assets/profileDetails.json', payload);
   }
 
-  getOrderHistory() {
+  getOrderHistory(email: any) {
     return this.http.get<any>('assets/orderHistory.json');
+  }
+
+  deleteCreditCard(payload: any) {
+    return this.http.delete<any>('assets/profileDetails.json', payload);
+  }
+
+  getKountStatus(email: any) {
+    return this.http.get<any>('assets/profileDetails.json');
+  }
+
+  getListrakSubState(email: any) {
+    return this.http.get<any>('assets/profileDetails.json');
+  }
+
+  updateListrakSubState(data: any) {
+    return this.http.post<any>('assets/profileDetails.json', {});
+  }
+
+  updateKountStatus(payload: any) {
+    return this.http.post<any>('assets/profileDetails.json', payload);
   }
 
   public logout(): void {

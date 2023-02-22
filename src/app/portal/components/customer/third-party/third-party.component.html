@@ -1,0 +1,26 @@
+<div class="card dtc-profile-card mb-4">
+    <div class="card-header d-flex flex-nowrap justify-content-between align-items-center">
+        <h5>Listrak</h5>
+    </div>
+    <div class="card-body col-lg-12">
+        <div class="row  mx-0">
+            <div class="form-group d-flex col-12">
+                <p-selectButton [options]="listrakOptions" [(ngModel)]="listrak" optionLabel="label" optionValue="value"
+                    (onOptionClick)="selectedListrack($event)"></p-selectButton>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card dtc-profile-card">
+    <div class="card-header d-flex flex-nowrap justify-content-between align-items-center">
+        <h5>Kount</h5>
+    </div>
+    <div class="card-body col-lg-12">
+        <div class="row  mx-0">
+            <div class="form-group d-flex col-12">
+                <p-selectButton [options]="statuses" [(ngModel)]="whitelist" optionLabel="label" optionValue="value"
+                    (onOptionClick)="selectedKount($event)"></p-selectButton>
+            </div>
+        </div>
+    </div>
+</div>
