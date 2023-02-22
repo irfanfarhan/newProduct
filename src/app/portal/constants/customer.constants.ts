@@ -1,5 +1,5 @@
 export const ProfileSearchDropDown = [
-    { label: 'Email', value: 'Email', code: 'A' },
+    { label: 'Email', value: 'Email', code: 'GetProfile' },
     { label: 'Loyalty Card', value: 'Loyalty Card', code: 'GetProfileByLoyaltyCard' }
 ];
 

@@ -11,8 +11,6 @@ import { IPublicClientApplication, PublicClientApplication, InteractionType, Bro
 import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
 import { CommonLayoutModule } from './common/common.module';
 import { AuthInterceptorInterceptor } from './shared/http-interceptors/auth-interceptor.interceptor';
-import { CreditCardsComponent } from './portal/components/customer/credit-cards/credit-cards.component';
-import { ThirdPartyComponent } from './portal/components/customer/third-party/third-party.component';
 
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1; // Remove this line to use Angular Universal
 
