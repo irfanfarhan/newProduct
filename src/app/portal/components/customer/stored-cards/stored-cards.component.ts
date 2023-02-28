@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, Message } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
+import { SuccessMessages } from 'src/app/portal/constants/customer.constants';
 import { CustomerService } from 'src/app/portal/services/customers.service';
 
 @Component({
@@ -16,12 +17,14 @@ export class StoredCardsComponent implements OnInit {
   actions: any[] = [];
   editSvCardForm: FormGroup = this.fb.group({});
   transferBalanceForm: FormGroup = this.fb.group({});
-  addSvCardForm: FormGroup = this.fb.group({});editSvCardDialog: boolean = false;
+  addSvCardForm: FormGroup = this.fb.group({}); editSvCardDialog: boolean = false;
   transferBalanceDialog: boolean = false;
   addSvCardDialog: boolean = false;
   messageShow: Message[] = [];
   loading: boolean = true;
   accountAmounts: any[] = [];
+  @Output() onSucessMessageEvent: EventEmitter<any> = new EventEmitter<any>();
+  selectedSvCard: any;
   constructor(private fb: FormBuilder,
     private confirmationService: ConfirmationService,
     private customerService: CustomerService) { }
@@ -36,7 +39,8 @@ export class StoredCardsComponent implements OnInit {
         }
       },
       {
-        label: 'Delete', icon: 'pi pi-trash', command: () => {
+        label: 'Delete', icon: 'pi pi-trash', command: (value: any) => {
+          console.log(value);
           this.deleteStoredCard();
         }
       },
@@ -46,10 +50,14 @@ export class StoredCardsComponent implements OnInit {
         }
       }
     ];
-    
+
     this.addSvCardForm = this.fb.group({
-      cardNumber: ['', Validators.required],
-      pin: ['', Validators.required]
+      number: new FormControl('', [
+        Validators.required,
+        Validators.pattern("^[0-9]*$")]),
+      pin: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/[0-9]{5}/)]),
     });
     this.editSvCardForm = this.fb.group({
       cardNumber: ['', Validators.required],
@@ -62,7 +70,7 @@ export class StoredCardsComponent implements OnInit {
       fromCardNumber: ['', Validators.required],
       fromPin: ['', Validators.required]
     });
-    
+
     this.accountAmounts = [
       { name: '$5' },
       { name: '$10' },
@@ -87,37 +95,60 @@ export class StoredCardsComponent implements OnInit {
     ];
   }
 
-  deleteStoredCard() {
+  deleteStoredCard = () => {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete?',
       header: 'Confirm Delete',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.messageShow = [
-          { severity: 'success', summary: 'Success', detail: `Card deleted successfully`, life: 1000 }
-        ];
-        const el: any = document.getElementById('mainId');
-        el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-        setTimeout(() => {
-          this.messageShow = [];
-        }, 3000);
+        this.confirmDeleteSvCard();
       }
     });
   }
 
-  editSvCard() {
+  confirmDeleteSvCard = () => {
+    const payload = {
+      userid: this.profileDetails?.uuid,
+      svid: this.selectedSvCard?.uuid
+    };
+    this.customerService.deleteSvCard(payload).subscribe(data => {
+      console.log(data);
+      this.loading = false;
+      this.onSucessMessageEvent.emit(SuccessMessages.SvCardDeleteSuccessMessage);
+    });
+  }
+  
+  editSvCard = () => {
     this.editSvCardDialog = true;
   }
 
-  addSvCard() {
+  addSvCard = () => {
     this.addSvCardDialog = true;
+    this.addSvCardForm.reset();
   }
 
-  transferBalance() {
+  addSvCardSubmit = () => {
+    const payload = {
+      uuid: this.profileDetails?.uuid,
+      ...this.addSvCardForm?.getRawValue()
+    };
+    this.customerService.addSvc(payload).subscribe(data => {
+      console.log(data);
+      this.loading = false;
+      this.hideDialog();
+      this.onSucessMessageEvent.emit(SuccessMessages.AddSvCardSuccessMessage);
+    });
+  }
+
+  selectedStoredCard = (card: any) => {
+    this.selectedSvCard = card;
+  }
+
+  transferBalance = () => {
     this.transferBalanceDialog = true;
   }
 
-  hideDialog() {
+  hideDialog = () => {
     this.editSvCardDialog = false;
     this.transferBalanceDialog = false;
     this.addSvCardDialog = false;

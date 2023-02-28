@@ -54,6 +54,18 @@ export class CustomerService {
     return this.http.post<any>('assets/profileDetails.json', payload);
   }
 
+  addSvc(payload: any) {
+    return this.http.post<any>('assets/profileDetails.json', payload);
+  }
+
+  deleteSvCard(payload: any) {
+    return this.http.delete<any>('assets/profileDetails.json', payload);
+  }
+
+  refundOder(payload: any) {
+    return this.http.post<any>('assets/profileDetails.json', payload);
+  }
+
   public logout(): void {
     localStorage.clear();
     this.authService.logoutPopup({

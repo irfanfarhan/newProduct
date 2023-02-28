@@ -60,7 +60,8 @@
                                 <i class="pi pi-wallet pr-2"></i>
                                 <span>Stored value cards</span>
                             </ng-template>
-                            <app-stored-cards [profileDetails]="profileDetails"></app-stored-cards>
+                            <app-stored-cards [profileDetails]="profileDetails"
+                                (onSucessMessageEvent)="onSucessMessage($event)"></app-stored-cards>
                         </p-tabPanel>
                         <p-tabPanel header="Credit Cards">
                             <ng-template pTemplate="header">
@@ -77,7 +78,7 @@
                                 <span>Order History</span>
                             </ng-template>
                             <ng-container *ngIf="selectedTabIndex === 2">
-                                <app-order-history [email]="profileDetails?.email"
+                                <app-order-history [profileDetails]="profileDetails" [email]="profileDetails?.email"
                                     (onSucessMessageEvent)="onSucessMessage($event)"></app-order-history>
                             </ng-container>
                         </p-tabPanel>
@@ -88,7 +89,7 @@
                             </ng-template>
                             <ng-container *ngIf="selectedTabIndex === 3">
                                 <app-third-party [profileDetails]="profileDetails"
-                                (onSucessMessageEvent)="onSucessMessage($event)"></app-third-party>
+                                    (onSucessMessageEvent)="onSucessMessage($event)"></app-third-party>
                             </ng-container>
                         </p-tabPanel>
                     </p-tabView>

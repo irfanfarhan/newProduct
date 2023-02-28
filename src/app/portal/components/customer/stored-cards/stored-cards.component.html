@@ -56,7 +56,7 @@
                 </td>
                 <td style="text-align:center">
                     <button pButton pRipple type="button" class="p-button-rounded p-button-text" icon="pi pi-ellipsis-v"
-                        (click)="action.toggle($event)"></button>
+                        (click)="action.toggle($event);selectedStoredCard(cards)"></button>
                     <p-menu #action appendTo="body" [popup]="true" [model]="actions" [style]="{'width':'280px'}">
                     </p-menu>
                 </td>
@@ -156,11 +156,11 @@
                 <div class="p-fluid grid">
                     <div class="field md:col-8 mb-0">
                         <label for="profileData">Card Number</label>
-                        <input type="text" formControlName="cardNumber" pInputText>
+                        <input type="text" formControlName="number" pKeyFilter="num" pInputText>
                     </div>
                     <div class="field md:col-4 mb-0">
                         <label for="profileData">Pin </label>
-                        <input type="text" formControlName="pin" pInputText>
+                        <input type="text" formControlName="pin" pKeyFilter="num" pInputText>
                     </div>
                 </div>
             </form>
@@ -171,7 +171,7 @@
         <p-divider></p-divider>
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
         <p-button label="Add Card" icon="pi pi-check" class="p-button-text" [disabled]="addSvCardForm.invalid"
-            (click)="reset()"></p-button>
+            (click)="addSvCardSubmit()"></p-button>
     </ng-template>
 </p-dialog>
 <p-confirmDialog [style]="{width: '600px'}"></p-confirmDialog>

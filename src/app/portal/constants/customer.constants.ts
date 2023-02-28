@@ -16,6 +16,8 @@ export const SuccessMessages = {
     CreditCardDeleteSuccessMessage: 'Card has been deleted successfully',
     UpdateListrackSuccessMessage: 'Listrack has been updated successfully',
     KountUpdateSuccessMessage: 'Whitelist has been updated successfully',
+    AddSvCardSuccessMessage: 'Stored Card added successfully',
+    SvCardDeleteSuccessMessage: 'Stored Card has been deleted successfully',
 }
 
 export const StatusesDropDown = [

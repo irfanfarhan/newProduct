@@ -13,6 +13,7 @@ export class OrderHistoryComponent implements OnInit {
   orderHistory: any[] = [];
   loading: boolean = true;
   @Input() email: any;
+  @Input() profileDetails: any;
   @Output() onSucessMessageEvent: EventEmitter<any> = new EventEmitter<any>();
   constructor(private customerService: CustomerService,
     private confirmationService: ConfirmationService) { }
@@ -28,14 +29,30 @@ export class OrderHistoryComponent implements OnInit {
     });
   }
 
-  refund() {
+  refund(order: any) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to refund?',
       header: 'Confirm Refund',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.onSucessMessageEvent.emit(SuccessMessages.RefundSuccessMessage);
+        this.confirmRefund(order);
       }
+    });
+  }
+
+  confirmRefund = (order: any) => {
+    const payload = {
+      uuid: this.profileDetails?.uuid,
+      txRefNum: "6336F4ACDCE6E19B48595C108DFB4EA8B085548B",
+      amount: order?.amount,
+      orderID: order?.salesId,
+      svCard: order?.storedValueNumber
+    };
+
+    this.customerService.refundOder(payload).subscribe(data => {
+      console.log(data);
+      this.loading = false;
+      this.onSucessMessageEvent.emit(SuccessMessages.RefundSuccessMessage);
     });
   }
 }

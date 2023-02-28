@@ -58,12 +58,13 @@
                 </td>
                 <td>
                     <span class="badge" [ngClass]="{
-                            'text-bg-success': order?.status === 'Sent',
-                            'text-bg-warning': order?.status === 'Refund'
+                        'text-bg-success': order?.status === 'Sent',
+                        'text-bg-warning': order?.status === 'Refund',
+                        'text-bg-danger': order?.status === 'Captureerror'
                           }">{{order?.status | titlecase}}</span>
                 </td>
                 <td style="text-align:center">
-                    <button pButton pRipple type="button" (click)="refund()" icon="pi pi-replay"
+                    <button pButton pRipple type="button" (click)="refund(order)" icon="pi pi-replay"
                         class="p-button-text fw-semibold p-button-rounded" label="Refund"></button>
                 </td>
             </tr>
