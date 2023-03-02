@@ -107,6 +107,12 @@ export class StoredCardsComponent implements OnInit, OnChanges {
     this.editSvCardDialog = true;
     this.thresholdDropdown = [...AmountDropdown];
     this.thresholdDropdown.unshift(5);
+    if (this.selectedSvCard?.autoreload?.active) {
+      this.editSvCardForm.controls['paymentMethod'].setValidators([Validators.required]);
+      this.editSvCardForm.controls['amount'].setValidators([Validators.required]);
+      this.editSvCardForm.controls['threshold'].setValidators([Validators.required]);
+    }
+    this.editSvCardForm.updateValueAndValidity();
     this.editSvCardForm.setValue({
       number: this.selectedSvCard?.number,
       autoreloadflag: this.selectedSvCard?.autoreload?.active,
@@ -114,12 +120,6 @@ export class StoredCardsComponent implements OnInit, OnChanges {
       amount: this.selectedSvCard?.autoreload?.amount,
       threshold: this.selectedSvCard?.autoreload?.threshold
     });
-    if (this.selectedSvCard?.autoreload?.active) {
-      this.editSvCardForm.controls['paymentMethod'].setValidators([Validators.required]);
-      this.editSvCardForm.controls['amount'].setValidators([Validators.required]);
-      this.editSvCardForm.controls['threshold'].setValidators([Validators.required]);
-    }
-    this.editSvCardForm.updateValueAndValidity();
   }
 
   autoreloadflagEvent = (event: any) => {

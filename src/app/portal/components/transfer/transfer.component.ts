@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { TransferService } from '../../services/transfer.service';
 
 @Component({
   selector: 'app-transfer',
@@ -10,12 +11,19 @@ export class TransferComponent implements OnInit {
   transferBalanceForm: FormGroup = this.fb.group({});
   multiBalanceTransfer: any[] = [];
   total: any = 12;
-  constructor(private fb: FormBuilder) { }
+  balance = 0;
+  disabled = false;
+  constructor(private fb: FormBuilder,
+    private transferService: TransferService) { }
 
   ngOnInit(): void {
     this.transferBalanceForm = this.fb.group({
-      pcNumber: ['', Validators.required],
-      pin: ['', Validators.required]
+      number: new FormControl('', [
+        Validators.required,
+        Validators.pattern("^[0-9]*$")]),
+      pin: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/[0-9]{5}/)]),
     });
     this.multiBalanceTransfer = [{ id: 0 }]
   }
@@ -25,6 +33,20 @@ export class TransferComponent implements OnInit {
       id: this.multiBalanceTransfer.length + 1
     });
     this.total = 12 * this.multiBalanceTransfer.length;
+  }
+
+  transferBalance = () => {
+    const form = this.transferBalanceForm.getRawValue();
+    this.transferService.getTransferBalance(form).subscribe(data => {
+      console.log(data);
+      this.balance = data;
+      this.disabled = true;
+    });
+  }
+
+  clear = () => {
+    this.disabled = false;
+    this.balance = 0;
   }
 
   delete() {
