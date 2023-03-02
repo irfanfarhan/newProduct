@@ -12,7 +12,6 @@ export class TransferComponent implements OnInit {
   multiBalanceTransfer: any[] = [];
   total: any = 12;
   balance = 0;
-  disabled = false;
   constructor(private fb: FormBuilder,
     private transferService: TransferService) { }
 
@@ -37,15 +36,16 @@ export class TransferComponent implements OnInit {
 
   transferBalance = () => {
     const form = this.transferBalanceForm.getRawValue();
-    this.transferService.getTransferBalance(form).subscribe(data => {
-      console.log(data);
-      this.balance = data;
-      this.disabled = true;
-    });
+    //this.transferService.getTransferBalance(form).subscribe(data => {
+      // console.log(data);
+      // this.balance = data;
+     this.transferBalanceForm.disable();
+    //});
   }
 
   clear = () => {
-    this.disabled = false;
+    this.transferBalanceForm.reset();
+    this.transferBalanceForm.enable();
     this.balance = 0;
   }
 
