@@ -140,8 +140,8 @@ export class StoredCardsComponent implements OnInit, OnChanges {
   updateSvc = () => {
     const form = this.editSvCardForm.getRawValue();
     const payload = {
-      threshold: form.threshold,
-      amount: form.amount,
+      threshold: form.threshold?.toString(),
+      amount: form.amount?.toString(),
       ccid: form.paymentMethod?.uuid,
       uuid: this.selectedSvCard?.uuid,
       number: this.selectedSvCard?.number,
