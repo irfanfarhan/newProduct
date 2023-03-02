@@ -13,7 +13,7 @@
           "uuid": "34ef7c41-ba90-429c-ae8e-593f522229c3",
           "cardnumber": "45454",
           "token": "34952",
-          "displayname": null,
+          "displayname": "test",
           "expires": "202408",
           "cvv": null,
           "billingaddress_uuid": "36668ab8-5ade-4189-bd58-f20eed16855a",

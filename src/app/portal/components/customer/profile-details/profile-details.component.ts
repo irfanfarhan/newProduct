@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, Message } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -23,6 +23,7 @@ export class ProfileDetailsComponent implements OnInit {
   resetPasswordDialog: boolean = false;
   selectedTabIndex = 0;
   messageShow: Message[] = [];
+  @Output() getProfilesEvent: EventEmitter<any> = new EventEmitter<any>();
   constructor(private fb: FormBuilder,
     private confirmationService: ConfirmationService,
     private customerService: CustomerService) { }
@@ -171,5 +172,6 @@ export class ProfileDetailsComponent implements OnInit {
     setTimeout(() => {
       this.messageShow = [];
     }, 3000);
+    this.getProfilesEvent.emit(true);
   }
 }

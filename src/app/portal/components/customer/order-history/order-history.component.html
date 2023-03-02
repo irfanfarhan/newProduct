@@ -58,9 +58,9 @@
                 </td>
                 <td>
                     <span class="badge" [ngClass]="{
-                        'text-bg-success': order?.status === 'Sent',
-                        'text-bg-warning': order?.status === 'Refund',
-                        'text-bg-danger': order?.status === 'Captureerror'
+                            'text-bg-success': (order?.status === 'Sent' || order?.status === 'created'),
+                            'text-bg-warning': order?.status === 'Refund',
+                            'text-bg-danger': order?.status === 'CaptureError'
                           }">{{order?.status | titlecase}}</span>
                 </td>
                 <td style="text-align:center">

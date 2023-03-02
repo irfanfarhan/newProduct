@@ -77,33 +77,52 @@
             <form [formGroup]="editSvCardForm" rule="form" novalidate>
                 <div class="p-fluid grid">
                     <div class="field md:col-6 mb-0">
-                        <label for="profileData">Card Number</label>
-                        <input type="text" formControlName="cardNumber" pInputText>
+                        <label for="number">Card Number</label>
+                        <input type="text" disabled="true" inputId="number" formControlName="number" pInputText>
                     </div>
                     <div class="field md:col-6 mt-4 mb-0 d-flex flex-nowrap align-items-center">
-                        <label for="profileData" class="mb-0 me-3">Auto-Reload</label>
-                        <p-checkbox [binary]="true" inputId="binary"></p-checkbox>
+                        <label for="autoreloadflag" class="mb-0 me-3">Auto-Reload</label>
+                        <p-checkbox [binary]="true" [formControl]="editSvCardForm.controls['autoreloadflag']"
+                            inputId="autoreloadflag" (onChange)="autoreloadflagEvent($event)"></p-checkbox>
                     </div>
-                    <div class="field md:col-12 mb-0">
-                        <h6>Auto-Reload Preferences</h6>
-                    </div>
-                    <div class="field md:col-6 mb-0">
-                        <label for="profileData">Payment Method</label>
-                        <p-dropdown [options]="pCategory" formControlName="paymentMethod" optionLabel="name">
-                        </p-dropdown>
-                    </div>
-                    <div class="field md:col-6 mb-0">
-                        <label for="profileData">Automatically Reload</label>
-                        <p-dropdown [options]="accountAmounts" appendTo="body" formControlName="automaticallyReload"
-                            optionLabel="name">
-                        </p-dropdown>
-                    </div>
-                    <div class="field md:col-6 mb-0">
-                        <label for="profileData">When Account is Below</label>
-                        <p-dropdown [options]="accountAmounts" appendTo="body" formControlName="account"
-                            optionLabel="name">
-                        </p-dropdown>
-                    </div>
+                    <ng-container *ngIf="editSvCardForm.controls['autoreloadflag'].value">
+                        <div class="field md:col-12 mb-0">
+                            <h6>Auto-Reload Preferences</h6>
+                        </div>
+                        <div class="field md:col-6 mb-0">
+                            <label for="profileData">Payment Method</label>
+                            <p-dropdown [options]="creditCards" appendTo="body" formControlName="paymentMethod"
+                                optionLabel="displayname" [filter]="true" filterBy="displayname" [showClear]="true"
+                                placeholder="Select a Payment Method">
+                                <ng-template pTemplate="selectedItem">
+                                    <div class="d-flex align-items-center" *ngIf="editSvCardForm.get('paymentMethod')">
+                                        <img width="30" height="28"
+                                            src="assets/images/{{editSvCardForm.get('paymentMethod')?.value?.cardtype}}.svg"
+                                            alt="{{editSvCardForm.get('paymentMethod').value?.cardtype}}" />
+                                        <div class="pl-2">{{editSvCardForm.get('paymentMethod')?.value?.displayname}}
+                                            ({{editSvCardForm.get('paymentMethod')?.value?.cardnumber}})</div>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-card pTemplate="item">
+                                    <div class="d-flex align-items-center">
+                                        <img width="40" height="40" src="assets/images/{{card?.cardtype}}.svg"
+                                            alt="{{card?.cardtype}}" />
+                                        <div class="pl-2">{{card?.displayname}} ({{card?.cardnumber}})</div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+                        <div class="field md:col-6 mb-0">
+                            <label for="profileData">Automatically Reload</label>
+                            <p-dropdown [options]="amountDropdown" appendTo="body" formControlName="amount">
+                            </p-dropdown>
+                        </div>
+                        <div class="field md:col-6 mb-0">
+                            <label for="profileData">When Account is Below</label>
+                            <p-dropdown [options]="thresholdDropdown" appendTo="body" formControlName="threshold">
+                            </p-dropdown>
+                        </div>
+                    </ng-container>
                 </div>
             </form>
         </div>
@@ -113,7 +132,7 @@
         <p-divider></p-divider>
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
         <p-button label="Submit" icon="pi pi-check" class="p-button-text" [disabled]="editSvCardForm.invalid"
-            (click)="submit()"></p-button>
+            (click)="updateSvc()"></p-button>
     </ng-template>
 </p-dialog>
 

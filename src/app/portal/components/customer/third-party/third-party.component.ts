@@ -30,7 +30,7 @@ export class ThirdPartyComponent implements OnInit {
         "result": "review"
       }
     };
-    this.whitelist = data1?.result?.result;
+    this.whitelist = data1?.result?.result ?? 'NA';
     this.loading = false;
     //});
   }

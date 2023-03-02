@@ -25,6 +25,6 @@
         </div>
     </div>
     <ng-container *ngIf="profileDetails">
-        <app-profile-details [profileDetails]="profileDetails"></app-profile-details>
+        <app-profile-details [profileDetails]="profileDetails" (getProfilesEvent)="search()"></app-profile-details>
     </ng-container>
 </div>

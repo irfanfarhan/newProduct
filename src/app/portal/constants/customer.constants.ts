@@ -5,7 +5,7 @@ export const ProfileSearchDropDown = [
 
 export const ListrakOptions = [
     { label: 'Subscribe', value: 'Subscribed', code: 'ListrakSubscribe' },
-    { label: 'Unsubscribe', value: 'Unsubscribed', code: 'ListrakUnSubscribe' },
+    { label: 'Unsubscribe', value: 'UnSubscribed', code: 'ListrakUnSubscribe' },
 ];
 
 export const SuccessMessages = {
@@ -18,13 +18,18 @@ export const SuccessMessages = {
     KountUpdateSuccessMessage: 'Whitelist has been updated successfully',
     AddSvCardSuccessMessage: 'Stored Card added successfully',
     SvCardDeleteSuccessMessage: 'Stored Card has been deleted successfully',
+    UpdateSvCardSuccessMessage: 'Stored Card has been updated successfully',
 }
 
 export const StatusesDropDown = [
     { label: 'Approve', value: 'approve', code: 'A' },
     { label: 'Review', value: 'review', code: 'R' },
     { label: 'Decline', value: 'decline', code: 'D' },
-    { label: 'None', value: 'none', code: '' }
+    { label: 'None', value: 'NA', code: null }
+];
+
+export const AmountDropdown = [
+    10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100
 ];
 
 Object.freeze(ProfileSearchDropDown);

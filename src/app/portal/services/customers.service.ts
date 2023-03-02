@@ -66,6 +66,10 @@ export class CustomerService {
     return this.http.post<any>('assets/profileDetails.json', payload);
   }
 
+  updateSvc(payload: any) {
+    return this.http.post<any>('assets/profileDetails.json', payload);
+  }
+
   public logout(): void {
     localStorage.clear();
     this.authService.logoutPopup({

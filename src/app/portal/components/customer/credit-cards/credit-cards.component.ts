@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ConfirmationService, Message } from 'primeng/api';
 import { SuccessMessages } from 'src/app/portal/constants/customer.constants';
 import { CustomerService } from 'src/app/portal/services/customers.service';
@@ -9,7 +9,7 @@ import { CustomerService } from 'src/app/portal/services/customers.service';
   styleUrls: ['./credit-cards.component.scss'],
   providers: [ConfirmationService]
 })
-export class CreditCardsComponent implements OnInit {
+export class CreditCardsComponent implements OnInit, OnChanges {
   @Input() profileDetails: any;
   loading: boolean = true;
   creditCards: any[] = [];
@@ -18,7 +18,10 @@ export class CreditCardsComponent implements OnInit {
   constructor(private confirmationService: ConfirmationService,
     private customerService: CustomerService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  
+  ngOnChanges(changes: SimpleChanges) {
     this.creditCards = this.profileDetails?.creditcards?.list;
     this.loading = false;
   }

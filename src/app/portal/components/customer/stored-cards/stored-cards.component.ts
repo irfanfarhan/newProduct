@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, Message } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { SuccessMessages } from 'src/app/portal/constants/customer.constants';
+import { AmountDropdown, SuccessMessages } from 'src/app/portal/constants/customer.constants';
 import { CustomerService } from 'src/app/portal/services/customers.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { CustomerService } from 'src/app/portal/services/customers.service';
   styleUrls: ['./stored-cards.component.scss'],
   providers: [DialogService, ConfirmationService]
 })
-export class StoredCardsComponent implements OnInit {
+export class StoredCardsComponent implements OnInit, OnChanges {
   @Input() profileDetails: any;
   storedCards: any[] = [];
   actions: any[] = [];
@@ -22,16 +22,16 @@ export class StoredCardsComponent implements OnInit {
   addSvCardDialog: boolean = false;
   messageShow: Message[] = [];
   loading: boolean = true;
-  accountAmounts: any[] = [];
+  thresholdDropdown: any[] = [];
+  amountDropdown: any[] = AmountDropdown;
   @Output() onSucessMessageEvent: EventEmitter<any> = new EventEmitter<any>();
   selectedSvCard: any;
+  creditCards: any;
   constructor(private fb: FormBuilder,
     private confirmationService: ConfirmationService,
     private customerService: CustomerService) { }
 
   ngOnInit(): void {
-    this.storedCards = this.profileDetails?.storedvaluecards?.list;
-    this.loading = false;
     this.actions = [
       {
         label: 'Edit', icon: 'pi pi-pencil', command: () => {
@@ -60,39 +60,24 @@ export class StoredCardsComponent implements OnInit {
         Validators.pattern(/[0-9]{5}/)]),
     });
     this.editSvCardForm = this.fb.group({
-      cardNumber: ['', Validators.required],
-      paymentMethod: ['', Validators.required],
-      automaticallyReload: ['', Validators.required],
-      account: ['', Validators.required]
+      number: ['', Validators.required],
+      autoreloadflag: ['', Validators.required],
+      paymentMethod: [''],
+      amount: [''],
+      threshold: ['']
     });
     this.transferBalanceForm = this.fb.group({
       toCardNumber: ['', Validators.required],
       fromCardNumber: ['', Validators.required],
       fromPin: ['', Validators.required]
     });
+  }
 
-    this.accountAmounts = [
-      { name: '$5' },
-      { name: '$10' },
-      { name: '$15' },
-      { name: '$20' },
-      { name: '$25' },
-      { name: '$30' },
-      { name: '$35' },
-      { name: '$40' },
-      { name: '$45' },
-      { name: '$50' },
-      { name: '$55' },
-      { name: '$60' },
-      { name: '$65' },
-      { name: '$70' },
-      { name: '$75' },
-      { name: '$80' },
-      { name: '$85' },
-      { name: '$90' },
-      { name: '$95' },
-      { name: '$100' }
-    ];
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.storedCards = this.profileDetails?.storedvaluecards?.list;
+    this.creditCards = this.profileDetails?.creditcards?.list;
+    this.loading = false;
   }
 
   deleteStoredCard = () => {
@@ -117,9 +102,63 @@ export class StoredCardsComponent implements OnInit {
       this.onSucessMessageEvent.emit(SuccessMessages.SvCardDeleteSuccessMessage);
     });
   }
-  
+
   editSvCard = () => {
     this.editSvCardDialog = true;
+    this.thresholdDropdown = [...AmountDropdown];
+    this.thresholdDropdown.unshift(5);
+    this.editSvCardForm.setValue({
+      number: this.selectedSvCard?.number,
+      autoreloadflag: this.selectedSvCard?.autoreload?.active,
+      paymentMethod: '',
+      amount: this.selectedSvCard?.autoreload?.amount,
+      threshold: this.selectedSvCard?.autoreload?.threshold
+    });
+    if (this.selectedSvCard?.autoreload?.active) {
+      this.editSvCardForm.controls['paymentMethod'].setValidators([Validators.required]);
+      this.editSvCardForm.controls['amount'].setValidators([Validators.required]);
+      this.editSvCardForm.controls['threshold'].setValidators([Validators.required]);
+    }
+    this.editSvCardForm.updateValueAndValidity();
+  }
+
+  autoreloadflagEvent = (event: any) => {
+    if (event.checked) {
+      this.editSvCardForm.controls['paymentMethod'].setValidators([Validators.required]);
+      this.editSvCardForm.controls['amount'].setValidators([Validators.required]);
+      this.editSvCardForm.controls['threshold'].setValidators([Validators.required]);
+    } else {
+      this.editSvCardForm.controls['paymentMethod'].clearValidators();
+      this.editSvCardForm.controls['amount'].clearValidators();
+      this.editSvCardForm.controls['threshold'].clearValidators();
+    }
+    this.editSvCardForm.controls['paymentMethod'].updateValueAndValidity();
+    this.editSvCardForm.controls['amount'].updateValueAndValidity();
+    this.editSvCardForm.controls['threshold'].updateValueAndValidity();
+  }
+
+  updateSvc = () => {
+    const form = this.editSvCardForm.getRawValue();
+    const payload = {
+      threshold: form.threshold,
+      amount: form.amount,
+      ccid: form.paymentMethod?.uuid,
+      uuid: this.selectedSvCard?.uuid,
+      number: this.selectedSvCard?.number,
+      pin: this.selectedSvCard?.pin,
+      value: this.selectedSvCard?.value,
+      userId: this.profileDetails?.uuid,
+      isdefault: this.selectedSvCard?.isdefault,
+      isprimary: this.selectedSvCard?.isprimary,
+      design: this.selectedSvCard?.design,
+      autoreloadflag: form.autoreloadflag,
+    }
+    this.customerService.updateSvc(payload).subscribe(data => {
+      console.log(data);
+      this.loading = false;
+      this.hideDialog();
+      this.onSucessMessageEvent.emit(SuccessMessages.UpdateSvCardSuccessMessage);
+    });
   }
 
   addSvCard = () => {

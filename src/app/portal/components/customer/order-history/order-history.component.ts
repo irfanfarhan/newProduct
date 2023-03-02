@@ -42,8 +42,8 @@ export class OrderHistoryComponent implements OnInit {
 
   confirmRefund = (order: any) => {
     const payload = {
-      uuid: this.profileDetails?.uuid,
-      txRefNum: "6336F4ACDCE6E19B48595C108DFB4EA8B085548B",
+      uuid: order?.customerUuid,
+      txRefNum: order?.authReference,
       amount: order?.amount,
       orderID: order?.salesId,
       svCard: order?.storedValueNumber
