@@ -1,16 +1,38 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+import { MsalService } from '@azure/msal-angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransferService {
+  apiBaseUrl: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, 
+    private router: Router,
+    private authService: MsalService) { 
+    this.apiBaseUrl = window.location.origin;
+  }
 
-  getTransferBalance(searchValue: any) {
+  getTransferBalance(form: any) {
     return this.http.get<any>('assets/profileDetails.json');
   }
-}
 
+  public logout(): void {
+    localStorage.clear();
+    this.authService.logoutPopup({
+      mainWindowRedirectUri: "/"
+    });
+    setTimeout(() => {
+      this.router.navigate(['/']);
+    }, 100);
+  }
+
+  handleError(error: HttpErrorResponse) {
+    if (error?.status === 401) {
+      console.log('logout');
+      this.logout();
+    }
+  }
+}
