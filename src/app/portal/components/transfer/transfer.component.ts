@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 import { TransferService } from '../../services/transfer.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class TransferComponent implements OnInit {
   total = 0;
   balance = 0;
   constructor(private fb: FormBuilder,
-    private transferService: TransferService) { }
+    private transferService: TransferService, private _loading: LoadingService) { }
 
   ngOnInit(): void {
     this.transferBalanceForm = this.fb.group({
@@ -60,9 +61,9 @@ export class TransferComponent implements OnInit {
   }
 
   disabledAll = () => {
-    this.transferForm.controls.forEach((element, index: any ) => {
-      if(index !== (this.transferForm.controls.length - 1))
-      element.disable();
+    this.transferForm.controls.forEach((element, index: any) => {
+      if (index !== (this.transferForm.controls.length - 1))
+        element.disable();
     });
   }
 
@@ -72,6 +73,7 @@ export class TransferComponent implements OnInit {
   }
 
   getTransferBalance(payload: any, type: any, index: any) {
+    this._loading.toggleLoading(true);
     //this.transferService.getTransferBalance(payload).subscribe(data => {
     //console.log(data);
     if (type === 'single') {
@@ -83,6 +85,11 @@ export class TransferComponent implements OnInit {
       this.transferForm.controls[index].get('balance')?.setValue(12);
       this.updateTotalBalance();
     }
+    this._loading.toggleLoading(false);
+    // },(error: any) => {
+    //   this._loading.toggleLoading(false);
+    //   console.log(error); 
+    //   this.customerService.handleError(error);
     // });
   }
 

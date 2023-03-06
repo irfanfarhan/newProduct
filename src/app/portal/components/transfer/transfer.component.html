@@ -44,7 +44,8 @@
                                 <div class="d-flex justify-content-between w-100">
                                     <h5>Multiple Balance Transfer</h5>
                                     <button pButton label="Add" class="p-button-outlined fw-semibold p-button-rounded"
-                                        (click)="add()" icon="pi pi-plus"></button>
+                                        (click)="add()" [disabled]="transferForm.controls?.length >= 5"
+                                        icon="pi pi-plus"></button>
                                 </div>
                             </div>
                             <div class="p-datatable-wrapper">
