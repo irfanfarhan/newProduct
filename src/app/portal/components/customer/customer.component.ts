@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 import { ProfileSearchDropDown } from '../../constants/customer.constants';
 import { CustomerService } from '../../services/customers.service';
 
@@ -18,18 +19,25 @@ export class CustomerComponent implements OnInit {
   profileDetails: any;
   loading: boolean = true;
   searchOption: any;
-  constructor(private customerService: CustomerService) { }
+  constructor(private customerService: CustomerService, private _loading: LoadingService) { }
 
   ngOnInit(): void { 
     this.searchOption = ProfileSearchDropDown[0].code;
   }
 
   search = () => {
-    this.customerService.getProfileDetails(this.searchValue.value, this.searchOption).subscribe(data => {
-      console.log(data);
-      this.profileDetails = data;
-      this.loading = false;
-    });
+    this._loading.toggleLoading(true);
+    // this.customerService.getProfileDetails(this.searchValue.value, this.searchOption).subscribe(data => {
+    //   console.log(data);
+    //   this.profileDetails = data;
+    //   this.loading = false;
+    //   this._loading.toggleLoading(false);
+    // },(error: any) => {
+    //   this._loading.toggleLoading(false);
+    //   console.log(error); 
+    //   this.loading = false;
+    //   this.customerService.handleError(error);
+    // });
   }
 
   changeProfileSearch = () => {

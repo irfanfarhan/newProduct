@@ -12,24 +12,24 @@
                             <div class="p-fluid grid formgrid flex-nowrap">
                                 <div class="field col-6 md:col-4 d-flex align-items-center">
                                     <label for="number" class="form-label fw-semibold col-lg-4">PC Number : </label>
-                                    <input type="text" inputId="number" pKeyFilter="num"
-                                        formControlName="number" pInputText>
+                                    <input type="text" inputId="number" pKeyFilter="num" formControlName="number"
+                                        pInputText>
                                 </div>
                                 <div class="field col-6 md:col-4 d-flex align-items-center">
                                     <label for="pin" class="form-label fw-semibold col-lg-3 text-right pe-3">Pin :
                                     </label>
-                                    <input type="text" inputId="pin" pKeyFilter="num"
+                                    <input type="text" maxlength="6" inputId="pin" pKeyFilter="num"
                                         formControlName="pin" pInputText>
                                 </div>
                             </div>
-                            <div class="d-flex flex-row justify-content-between">
-                                <b>Balance: {{balance | currency: 'USD'}}</b>
+                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                <h3>Balance: <span class="text-success">{{balance | currency: 'USD'}}</span></h3>
                                 <div class="action-wrapper">
                                     <button pButton type="button" class="me-3 p-button-rounded" icon="pi pi-sync"
                                         label="Check Balance" (click)="transferBalance()"></button>
                                     <button pButton type="button" icon="pi pi-times"
-                                        class="p-button-outlined fw-semibold p-button-rounded"
-                                        (click)="clear()" label="Clear"></button>
+                                        class="p-button-outlined fw-semibold p-button-rounded" (click)="clear()"
+                                        label="Clear"></button>
                                 </div>
                             </div>
                         </form>
@@ -37,58 +37,69 @@
                 </div>
             </div>
             <div class="row mx-0">
-                <div class="col dataTableCustome">
-                    <p-table styleClass="main-table" #dt [value]="multiBalanceTransfer" dataKey="id">
-                        <ng-template pTemplate="caption">
-                            <div class="d-flex justify-content-between w-100">
-                                <h5>Multiple Balance Transfer</h5>
-                                <button pButton label="Add" class="p-button-outlined fw-semibold p-button-rounded"
-                                    (click)="add()" icon="pi pi-plus"></button>
+                <form [formGroup]="multiTransferBalanceForm">
+                    <div class="col dataTableCustome" formArrayName="transfer">
+                        <div class="main-table p-datatable plain-data-table mt-3">
+                            <div class="p-datatable-header">
+                                <div class="d-flex justify-content-between w-100">
+                                    <h5>Multiple Balance Transfer</h5>
+                                    <button pButton label="Add" class="p-button-outlined fw-semibold p-button-rounded"
+                                        (click)="add()" icon="pi pi-plus"></button>
+                                </div>
                             </div>
-                        </ng-template>
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th>PC Number
-                                </th>
-                                <th>SV Card
-                                </th>
-                                <th>Balance
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-transfer>
-                            <tr>
-                                <td>
-                                    <input type="text" pInputText class="p-inputtext-sm">
-                                </td>
-                                <td>
-                                    <input type="text" pInputText class="p-inputtext-sm">
-                                </td>
-                                <td class="d-flex align-items-center justify-content-between">
-                                    <span>$12</span>
-                                    <div>
-                                        <button pButton type="button" icon="pi pi-sync" class="p-button-rounded"
-                                            label="Check Balance"></button>
-                                        <button pButton pRipple type="button" *ngIf="multiBalanceTransfer?.length > 1"
-                                            class="p-button-outlined fw-semibold p-button-rounded p-button-danger ms-2"
-                                            icon="pi pi-trash" label="Delete" (click)="delete()"></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="emptymessage">
-                            <tr>
-                                <td colspan="5">No order history vailable.</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                    <div class="col-md-6 offset-md-6 d-flex flex-row justify-content-between align-items-center mt-3">
-                        <b [ngStyle]="{'padding-left':multiBalanceTransfer?.length === 1 ? '13.6rem' : '5.6rem' }">Total:
-                            {{total | currency:'USD'}}</b>
-                        <button pButton type="button" icon="pi pi-credit-card" class="p-button-rounded"
-                            label="Transfer"></button>
+                            <div class="p-datatable-wrapper">
+                                <table class="p-datatable-table w-100">
+                                    <thead class="p-datatable-thead">
+                                        <tr>
+                                            <th>PC Number</th>
+                                            <th>Pin</th>
+                                            <th>Balance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="p-datatable-body">
+                                        <tr *ngFor="let item of transferForm.controls; let i=index">
+                                            <ng-container [formGroupName]="i">
+                                                <td>
+                                                    <input type="text" inputId="number" pKeyFilter="num"
+                                                        formControlName="number"
+                                                        class="p-inputtext p-component p-element" pInputText>
+                                                </td>
+                                                <td>
+                                                    <input type="text" maxlength="6" inputId="pin" pKeyFilter="num"
+                                                        formControlName="pin" pInputText
+                                                        class="p-inputtext p-component p-element">
+                                                </td>
+                                                <td class="d-flex align-items-center justify-content-between">
+                                                    <span>{{item?.value?.balance | currency:'USD'}}</span>
+                                                    <div>
+                                                        <button pButton type="button" icon="pi pi-sync"
+                                                            class="p-button-rounded" label="Check Balance"
+                                                            (click)="checkBalance(i)"></button>
+                                                        <button pButton pRipple type="button"
+                                                            *ngIf="transferForm.controls?.length > 1"
+                                                            class="p-element p-button-outlined fw-semibold p-button-rounded p-button-danger ms-2 p-button p-component"
+                                                            icon="pi pi-trash" label="Delete"
+                                                            (click)="delete(i)"></button>
+                                                    </div>
+                                                </td>
+                                            </ng-container>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div
+                            class="col-md-6 offset-md-6 d-flex flex-row justify-content-between align-items-center mt-3">
+                            <h3
+                                [ngStyle]="{'padding-left': transferForm.controls?.length === 1 ? '14.6rem' : '6.6rem' }">
+                                Total:
+                                <span class="text-success">{{total | currency:'USD'}}</span>
+                            </h3>
+                            <button pButton type="button" icon="pi pi-credit-card" class="p-button-rounded"
+                                label="Transfer"></button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

@@ -1,101 +1,101 @@
 {
-    "uuid": "00ujk2xkz3sGAqPMj0h7",
-    "firstname": "Justin",
-    "lastname": "Kaufman",
-    "email": "jksfbay@gmail.com",
-    "phone": "3333333333",
-    "birthday": "1995-02-26T08:00:00",
-    "postalcode": "21075",
-    "emailOptIn": false,
-    "creditcards": {
+  "uuid": "00u1a4c4e1fe3Zkbz0h8",
+  "firstname": "Jmnn",
+  "lastname": "Loyaltyh",
+  "email": "jmtrain3@peets.com",
+  "phone": "",
+  "birthday": "2007-07-11T00:00:00",
+  "postalcode": "",
+  "emailOptIn": true,
+  "creditcards": {
       "list": [
-        {
-          "uuid": "34ef7c41-ba90-429c-ae8e-593f522229c3",
-          "cardnumber": "45454",
-          "token": "34952",
-          "displayname": "test",
-          "expires": "202408",
-          "cvv": null,
-          "billingaddress_uuid": "36668ab8-5ade-4189-bd58-f20eed16855a",
-          "billingAddress": {
-            "uuid": "36668ab8-5ade-4189-bd58-f20eed16855a",
-            "street1": null,
-            "street2": null,
-            "street3": null,
-            "attention": null,
-            "city": null,
-            "state": null,
-            "postalcode": "94608",
-            "country": null
+          {
+              "uuid": "f11a7f2e-d584-4c08-8767-e9a1b5e48b66",
+              "cardnumber": "5454",
+              "token": "204054132",
+              "displayname": "master ",
+              "expires": "202302",
+              "cvv": null,
+              "billingaddress_uuid": "8e68b030-0060-45d6-9575-8a315f2dc9eb",
+              "billingAddress": {
+                  "uuid": "8e68b030-0060-45d6-9575-8a315f2dc9eb",
+                  "street1": null,
+                  "street2": null,
+                  "street3": null,
+                  "attention": null,
+                  "city": null,
+                  "state": null,
+                  "postalcode": "66666",
+                  "country": null
+              },
+              "isdefault": false,
+              "cardtype": "MasterCard"
           },
-          "isdefault": false,
-          "cardtype": "MasterCard"
-        },
-        {
-          "uuid": "ba0bf714-4532-4efd-bec1-7070e36997a9",
-          "cardnumber": "1111",
-          "token": "204022262",
-          "displayname": "Eville",
-          "expires": "202312",
-          "cvv": null,
-          "billingaddress_uuid": "6764d296-2e3e-49f7-8b59-7df969ed9d5b",
-          "billingAddress": {
-            "uuid": "6764d296-2e3e-49f7-8b59-7df969ed9d5b",
-            "street1": null,
-            "street2": null,
-            "street3": null,
-            "attention": null,
-            "city": null,
-            "state": null,
-            "postalcode": "94608",
-            "country": null
-          },
-          "isdefault": false,
-          "cardtype": "Visa"
-        }
-      ]
-    },
-    "storedvaluecards": {
-      "list": [
-        {
-          "autoreload": {
-            "threshold": 10,
-            "amount": 10,
-            "source": "",
-            "startdate": null,
-            "enddate": null,
-            "active": true,
-            "billingZip": null
-          },
-          "uuid": "02af42ea-d18c-42e5-8573-646ffd715afe",
-          "number": "6307910262",
-          "pin": "517070",
-          "value": 0,
-          "isdefault": false,
-          "created": null,
-          "design": "1",
-          "isprimary": false
-        },
-        {
-            "autoreload": {
-              "threshold": 20,
-              "amount": 40,
-              "source": "",
-              "startdate": null,
-              "enddate": null,
-              "active": false,
-              "billingZip": null
-            },
-            "uuid": "02af42ea-d18c-42e5-8573-646ffd715afe",
-            "number": "6507611262",
-            "pin": "517170",
-            "value": 3,
-            "isdefault": false,
-            "created": null,
-            "design": "2",
-            "isprimary": true
+          {
+              "uuid": "c9e1e0ac-4e58-47f3-9ede-f50f996cf4e3",
+              "cardnumber": "1111",
+              "token": "203983170",
+              "displayname": "visa ",
+              "expires": "202302",
+              "cvv": null,
+              "billingaddress_uuid": "74c82da7-bec6-439b-8a3a-8400d35c3047",
+              "billingAddress": {
+                  "uuid": "74c82da7-bec6-439b-8a3a-8400d35c3047",
+                  "street1": null,
+                  "street2": null,
+                  "street3": null,
+                  "attention": null,
+                  "city": null,
+                  "state": null,
+                  "postalcode": "66666",
+                  "country": null
+              },
+              "isdefault": false,
+              "cardtype": "Visa"
           }
       ]
-    },
-    "loyaltyaccountnumber": "6307910262"
-  }
+  },
+  "storedvaluecards": {
+      "list": [
+          {
+              "autoreload": {
+                  "threshold": 0,
+                  "amount": 0,
+                  "source": "00000000-0000-0000-0000-000000000000",
+                  "startdate": null,
+                  "enddate": null,
+                  "active": false,
+                  "billingZip": null
+              },
+              "uuid": "988c504f-f8dc-4731-9da7-55f824c0d8e1",
+              "number": "81001000002877",
+              "pin": "939967",
+              "value": 25,
+              "isdefault": false,
+              "created": null,
+              "design": null,
+              "isprimary": false
+          },
+          {
+              "autoreload": {
+                  "threshold": 15,
+                  "amount": 20,
+                  "source": "204054132",
+                  "startdate": null,
+                  "enddate": null,
+                  "active": true,
+                  "billingZip": null
+              },
+              "uuid": "b1519f36-0ef1-403e-bd86-50c32d430c37",
+              "number": "801081688",
+              "pin": "327693",
+              "value": 20.98,
+              "isdefault": false,
+              "created": null,
+              "design": "1",
+              "isprimary": false
+          }
+      ]
+  },
+  "loyaltyaccountnumber": "801081688"
+}

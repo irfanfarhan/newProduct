@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TransferService } from '../../services/transfer.service';
 
 @Component({
@@ -9,8 +9,8 @@ import { TransferService } from '../../services/transfer.service';
 })
 export class TransferComponent implements OnInit {
   transferBalanceForm: FormGroup = this.fb.group({});
-  multiBalanceTransfer: any[] = [];
-  total: any = 12;
+  multiTransferBalanceForm: FormGroup = this.fb.group({});
+  total = 0;
   balance = 0;
   constructor(private fb: FormBuilder,
     private transferService: TransferService) { }
@@ -22,35 +22,83 @@ export class TransferComponent implements OnInit {
         Validators.pattern("^[0-9]*$")]),
       pin: new FormControl('', [
         Validators.required,
-        Validators.pattern(/[0-9]{5}/)]),
+        Validators.pattern(/[0-9]{6}/)])
     });
-    this.multiBalanceTransfer = [{ id: 0 }]
+    this.getMultiBalanceTransferForm();
+  }
+
+  getMultiBalanceTransferForm = () => {
+    this.multiTransferBalanceForm = this.fb.group({
+      transfer: this.fb.array([])
+    });
+    this.addNewMultiTransferForm();
+  }
+
+  newMultiTransferForm = () => {
+    return this.fb.group({
+      number: new FormControl({ value: '', disabled: false }, [
+        Validators.required,
+        Validators.pattern("^[0-9]*$")]),
+      pin: new FormControl({ value: '', disabled: false }, [
+        Validators.required,
+        Validators.pattern(/[0-9]{6}/)]),
+      balance: new FormControl({ value: 0, disabled: false })
+    })
+  }
+
+  addNewMultiTransferForm = () => {
+    return this.transferForm.push(this.newMultiTransferForm());
+  }
+
+  get transferForm(): FormArray {
+    return this.multiTransferBalanceForm.get('transfer') as FormArray;
   }
 
   add() {
-    this.multiBalanceTransfer.push({
-      id: this.multiBalanceTransfer.length + 1
-    });
-    this.total = 12 * this.multiBalanceTransfer.length;
+    this.addNewMultiTransferForm();
   }
 
   transferBalance = () => {
     const form = this.transferBalanceForm.getRawValue();
-    //this.transferService.getTransferBalance(form).subscribe(data => {
-      // console.log(data);
-      // this.balance = data;
-     this.transferBalanceForm.disable();
-    //});
+    this.getTransferBalance(form, 'single', null);
+  }
+
+  getTransferBalance(payload: any, type: any, index: any) {
+    //this.transferService.getTransferBalance(payload).subscribe(data => {
+    //console.log(data);
+    if (type === 'single') {
+      this.balance = 12;
+      this.transferBalanceForm.disable();
+    }
+    if (type === 'multiple') {
+      this.transferForm.controls[index].disable();
+      this.transferForm.controls[index].get('balance')?.setValue(12);
+      this.updateTotalBalance();
+    }
+    // });
+  }
+
+  updateTotalBalance = () => {
+    this.total = 0;
+    this.transferForm.controls.forEach((element) => {
+      console.log({ element });
+      this.total += element?.value.balance;
+    });
   }
 
   clear = () => {
-    this.transferBalanceForm.reset();
     this.transferBalanceForm.enable();
-    this.balance = 0;
   }
 
-  delete() {
-    this.multiBalanceTransfer.pop();
-    this.total = this.total - 12;
+  checkBalance = (index: any) => {
+    const form = this.transferForm.controls[index].getRawValue();
+    console.log(this.transferForm.controls[index].getRawValue());
+    this.getTransferBalance(form, 'multiple', index);
+  }
+
+  delete(index: number) {
+    this.transferForm.removeAt(index);
+    this.transferForm.controls[index - 1].enable();
+    this.updateTotalBalance();
   }
 }
