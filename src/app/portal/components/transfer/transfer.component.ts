@@ -56,6 +56,14 @@ export class TransferComponent implements OnInit {
 
   add() {
     this.addNewMultiTransferForm();
+    this.disabledAll();
+  }
+
+  disabledAll = () => {
+    this.transferForm.controls.forEach((element, index: any ) => {
+      if(index !== (this.transferForm.controls.length - 1))
+      element.disable();
+    });
   }
 
   transferBalance = () => {
