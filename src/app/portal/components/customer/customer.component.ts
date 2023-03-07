@@ -21,7 +21,7 @@ export class CustomerComponent implements OnInit {
   searchOption: any;
   constructor(private customerService: CustomerService, private _loading: LoadingService) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.searchOption = ProfileSearchDropDown[0].code;
   }
 
@@ -32,12 +32,12 @@ export class CustomerComponent implements OnInit {
       this.profileDetails = data;
       this.loading = false;
       this._loading.toggleLoading(false);
-    },(error: any) => {
+    }), (error: any) => {
       this._loading.toggleLoading(false);
-      console.log(error); 
+      console.log(error);
       this.loading = false;
       this.customerService.handleError(error);
-    });
+    };
   }
 
   changeProfileSearch = () => {

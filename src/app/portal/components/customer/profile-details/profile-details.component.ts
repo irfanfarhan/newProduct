@@ -6,6 +6,7 @@ import { SuccessMessages } from 'src/app/portal/constants/customer.constants';
 import { ProfileDetailModel } from 'src/app/portal/models/customer.model';
 import { CustomerService } from 'src/app/portal/services/customers.service';
 import { CustomValidators } from 'src/app/shared/pipes/custom-validators';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-profile-details',
@@ -24,7 +25,7 @@ export class ProfileDetailsComponent implements OnInit {
   selectedTabIndex = 0;
   messageShow: Message[] = [];
   @Output() getProfilesEvent: EventEmitter<any> = new EventEmitter<any>();
-  constructor(private fb: FormBuilder,
+  constructor(private fb: FormBuilder, private _loading: LoadingService,
     private confirmationService: ConfirmationService,
     private customerService: CustomerService) { }
 
@@ -109,13 +110,20 @@ export class ProfileDetailsComponent implements OnInit {
 
   updateProfile() {
     const payload = new ProfileDetailModel({ ...this.profileDetails, ...this.editProfileForm?.getRawValue() });
+    this._loading.toggleLoading(true);
     this.customerService.updateProfile(payload).subscribe(data => {
       console.log(data);
       this.profileDetails = data;
       this.loading = false;
       this.hideDialog();
+      this._loading.toggleLoading(false);
       this.onSucessMessage(SuccessMessages.ProfileUpdateSuccessMessage);
-    });
+    }), (error: any) => {
+      this._loading.toggleLoading(false);
+      console.log(error);
+      this.loading = false;
+      this.customerService.handleError(error);
+    };
   }
 
   resetPassword() {
@@ -126,12 +134,19 @@ export class ProfileDetailsComponent implements OnInit {
 
   updateProfilePassword() {
     const payload = this.resetPasswordForm?.getRawValue();
+    this._loading.toggleLoading(true);
     this.customerService.resetPassword(payload).subscribe(data => {
       console.log(data);
       this.loading = false;
       this.hideDialog();
+      this._loading.toggleLoading(false);
       this.onSucessMessage(SuccessMessages.ProfilePasswordSuccessMessage);
-    });
+    }), (error: any) => {
+      this._loading.toggleLoading(false);
+      console.log(error);
+      this.loading = false;
+      this.customerService.handleError(error);
+    };
   }
 
   deleteProfile() {
@@ -146,12 +161,19 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   confirmDeleteProfile = () => {
+    this._loading.toggleLoading(true);
     this.customerService.deleteProfile(this.profileDetails?.email).subscribe(data => {
       console.log(data);
       this.profileDetails = null;
       this.loading = false;
+      this._loading.toggleLoading(false);
       this.onSucessMessage(SuccessMessages.ProfileDeleteSuccessMessage);
-    });
+    }), (error: any) => {
+      this._loading.toggleLoading(false);
+      console.log(error);
+      this.loading = false;
+      this.customerService.handleError(error);
+    };
   }
 
   hideDialog() {
