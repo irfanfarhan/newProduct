@@ -27,17 +27,17 @@ export class CustomerComponent implements OnInit {
 
   search = () => {
     this._loading.toggleLoading(true);
-    // this.customerService.getProfileDetails(this.searchValue.value, this.searchOption).subscribe(data => {
-    //   console.log(data);
-    //   this.profileDetails = data;
-    //   this.loading = false;
-    //   this._loading.toggleLoading(false);
-    // },(error: any) => {
-    //   this._loading.toggleLoading(false);
-    //   console.log(error); 
-    //   this.loading = false;
-    //   this.customerService.handleError(error);
-    // });
+    this.customerService.getProfileDetails(this.searchValue.value, this.searchOption).subscribe(data => {
+      console.log(data);
+      this.profileDetails = data;
+      this.loading = false;
+      this._loading.toggleLoading(false);
+    },(error: any) => {
+      this._loading.toggleLoading(false);
+      console.log(error); 
+      this.loading = false;
+      this.customerService.handleError(error);
+    });
   }
 
   changeProfileSearch = () => {

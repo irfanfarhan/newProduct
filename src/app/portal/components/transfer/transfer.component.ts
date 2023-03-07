@@ -89,7 +89,7 @@ export class TransferComponent implements OnInit {
     // },(error: any) => {
     //   this._loading.toggleLoading(false);
     //   console.log(error); 
-    //   this.customerService.handleError(error);
+    //   this.transferService.handleError(error);
     // });
   }
 
@@ -97,7 +97,7 @@ export class TransferComponent implements OnInit {
     this.total = 0;
     this.transferForm.controls.forEach((element) => {
       console.log({ element });
-      this.total += element?.value.balance;
+      this.total += Number(element?.value.balance);
     });
   }
 
