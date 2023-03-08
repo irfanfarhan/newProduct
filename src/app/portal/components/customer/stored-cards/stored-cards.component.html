@@ -31,6 +31,7 @@
                 <th pSortableColumn="autoreload.threshold">Auto Reload Threshold
                     <p-sortIcon field="autoreload.threshold"></p-sortIcon>
                 </th>
+                <th>CC</th>
                 <th></th>
             </tr>
         </ng-template>
@@ -53,6 +54,9 @@
                 </td>
                 <td>
                     {{cards?.autoreload?.threshold}}
+                </td>
+                <td>
+                    {{getCC(cards?.autoreload?.source)}}
                 </td>
                 <td style="text-align:center">
                     <button pButton pRipple type="button" class="p-button-rounded p-button-text" icon="pi pi-ellipsis-v"

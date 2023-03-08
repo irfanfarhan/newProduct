@@ -214,4 +214,13 @@ export class StoredCardsComponent implements OnInit, OnChanges {
     this.transferBalanceDialog = false;
     this.addSvCardDialog = false;
   }
+
+  getCC = (source: any) => {
+    if (source) {
+      const value = this.creditCards.find((element: any) => element.token === source);
+      if(value) {
+        return value?.cardnumber;
+      }
+    }
+  }
 }
