@@ -86,11 +86,11 @@ export class TransferComponent implements OnInit {
       this.updateTotalBalance();
     }
     this._loading.toggleLoading(false);
-    // },(error: any) => {
+    // }),(error: any) => {
     //   this._loading.toggleLoading(false);
     //   console.log(error); 
     //   this.transferService.handleError(error);
-    // });
+    // };
   }
 
   updateTotalBalance = () => {
@@ -115,5 +115,35 @@ export class TransferComponent implements OnInit {
     this.transferForm.removeAt(index);
     this.transferForm.controls[index - 1].enable();
     this.updateTotalBalance();
+  }
+
+  transfer = () => {
+    this.transferForm.controls.forEach((element, index: any) => {
+      this.totalBalanceTransfer(element);
+    });
+    this.transferForm.clear();
+    this.getMultiBalanceTransferForm();
+    this.total = 0;
+  }
+
+  totalBalanceTransfer = (form: any) => {
+    this._loading.toggleLoading(true);
+    const transferTo = this.transferBalanceForm.getRawValue();
+    const transferFrom = form.getRawValue();
+    const payload = {
+      tocardNumber: transferTo?.number,
+      toPin: transferTo?.pin,
+      fromcardNumber: transferFrom?.number,
+      fromPin: transferFrom?.pin
+    }
+    console.log(payload);
+    this.transferService.transferBalance(payload).subscribe(data => {
+      console.log(data);
+      this._loading.toggleLoading(false);
+    }), (error: any) => {
+      this._loading.toggleLoading(false);
+      console.log(error);
+      this.transferService.handleError(error);
+    };
   }
 }

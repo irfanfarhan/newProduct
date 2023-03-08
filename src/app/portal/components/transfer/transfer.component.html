@@ -26,10 +26,11 @@
                                 <h3>Balance: <span class="text-success">{{balance | currency: 'USD'}}</span></h3>
                                 <div class="action-wrapper">
                                     <button pButton type="button" class="me-3 p-button-rounded" icon="pi pi-sync"
-                                        label="Check Balance" (click)="transferBalance()"></button>
+                                        label="Check Balance" (click)="transferBalance()"
+                                        [disabled]="transferBalanceForm.invalid"></button>
                                     <button pButton type="button" icon="pi pi-times"
                                         class="p-button-outlined fw-semibold p-button-rounded" (click)="clear()"
-                                        label="Clear"></button>
+                                        label="Clear" [disabled]="transferBalanceForm.invalid"></button>
                                 </div>
                             </div>
                         </form>
@@ -43,8 +44,8 @@
                             <div class="p-datatable-header">
                                 <div class="d-flex justify-content-between w-100">
                                     <h5>Multiple Balance Transfer</h5>
-                                    <button pButton label="Add" class="p-button-outlined fw-semibold p-button-rounded"
-                                        (click)="add()" [disabled]="transferForm.controls?.length >= 5"
+                                    <button pButton label="Add" class="fw-semibold p-button-rounded"
+                                        (click)="add()" [disabled]="transferForm.controls?.length >= 5 || multiTransferBalanceForm.invalid"
                                         icon="pi pi-plus"></button>
                                 </div>
                             </div>
@@ -75,7 +76,7 @@
                                                     <div>
                                                         <button pButton type="button" icon="pi pi-sync"
                                                             class="p-button-rounded" label="Check Balance"
-                                                            (click)="checkBalance(i)"></button>
+                                                            (click)="checkBalance(i)" [disabled]="multiTransferBalanceForm.invalid"></button>
                                                         <button pButton pRipple type="button"
                                                             *ngIf="transferForm.controls?.length > 1"
                                                             class="p-element p-button-outlined fw-semibold p-button-rounded p-button-danger ms-2 p-button p-component"
@@ -97,7 +98,7 @@
                                 <span class="text-success">{{total | currency:'USD'}}</span>
                             </h3>
                             <button pButton type="button" icon="pi pi-credit-card" class="p-button-rounded"
-                                label="Transfer"></button>
+                                label="Transfer" (click)="transfer()" [disabled]="total <= 0 ||  balance <= 0"></button>
                         </div>
                     </div>
                 </form>
