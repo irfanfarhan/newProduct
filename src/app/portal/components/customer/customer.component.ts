@@ -48,7 +48,7 @@ export class CustomerComponent implements OnInit {
 
   errorMessage = (message: any) => {
     this.messageShow = [
-      { severity: 'success', summary: 'Success', detail: message, life: 1000 }
+      { severity: 'error', summary: 'Error', detail: message, life: 1000 }
     ];
     const el: any = document.getElementById('mainId');
     el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
