@@ -187,7 +187,7 @@ export class ProfileDetailsComponent implements OnInit {
 
   onSucessMessage = (message: any) => {
     this.messageShow = [
-      { severity: 'success', summary: 'Success', detail: message, life: 1000 }
+      { severity: 'success', summary: 'Success', detail: message, life: 3000 }
     ];
     const el: any = document.getElementById('mainId');
     el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });

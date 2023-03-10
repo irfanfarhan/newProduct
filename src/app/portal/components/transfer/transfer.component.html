@@ -1,6 +1,6 @@
-<p-messages [(value)]="messageShow"></p-messages>
 <div class="container dtc-page-wrapper dtc-customer-page-wrapper">
     <div class="col-lg-12">
+        <p-messages [(value)]="messageShow"></p-messages>
         <div class="card">
             <div class="card-body">
                 <h5 class="col-lg-12 mb-4">Multiple Transfer Balance</h5>
@@ -45,8 +45,8 @@
                             <div class="p-datatable-header">
                                 <div class="d-flex justify-content-between w-100">
                                     <h5>Multiple Balance Transfer</h5>
-                                    <button pButton label="Add" class="fw-semibold p-button-rounded"
-                                        (click)="add()" [disabled]="transferForm.controls?.length >= 5 || multiTransferBalanceForm.invalid"
+                                    <button pButton label="Add" class="fw-semibold p-button-rounded" (click)="add()"
+                                        [disabled]="transferForm.controls?.length >= 5 || multiTransferBalanceForm.invalid"
                                         icon="pi pi-plus"></button>
                                 </div>
                             </div>
@@ -77,7 +77,8 @@
                                                     <div>
                                                         <button pButton type="button" icon="pi pi-sync"
                                                             class="p-button-rounded" label="Check Balance"
-                                                            (click)="checkBalance(i)" [disabled]="multiTransferBalanceForm.invalid"></button>
+                                                            (click)="checkBalance(i)"
+                                                            [disabled]="multiTransferBalanceForm.invalid"></button>
                                                         <button pButton pRipple type="button"
                                                             *ngIf="transferForm.controls?.length > 1"
                                                             class="p-element p-button-outlined fw-semibold p-button-rounded p-button-danger ms-2 p-button p-component"
