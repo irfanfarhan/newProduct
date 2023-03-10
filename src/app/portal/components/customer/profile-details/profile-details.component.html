@@ -61,7 +61,8 @@
                                 <span>Stored value cards</span>
                             </ng-template>
                             <app-stored-cards [profileDetails]="profileDetails"
-                                (onSucessMessageEvent)="onSucessMessage($event)"></app-stored-cards>
+                                (onSucessMessageEvent)="onSucessMessage($event)"
+                                (onErrorMessageEvent)="onErrorMessage($event)"></app-stored-cards>
                         </p-tabPanel>
                         <p-tabPanel header="Credit Cards">
                             <ng-template pTemplate="header">
@@ -69,7 +70,9 @@
                                 <span>Credit Cards</span>
                             </ng-template>
                             <ng-container *ngIf="selectedTabIndex === 1">
-                                <app-credit-cards [profileDetails]="profileDetails"></app-credit-cards>
+                                <app-credit-cards [profileDetails]="profileDetails"
+                                    (onSucessMessageEvent)="onSucessMessage($event)"
+                                    (onSucessMessageEvent)="onSucessMessage($event)"></app-credit-cards>
                             </ng-container>
                         </p-tabPanel>
                         <p-tabPanel header="Order History">
@@ -79,6 +82,7 @@
                             </ng-template>
                             <ng-container *ngIf="selectedTabIndex === 2">
                                 <app-order-history [profileDetails]="profileDetails" [email]="profileDetails?.email"
+                                    (onSucessMessageEvent)="onSucessMessage($event)"
                                     (onSucessMessageEvent)="onSucessMessage($event)"></app-order-history>
                             </ng-container>
                         </p-tabPanel>
@@ -89,6 +93,7 @@
                             </ng-template>
                             <ng-container *ngIf="selectedTabIndex === 3">
                                 <app-third-party [profileDetails]="profileDetails"
+                                    (onSucessMessageEvent)="onSucessMessage($event)"
                                     (onSucessMessageEvent)="onSucessMessage($event)"></app-third-party>
                             </ng-container>
                         </p-tabPanel>

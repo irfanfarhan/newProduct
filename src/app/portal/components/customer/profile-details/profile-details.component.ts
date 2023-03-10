@@ -112,12 +112,15 @@ export class ProfileDetailsComponent implements OnInit {
     const payload = new ProfileDetailModel({ ...this.profileDetails, ...this.editProfileForm?.getRawValue() });
     this._loading.toggleLoading(true);
     this.customerService.updateProfile(payload).subscribe(data => {
-      console.log(data);
-      this.profileDetails = data;
+      if (data?.message) {
+        this.onErrorMessage(data?.message);
+      } else {
+        this.profileDetails = data;
+        this.onSucessMessage(SuccessMessages.ProfileUpdateSuccessMessage);
+      }
       this.loading = false;
       this.hideDialog();
       this._loading.toggleLoading(false);
-      this.onSucessMessage(SuccessMessages.ProfileUpdateSuccessMessage);
     }), (error: any) => {
       this._loading.toggleLoading(false);
       console.log(error);
@@ -136,11 +139,14 @@ export class ProfileDetailsComponent implements OnInit {
     const payload = this.resetPasswordForm?.getRawValue();
     this._loading.toggleLoading(true);
     this.customerService.resetPassword(payload).subscribe(data => {
-      console.log(data);
+      if (data?.message) {
+        this.onErrorMessage(data?.message);
+      } else {
+        this.onSucessMessage(SuccessMessages.ProfilePasswordSuccessMessage);
+      }
       this.loading = false;
       this.hideDialog();
       this._loading.toggleLoading(false);
-      this.onSucessMessage(SuccessMessages.ProfilePasswordSuccessMessage);
     }), (error: any) => {
       this._loading.toggleLoading(false);
       console.log(error);
@@ -163,11 +169,14 @@ export class ProfileDetailsComponent implements OnInit {
   confirmDeleteProfile = () => {
     this._loading.toggleLoading(true);
     this.customerService.deleteProfile(this.profileDetails?.email).subscribe(data => {
-      console.log(data);
-      this.profileDetails = null;
+      if (data?.message) {
+        this.onErrorMessage(data?.message);
+      } else {
+        this.profileDetails = null;
+        this.onSucessMessage(SuccessMessages.ProfileDeleteSuccessMessage);
+      }
       this.loading = false;
       this._loading.toggleLoading(false);
-      this.onSucessMessage(SuccessMessages.ProfileDeleteSuccessMessage);
     }), (error: any) => {
       this._loading.toggleLoading(false);
       console.log(error);
@@ -187,13 +196,24 @@ export class ProfileDetailsComponent implements OnInit {
 
   onSucessMessage = (message: any) => {
     this.messageShow = [
-      { severity: 'success', summary: 'Success', detail: message, life: 3000 }
+      { severity: 'success', summary: 'Success', detail: message, life: 1000 }
     ];
     const el: any = document.getElementById('mainId');
     el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     setTimeout(() => {
       this.messageShow = [];
-    }, 3000);
+    }, 30000);
     this.getProfilesEvent.emit(true);
+  }
+
+  onErrorMessage = (message: any) => {
+    this.messageShow = [
+      { severity: 'error', summary: 'Error', detail: message, life: 1000 }
+    ];
+    const el: any = document.getElementById('mainId');
+    el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    setTimeout(() => {
+      this.messageShow = [];
+    }, 30000);
   }
 }

@@ -16,6 +16,7 @@ export class CreditCardsComponent implements OnInit, OnChanges {
   creditCards: any[] = [];
   messageShow: Message[] = [];
   @Output() onSucessMessageEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onErrorMessageEvent: EventEmitter<any> = new EventEmitter<any>();
   constructor(private confirmationService: ConfirmationService,
     private customerService: CustomerService, private _loading: LoadingService) { }
 
@@ -44,10 +45,13 @@ export class CreditCardsComponent implements OnInit, OnChanges {
       ccid: card?.uuid
     };
     this._loading.toggleLoading(true);
-    this.customerService.deleteCreditCard(payload).subscribe(data => {
-      console.log(data);
+    this.customerService.deleteCreditCard(payload).subscribe((data: any) => {
+      if (data?.message) {
+        this.onErrorMessageEvent.emit(data?.message);
+      } else {
+        this.onSucessMessageEvent.emit(SuccessMessages.CreditCardDeleteSuccessMessage);
+      }
       this.loading = false;
-      this.onSucessMessageEvent.emit(SuccessMessages.CreditCardDeleteSuccessMessage);
       this._loading.toggleLoading(false);
     }), (error: any) => {
       this._loading.toggleLoading(false);

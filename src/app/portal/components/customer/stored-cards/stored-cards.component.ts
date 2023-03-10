@@ -26,6 +26,7 @@ export class StoredCardsComponent implements OnInit, OnChanges {
   thresholdDropdown: any[] = [];
   amountDropdown: any[] = AmountDropdown;
   @Output() onSucessMessageEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onErrorMessageEvent: EventEmitter<any> = new EventEmitter<any>();
   selectedSvCard: any;
   creditCards: any;
   constructor(private fb: FormBuilder,
@@ -98,11 +99,14 @@ export class StoredCardsComponent implements OnInit, OnChanges {
       svid: this.selectedSvCard?.uuid
     };
     this._loading.toggleLoading(true);
-    this.customerService.deleteSvCard(payload).subscribe(data => {
-      console.log(data);
+    this.customerService.deleteSvCard(payload).subscribe((data: any) => {
+      if (data?.message) {
+        this.onErrorMessageEvent.emit(data?.message);
+      } else {
+        this.onSucessMessageEvent.emit(SuccessMessages.SvCardDeleteSuccessMessage);
+      }
       this.loading = false;
       this._loading.toggleLoading(false);
-      this.onSucessMessageEvent.emit(SuccessMessages.SvCardDeleteSuccessMessage);
     }), (error: any) => {
       this._loading.toggleLoading(false);
       console.log(error);
@@ -163,11 +167,14 @@ export class StoredCardsComponent implements OnInit, OnChanges {
     };
     this._loading.toggleLoading(true);
     this.customerService.updateSvc(payload).subscribe(data => {
-      console.log(data);
+      if (data?.message) {
+        this.onErrorMessageEvent.emit(data?.message);
+      } else {
+        this.onSucessMessageEvent.emit(SuccessMessages.UpdateSvCardSuccessMessage);
+      }
       this.loading = false;
       this.hideDialog();
       this._loading.toggleLoading(false);
-      this.onSucessMessageEvent.emit(SuccessMessages.UpdateSvCardSuccessMessage);
     }), (error: any) => {
       this._loading.toggleLoading(false);
       console.log(error);
@@ -188,11 +195,14 @@ export class StoredCardsComponent implements OnInit, OnChanges {
     };
     this._loading.toggleLoading(true);
     this.customerService.addSvc(payload).subscribe(data => {
-      console.log(data);
+      if (data?.message) {
+        this.onErrorMessageEvent.emit(data?.message);
+      } else {
+        this.onSucessMessageEvent.emit(SuccessMessages.AddSvCardSuccessMessage);
+      }
       this.loading = false;
       this.hideDialog();
       this._loading.toggleLoading(false);
-      this.onSucessMessageEvent.emit(SuccessMessages.AddSvCardSuccessMessage);
     }), (error: any) => {
       this._loading.toggleLoading(false);
       console.log(error);
@@ -218,7 +228,7 @@ export class StoredCardsComponent implements OnInit, OnChanges {
   getCC = (source: any) => {
     if (source) {
       const value = this.creditCards.find((element: any) => element.token === source);
-      if(value) {
+      if (value) {
         return value?.cardnumber;
       }
     }

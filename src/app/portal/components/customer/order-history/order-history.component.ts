@@ -16,6 +16,7 @@ export class OrderHistoryComponent implements OnInit {
   @Input() email: any;
   @Input() profileDetails: any;
   @Output() onSucessMessageEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onErrorMessageEvent: EventEmitter<any> = new EventEmitter<any>();
   constructor(private customerService: CustomerService,
     private confirmationService: ConfirmationService, private _loading: LoadingService) { }
 
@@ -25,8 +26,13 @@ export class OrderHistoryComponent implements OnInit {
 
   getOrderHistory = () => {
     this._loading.toggleLoading(true);
+    this.orderHistory = [];
     this.customerService.getOrderHistory(this.email).subscribe(data => {
-      this.orderHistory = data;
+      if (data?.message) {
+        this.onErrorMessageEvent.emit(data?.message);
+      } else {
+        this.orderHistory = data;
+      }
       this.loading = false;
       this._loading.toggleLoading(false);
     }), (error: any) => {
@@ -58,10 +64,14 @@ export class OrderHistoryComponent implements OnInit {
     };
     this._loading.toggleLoading(true);
     this.customerService.refundOder(payload).subscribe(data => {
-      console.log(data);
+      if (data?.message) {
+        this.onErrorMessageEvent.emit(data?.message);
+      } else {
+        this.getOrderHistory();
+        this.onSucessMessageEvent.emit(SuccessMessages.RefundSuccessMessage);
+      }
       this.loading = false;
       this._loading.toggleLoading(false);
-      this.onSucessMessageEvent.emit(SuccessMessages.RefundSuccessMessage);
     }), (error: any) => {
       this._loading.toggleLoading(false);
       console.log(error);
