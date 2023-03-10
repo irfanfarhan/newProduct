@@ -14,7 +14,7 @@
                         <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input type="text" pInputText placeholder="Search by {{selectedValue}}"
-                                [formControl]="searchValue" (keyup.enter)="search()" />
+                                [formControl]="searchValue" pKeyFilter="num" [pValidateOnly]="(selectedValue === 'Email')" (keyup.enter)="search()" />
                         </span>
                     </div>
                     <div class="col-lg-2 px-0">
