@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Message } from 'primeng/api';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { ProfileSearchDropDown } from '../../constants/customer.constants';
 import { CustomerService } from '../../services/customers.service';
@@ -19,6 +20,7 @@ export class CustomerComponent implements OnInit {
   profileDetails: any;
   loading: boolean = true;
   searchOption: any;
+  messageShow: Message[] = [];
   constructor(private customerService: CustomerService, private _loading: LoadingService) { }
 
   ngOnInit(): void {
@@ -27,9 +29,13 @@ export class CustomerComponent implements OnInit {
 
   search = () => {
     this._loading.toggleLoading(true);
+    this.profileDetails = null;
     this.customerService.getProfileDetails(this.searchValue.value, this.searchOption).subscribe(data => {
-      console.log(data);
-      this.profileDetails = data;
+      if (data?.message) {
+        this.errorMessage(data?.message);
+      } else {
+        this.profileDetails = data;
+      }
       this.loading = false;
       this._loading.toggleLoading(false);
     }), (error: any) => {
@@ -38,6 +44,17 @@ export class CustomerComponent implements OnInit {
       this.loading = false;
       this.customerService.handleError(error);
     };
+  }
+
+  errorMessage = (message: any) => {
+    this.messageShow = [
+      { severity: 'success', summary: 'Success', detail: message, life: 1000 }
+    ];
+    const el: any = document.getElementById('mainId');
+    el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    setTimeout(() => {
+      this.messageShow = [];
+    }, 3000);
   }
 
   changeProfileSearch = () => {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Message } from 'primeng/api';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { TransferService } from '../../services/transfer.service';
 
@@ -13,6 +14,7 @@ export class TransferComponent implements OnInit {
   multiTransferBalanceForm: FormGroup = this.fb.group({});
   total = 0;
   balance = 0;
+  messageShow: Message[] = [];
   constructor(private fb: FormBuilder,
     private transferService: TransferService, private _loading: LoadingService) { }
 
@@ -74,23 +76,37 @@ export class TransferComponent implements OnInit {
 
   getTransferBalance(payload: any, type: any, index: any) {
     this._loading.toggleLoading(true);
-    //this.transferService.getTransferBalance(payload).subscribe(data => {
-    //console.log(data);
-    if (type === 'single') {
-      this.balance = 12;
-      this.transferBalanceForm.disable();
-    }
-    if (type === 'multiple') {
-      this.transferForm.controls[index].disable();
-      this.transferForm.controls[index].get('balance')?.setValue(12);
-      this.updateTotalBalance();
-    }
-    this._loading.toggleLoading(false);
-    // }),(error: any) => {
-    //   this._loading.toggleLoading(false);
-    //   console.log(error); 
-    //   this.transferService.handleError(error);
-    // };
+    this.transferService.getTransferBalance(payload).subscribe(data => {
+      if (data?.message) {
+        this.errorMessage(data?.message);
+      } else {
+        if (type === 'single') {
+          this.balance = data;
+          this.transferBalanceForm.disable();
+        }
+        if (type === 'multiple') {
+          this.transferForm.controls[index].disable();
+          this.transferForm.controls[index].get('balance')?.setValue(data);
+          this.updateTotalBalance();
+        }
+      }
+      this._loading.toggleLoading(false);
+    }), (error: any) => {
+      this._loading.toggleLoading(false);
+      console.log(error);
+      this.transferService.handleError(error);
+    };
+  }
+
+  errorMessage = (message: any) => {
+    this.messageShow = [
+      { severity: 'error', summary: 'Error', detail: message, life: 1000 }
+    ];
+    const el: any = document.getElementById('mainId');
+    el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    setTimeout(() => {
+      this.messageShow = [];
+    }, 3000);
   }
 
   updateTotalBalance = () => {
