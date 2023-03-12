@@ -72,7 +72,7 @@
                             <ng-container *ngIf="selectedTabIndex === 1">
                                 <app-credit-cards [profileDetails]="profileDetails"
                                     (onSucessMessageEvent)="onSucessMessage($event)"
-                                    (onSucessMessageEvent)="onSucessMessage($event)"></app-credit-cards>
+                                    (onErrorMessageEvent)="onErrorMessage($event)"></app-credit-cards>
                             </ng-container>
                         </p-tabPanel>
                         <p-tabPanel header="Order History">
@@ -83,7 +83,7 @@
                             <ng-container *ngIf="selectedTabIndex === 2">
                                 <app-order-history [profileDetails]="profileDetails" [email]="profileDetails?.email"
                                     (onSucessMessageEvent)="onSucessMessage($event)"
-                                    (onSucessMessageEvent)="onSucessMessage($event)"></app-order-history>
+                                    (onErrorMessageEvent)="onErrorMessage($event)"></app-order-history>
                             </ng-container>
                         </p-tabPanel>
                         <p-tabPanel header="Third Party">
@@ -94,7 +94,7 @@
                             <ng-container *ngIf="selectedTabIndex === 3">
                                 <app-third-party [profileDetails]="profileDetails"
                                     (onSucessMessageEvent)="onSucessMessage($event)"
-                                    (onSucessMessageEvent)="onSucessMessage($event)"></app-third-party>
+                                    (onErrorMessageEvent)="onErrorMessage($event)"></app-third-party>
                             </ng-container>
                         </p-tabPanel>
                     </p-tabView>
