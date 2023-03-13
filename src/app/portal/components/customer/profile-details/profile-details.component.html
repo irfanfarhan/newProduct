@@ -113,29 +113,41 @@
                             <label for="firstname">First Name</label>
                             <input type="text" inputId="firstname" formControlName="firstname" pInputText
                                 pKeyFilter="alpha">
+                            <small id="username2-help" *ngIf="editProfileFormControl?.firstname.errors?.['required']"
+                                class="p-error block">First Name is required.</small>
                         </div>
                         <div class="field md:col-6 mb-0">
                             <label for="lastname">Last Name</label>
                             <input type="text" inputId="lastname" formControlName="lastname" pInputText
                                 pKeyFilter="alpha">
+                            <small id="username2-help" *ngIf="editProfileFormControl?.lastname.errors?.['required']"
+                                class="p-error block">Last Name is required.</small>
                         </div>
                         <div class="field md:col-6 mb-0">
                             <label for="email">Email</label>
                             <input type="text" inputId="email" formControlName="email" pInputText>
+                            <small id="username2-help" *ngIf="editProfileFormControl?.email.errors?.['required']"
+                                class="p-error block">Email is required.</small>
                         </div>
                         <div class="field md:col-6 mb-0">
                             <label for="phone">Phone Number</label>
                             <input type="text" inputId="phone" formControlName="phone" pInputText pKeyFilter="num">
+                            <small id="username2-help" *ngIf="editProfileFormControl?.phone.errors?.['pattern']"
+                                class="p-error block">Enter valid Phone Number.</small>
                         </div>
                         <div class="field md:col-6 mb-0">
                             <label for="postalcode">Zip</label>
                             <input type="text" inputId="postalcode" formControlName="postalcode" pInputText
                                 pKeyFilter="num">
+                            <small id="username2-help" *ngIf="editProfileFormControl?.postalcode.errors?.['pattern']"
+                                class="p-error block">Enter Valid Zip.</small>
                         </div>
                         <div class="field md:col-6 mb-0">
                             <label for="birthday">Birthday</label>
                             <p-calendar [showIcon]="true" appendTo="body" inputId="icon" inputId="birthday"
                                 formControlName="birthday"></p-calendar>
+                            <small id="username2-help" *ngIf="editProfileFormControl?.birthday.errors?.['required']"
+                                class="p-error block">Birthday is required.</small>
                         </div>
                         <div class="field md:col-6 mb-0">
                             <label for="emailOptIn" class="mb-0 me-3">Email Opt-In</label>

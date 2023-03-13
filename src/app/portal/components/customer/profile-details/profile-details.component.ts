@@ -43,10 +43,8 @@ export class ProfileDetailsComponent implements OnInit {
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       phone: new FormControl('', [
-        Validators.required,
         Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
       postalcode: new FormControl('', [
-        Validators.required,
         Validators.pattern(/[0-9]{5}/)]),
       birthday: ['', Validators.required],
       emailOptIn: ['', Validators.required]
