@@ -29,7 +29,6 @@ export class CustomerComponent implements OnInit {
 
   search = () => {
     this._loading.toggleLoading(true);
-    this.profileDetails = null;
     this.customerService.getProfileDetails(this.searchValue.value, this.searchOption).subscribe(data => {
       if (data?.message) {
         this.errorMessage(data?.message);

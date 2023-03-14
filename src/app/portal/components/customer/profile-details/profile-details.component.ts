@@ -47,7 +47,7 @@ export class ProfileDetailsComponent implements OnInit {
       postalcode: new FormControl('', [
         Validators.pattern(/[0-9]{5}/)]),
       birthday: ['', Validators.required],
-      emailOptIn: ['', Validators.required]
+      emailOptIn: ['']
     });
     this.profileDetailsItems = [
       {
