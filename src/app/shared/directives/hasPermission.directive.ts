@@ -5,6 +5,7 @@ import {
     ViewContainerRef,
     OnInit
 } from '@angular/core';
+import { MsalService } from '@azure/msal-angular';
 
 @Directive({
     selector: '[hasPermission]'
@@ -17,7 +18,8 @@ export class HasPermissionDirective implements OnInit {
 
     constructor(
         private templateRef: TemplateRef<any>,
-        private viewContainer: ViewContainerRef
+        private viewContainer: ViewContainerRef,
+        private authService: MsalService
     ) {
 
     }
@@ -30,6 +32,7 @@ export class HasPermissionDirective implements OnInit {
                 "customer-service-admin"
             ]
         }
+        let activeAccount = this.authService.instance.getActiveAccount();
         this.updateView();
     }
 

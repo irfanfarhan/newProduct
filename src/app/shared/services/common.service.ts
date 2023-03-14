@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MsalService } from '@azure/msal-angular';
 
 @Injectable({
   providedIn: 'root'
@@ -6,10 +7,11 @@ import { Injectable } from '@angular/core';
 export class CommonService {
   roles: any;
 
-  constructor() { }
+  constructor(private authService: MsalService) { }
 
   checkPermission(permissions: any) {
     let hasPermission = false;
+    let activeAccount = this.authService.instance.getActiveAccount();
     this.roles = {
       "roles": [
         "customer-service",

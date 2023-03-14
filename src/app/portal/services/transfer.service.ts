@@ -23,6 +23,10 @@ export class TransferService {
     return this.http.post<any>('assets/profileDetails.json', payload);
   }
 
+  balanceTransfer(payload: any) {
+    return this.http.post<any>('assets/profileDetails.json', payload);
+  }
+
   public logout(): void {
     localStorage.clear();
     this.authService.logoutPopup({

@@ -4,6 +4,7 @@ import { ConfirmationService, Message } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AmountDropdown, SuccessMessages } from 'src/app/portal/constants/customer.constants';
 import { CustomerService } from 'src/app/portal/services/customers.service';
+import { TransferService } from 'src/app/portal/services/transfer.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
@@ -29,8 +30,9 @@ export class StoredCardsComponent implements OnInit, OnChanges {
   @Output() onErrorMessageEvent: EventEmitter<any> = new EventEmitter<any>();
   selectedSvCard: any;
   creditCards: any;
+  balance = 0;
   constructor(private fb: FormBuilder,
-    private confirmationService: ConfirmationService,
+    private confirmationService: ConfirmationService, private transferService: TransferService,
     private customerService: CustomerService, private _loading: LoadingService) { }
 
   ngOnInit(): void {
@@ -69,9 +71,9 @@ export class StoredCardsComponent implements OnInit, OnChanges {
       threshold: ['']
     });
     this.transferBalanceForm = this.fb.group({
-      toCardNumber: ['', Validators.required],
-      fromCardNumber: ['', Validators.required],
-      fromPin: ['', Validators.required]
+      tocard: ['', Validators.required],
+      fromcard: ['', Validators.required],
+      frompin: ['', Validators.required]
     });
   }
 
@@ -217,6 +219,11 @@ export class StoredCardsComponent implements OnInit, OnChanges {
 
   transferBalance = () => {
     this.transferBalanceDialog = true;
+    this.transferBalanceForm.setValue({
+      tocard: this.selectedSvCard?.number,
+      fromcard: '',
+      frompin: ''
+    });
   }
 
   hideDialog = () => {
@@ -232,5 +239,48 @@ export class StoredCardsComponent implements OnInit, OnChanges {
         return value?.cardnumber;
       }
     }
+  }
+
+  getTransferBalance() {
+    const form = this.transferBalanceForm.getRawValue();
+    const payload = {
+      number: form.fromcard,
+      pin: form.frompin
+    }
+    this._loading.toggleLoading(true);
+    this.transferService.getTransferBalance(payload).subscribe(data => {
+      if (data?.message) {
+        this.onErrorMessageEvent.emit(data?.message);
+      } else {
+        this.balance = data;
+      }
+      this._loading.toggleLoading(false);
+    }), (error: any) => {
+      this._loading.toggleLoading(false);
+      console.log(error);
+      this.transferService.handleError(error);
+    };
+  }
+
+  transferBalanceEvent = () => {
+    if (this.balance) {
+      this.totalBalanceTransfer();
+    } else {
+      this.getTransferBalance();
+    }
+  }
+
+  totalBalanceTransfer = () => {
+    this._loading.toggleLoading(true);
+    const payload = this.transferBalanceForm.getRawValue();
+    console.log(payload);
+    this.transferService.balanceTransfer(payload).subscribe(data => {
+      console.log(data);
+      this._loading.toggleLoading(false);
+    }), (error: any) => {
+      this._loading.toggleLoading(false);
+      console.log(error);
+      this.transferService.handleError(error);
+    };
   }
 }
