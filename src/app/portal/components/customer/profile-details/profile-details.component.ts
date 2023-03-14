@@ -6,6 +6,7 @@ import { SuccessMessages } from 'src/app/portal/constants/customer.constants';
 import { ProfileDetailModel } from 'src/app/portal/models/customer.model';
 import { CustomerService } from 'src/app/portal/services/customers.service';
 import { CustomValidators } from 'src/app/shared/pipes/custom-validators';
+import { CommonService } from 'src/app/shared/services/common.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
@@ -27,7 +28,7 @@ export class ProfileDetailsComponent implements OnInit {
   @Output() getProfilesEvent: EventEmitter<any> = new EventEmitter<any>();
   constructor(private fb: FormBuilder, private _loading: LoadingService,
     private confirmationService: ConfirmationService,
-    private customerService: CustomerService) { }
+    private customerService: CustomerService, private commonService: CommonService) { }
 
   ngOnInit(): void {
     this.getProfileDetails();
@@ -66,6 +67,9 @@ export class ProfileDetailsComponent implements OnInit {
         }
       }
     ];
+    if (!this.commonService.checkPermission(['customer-service-admin'])) {
+      this.profileDetailsItems.pop();
+    }
   }
 
   get editProfileFormControl() {

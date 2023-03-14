@@ -31,7 +31,8 @@ import { TabViewModule } from 'primeng/tabview'
 import { CheckboxModule } from 'primeng/checkbox';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { KeyFilterModule } from 'primeng/keyfilter';
-import {PasswordModule} from 'primeng/password';
+import { PasswordModule } from 'primeng/password';
+import { HasPermissionDirective } from './directives/hasPermission.directive';
 
 export const sharedModule = [
   CommonModule,
@@ -68,13 +69,13 @@ export const sharedModule = [
   PasswordModule];
 
 @NgModule({
-  declarations: [CommonComponent, MonthPipePipe, LoadingComponent],
+  declarations: [CommonComponent, MonthPipePipe, LoadingComponent, HasPermissionDirective],
   imports: [
     ...sharedModule
   ],
   exports: [
     ...sharedModule,
-    CommonComponent, MonthPipePipe, LoadingComponent
+    CommonComponent, MonthPipePipe, LoadingComponent, HasPermissionDirective
   ]
 })
 export class SharedModule { }

@@ -7,15 +7,15 @@
         </i>
         CX Loyalty Admin Tool
       </h1>
-      <ng-container *ngIf="loginDisplay">
+      <ng-container *ngIf="!loginDisplay">
         <ul class="nav navbar navbar-right main-nav">
-          <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <li *hasPermission="['customer-service', 'customer-service-admin']" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <a class="nav-link" [routerLink]="['/portal/customer']">Customer </a><span>|</span>
           </li>
-          <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <li *hasPermission="['customer-service', 'customer-service-admin']"  class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <a class="nav-link" [routerLink]="['/portal/transfer']">Transfer </a><span>|</span>
           </li>
-          <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <li *hasPermission="['olo-admin']" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <a class="nav-link" [routerLink]="['/portal/restaurants']">Restaurants</a>
           </li>
         </ul>
@@ -48,7 +48,7 @@
           </li>
         </ul>
       </ng-container>
-      <ng-container *ngIf="!loginDisplay">
+      <ng-container *ngIf="loginDisplay">
         <ul class="nav navbar-nav navbar-right">
           <li>
             <p class="navbar-text m-0 pr-3 fs-5"><a class="text-decoration-none" href="javascript:void(0)"
