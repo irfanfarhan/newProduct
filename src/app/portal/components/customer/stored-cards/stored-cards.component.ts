@@ -219,11 +219,9 @@ export class StoredCardsComponent implements OnInit, OnChanges {
 
   transferBalance = () => {
     this.transferBalanceDialog = true;
-    this.transferBalanceForm.setValue({
-      tocard: this.selectedSvCard?.number,
-      fromcard: '',
-      frompin: ''
-    });
+    this.balance = 0;
+    this.transferBalanceForm.reset();
+    this.transferBalanceForm.get('tocard')?.patchValue(this.selectedSvCard?.number);
   }
 
   hideDialog = () => {
