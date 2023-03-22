@@ -19,13 +19,14 @@ export const SuccessMessages = {
     AddSvCardSuccessMessage: 'Stored Card added successfully',
     SvCardDeleteSuccessMessage: 'Stored Card has been deleted successfully',
     UpdateSvCardSuccessMessage: 'Stored Card has been updated successfully',
+    BalanceTransferSuccessMessage: 'Balance Transfer has been updated successfully',
 }
 
 export const StatusesDropDown = [
-    { label: 'Approve', value: 'approve', code: 'A' },
-    { label: 'Review', value: 'review', code: 'R' },
-    { label: 'Decline', value: 'decline', code: 'D' },
-    { label: 'None', value: 'NA', code: null }
+    { label: 'Approve', value: 'approve', code: 'A', inactive: false},
+    { label: 'Review', value: 'review', code: 'R', inactive: false },
+    { label: 'Decline', value: 'decline', code: 'D', inactive: false },
+    { label: 'None', value: 'NA', code: null, inactive: true }
 ];
 
 export const AmountDropdown = [

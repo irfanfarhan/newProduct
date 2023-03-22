@@ -275,6 +275,11 @@ export class StoredCardsComponent implements OnInit, OnChanges {
     const payload = this.transferBalanceForm.getRawValue();
     console.log(payload);
     this.transferService.balanceTransfer(payload).subscribe(data => {
+      if (data?.message) {
+        this.onErrorMessageEvent.emit(data?.message);
+      } else {
+        this.onSucessMessageEvent.emit(SuccessMessages.BalanceTransferSuccessMessage);
+      }
       console.log(data);
       this._loading.toggleLoading(false);
     }), (error: any) => {

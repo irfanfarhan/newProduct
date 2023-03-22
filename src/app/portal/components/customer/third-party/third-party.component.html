@@ -18,7 +18,7 @@
     <div class="card-body col-lg-12">
         <div class="row  mx-0">
             <div class="form-group d-flex col-12">
-                <p-selectButton [options]="statuses" [(ngModel)]="whitelist" optionLabel="label" optionValue="value"
+                <p-selectButton [options]="statuses" [(ngModel)]="whitelist" optionLabel="label" optionDisabled="inactive" optionValue="value"
                     (onOptionClick)="selectedKount($event)"></p-selectButton>
             </div>
         </div>

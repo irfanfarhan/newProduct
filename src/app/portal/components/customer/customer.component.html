@@ -13,8 +13,14 @@
                     <div class="col-lg-7">
                         <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input type="text" pInputText placeholder="Search by {{selectedValue}}"
-                                [formControl]="searchValue" pKeyFilter="num" [pValidateOnly]="(selectedValue === 'Email')" (keyup.enter)="search()" />
+                            <ng-container *ngIf="selectedValue === 'Email'">
+                                <input type="text" pInputText placeholder="Search by {{selectedValue}}"
+                                    [formControl]="searchValue" (keyup.enter)="search()" />
+                            </ng-container>
+                            <ng-container *ngIf="selectedValue === 'Loyalty Card'">
+                                <input type="text" pInputText placeholder="Search by {{selectedValue}}"
+                                    [formControl]="searchValue" pKeyFilter="num" (keyup.enter)="search()" />
+                            </ng-container>
                         </span>
                     </div>
                     <div class="col-lg-2 px-0">
