@@ -281,6 +281,7 @@ export class StoredCardsComponent implements OnInit, OnChanges {
         this.onSucessMessageEvent.emit(SuccessMessages.BalanceTransferSuccessMessage);
       }
       console.log(data);
+      this.hideDialog();
       this._loading.toggleLoading(false);
     }), (error: any) => {
       this._loading.toggleLoading(false);
