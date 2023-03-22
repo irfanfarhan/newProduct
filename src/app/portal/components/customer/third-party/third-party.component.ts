@@ -66,7 +66,8 @@ export class ThirdPartyComponent implements OnInit {
         this.onErrorMessageEvent.emit(data?.message);
       } else {
         this.getListrakSubState();
-        this.onSucessMessageEvent.emit(SuccessMessages.UpdateListrackSuccessMessage);
+        const message = `${event?.option.value} to listrak`;
+        this.onSucessMessageEvent.emit(message);
       }
       this.loading = false;
       this._loading.toggleLoading(false);
@@ -90,7 +91,8 @@ export class ThirdPartyComponent implements OnInit {
         this.onErrorMessageEvent.emit(data?.message);
       } else {
         this.getKountStatus();
-        this.onSucessMessageEvent.emit(SuccessMessages.KountUpdateSuccessMessage);
+        const message = `${SuccessMessages.KountUpdateSuccessMessage} ${event?.option.label}`;
+        this.onSucessMessageEvent.emit(message);
       }
       this.loading = false;
       this._loading.toggleLoading(false);

@@ -101,7 +101,7 @@
                                 <ng-template pTemplate="selectedItem">
                                     <div class="d-flex align-items-center" *ngIf="editSvCardForm.get('paymentMethod')">
                                         <img width="30" height="28"
-                                            src="assets/images/{{editSvCardForm.get('paymentMethod')?.value?.cardtype}}.svg"
+                                            src="assets/images/{{editSvCardForm.get('paymentMethod')?.value?.cardtype?.toLowerCase()}}.svg"
                                             alt="{{editSvCardForm.get('paymentMethod').value?.cardtype}}" />
                                         <div class="pl-2">{{editSvCardForm.get('paymentMethod')?.value?.displayname}}
                                             ({{editSvCardForm.get('paymentMethod')?.value?.cardnumber}})</div>
@@ -109,7 +109,7 @@
                                 </ng-template>
                                 <ng-template let-card pTemplate="item">
                                     <div class="d-flex align-items-center">
-                                        <img width="40" height="40" src="assets/images/{{card?.cardtype}}.svg"
+                                        <img width="40" height="40" src="assets/images/{{card?.cardtype?.toLowerCase()}}.svg"
                                             alt="{{card?.cardtype}}" />
                                         <div class="pl-2">{{card?.displayname}} ({{card?.cardnumber}})</div>
                                     </div>

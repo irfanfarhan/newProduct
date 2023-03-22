@@ -109,6 +109,17 @@ export class TransferComponent implements OnInit {
     }, 30000);
   }
 
+  onSucessMessage = () => {
+    this.messageShow = [
+      { severity: 'success', summary: 'Success', detail: 'Balance has been transfered successfully', life: 20000 }
+    ];
+    const el: any = document.getElementById('mainId');
+    el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    setTimeout(() => {
+      this.messageShow = [];
+    }, 20000);
+  }
+
   updateTotalBalance = () => {
     this.total = 0;
     this.transferForm.controls.forEach((element) => {
@@ -140,6 +151,7 @@ export class TransferComponent implements OnInit {
     this.transferForm.clear();
     this.getMultiBalanceTransferForm();
     this.total = 0;
+    this.transferBalance();
   }
 
   totalBalanceTransfer = (form: any) => {
@@ -156,6 +168,7 @@ export class TransferComponent implements OnInit {
     this.transferService.transferBalance(payload).subscribe(data => {
       console.log(data);
       this._loading.toggleLoading(false);
+      this.onSucessMessage();
     }), (error: any) => {
       this._loading.toggleLoading(false);
       console.log(error);
