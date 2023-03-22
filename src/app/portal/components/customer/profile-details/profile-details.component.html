@@ -128,19 +128,20 @@
                             <input type="text" inputId="email" formControlName="email" pInputText>
                             <small id="username2-help" *ngIf="editProfileForm.get('email').hasError('required')"
                                 class="p-error block">Email is required.</small>
-                                <small id="username2-help" *ngIf="editProfileForm.get('email').hasError('pattern')"
+                            <small id="username2-help" *ngIf="editProfileForm.get('email').hasError('pattern')"
                                 class="p-error block">Enter valid Email.</small>
                         </div>
                         <div class="field md:col-6 mb-0">
                             <label for="phone">Phone Number</label>
-                            <input type="text" inputId="phone" formControlName="phone" maxlength="10" pInputText pKeyFilter="num">
+                            <input type="text" inputId="phone" formControlName="phone" maxlength="10" pInputText
+                                pKeyFilter="num">
                             <small id="username2-help" *ngIf="editProfileForm.get('phone').hasError('pattern')"
                                 class="p-error block">Enter valid Phone Number.</small>
                         </div>
                         <div class="field md:col-6 mb-0">
                             <label for="postalcode">Zip</label>
-                            <input type="text" inputId="postalcode" maxlength="5" formControlName="postalcode" pInputText
-                                pKeyFilter="num">
+                            <input type="text" inputId="postalcode" maxlength="5" formControlName="postalcode"
+                                pInputText pKeyFilter="num">
                             <small id="username2-help" *ngIf="editProfileForm.get('postalcode').hasError('pattern')"
                                 class="p-error block">Enter Valid Zip.</small>
                         </div>
@@ -154,7 +155,7 @@
                         <div class="field md:col-6 mb-0">
                             <label for="emailOptIn" class="mb-0 me-3">Email Opt-In</label>
                             <p-checkbox [binary]="true" inputId="emailOptIn"
-                                [formControl]="editProfileForm?.emailOptIn" inputId="binary"></p-checkbox>
+                                [formControl]="editProfileForm.controls['emailOptIn']" inputId="binary"></p-checkbox>
                         </div>
                     </div>
                 </form>
