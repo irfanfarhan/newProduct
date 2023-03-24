@@ -151,7 +151,6 @@ export class TransferComponent implements OnInit {
     this.transferForm.clear();
     this.getMultiBalanceTransferForm();
     this.total = 0;
-    this.transferBalance();
   }
 
   totalBalanceTransfer = (form: any) => {
@@ -169,6 +168,7 @@ export class TransferComponent implements OnInit {
       console.log(data);
       this._loading.toggleLoading(false);
       this.onSucessMessage();
+      this.transferBalance();
     }), (error: any) => {
       this._loading.toggleLoading(false);
       console.log(error);

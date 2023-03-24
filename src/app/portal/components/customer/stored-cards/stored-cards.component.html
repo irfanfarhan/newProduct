@@ -144,6 +144,7 @@
     header="Transfer Balance" [modal]="true" styleClass="p-fluid" class="resetPasswordModal">
     <ng-template pTemplate="content">
         <div class="col">
+            <p-messages [(value)]="messageShow"></p-messages>
             <form [formGroup]="transferBalanceForm" rule="form" novalidate>
                 <div class="p-fluid grid">
                     <div class="field col-12 md:col-6 mb-0">

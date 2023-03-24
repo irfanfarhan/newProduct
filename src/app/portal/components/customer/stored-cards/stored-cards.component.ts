@@ -248,7 +248,7 @@ export class StoredCardsComponent implements OnInit, OnChanges {
     this._loading.toggleLoading(true);
     this.transferService.getTransferBalance(payload).subscribe(data => {
       if (data?.message) {
-        this.onErrorMessageEvent.emit(data?.message);
+        this.errorMessage(data?.message);
       } else {
         this.balance = data;
       }
@@ -258,6 +258,15 @@ export class StoredCardsComponent implements OnInit, OnChanges {
       console.log(error);
       this.transferService.handleError(error);
     };
+  }
+
+  errorMessage = (message: any) => {
+    this.messageShow = [
+      { severity: 'error', summary: 'Error', detail: message, life: 1000 }
+    ];
+    setTimeout(() => {
+      this.messageShow = [];
+    }, 30000);
   }
 
   transferBalanceEvent = () => {
