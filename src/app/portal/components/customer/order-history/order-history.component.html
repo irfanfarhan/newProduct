@@ -2,7 +2,8 @@
     <p-table styleClass="main-table" #dt2 [value]="orderHistory" dataKey="salesId" [rows]="10"
         [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
         selectionMode="single" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [globalFilterFields]="['salesId','storedValueNumber', 'amount', 'cardNumber','cardType','authDate','status']">
+        [globalFilterFields]="['salesId','storedValueNumber', 'amount', 'cardNumber','cardType','authDate','status']"
+         sortField="authDate" sortOrder="-1">
         <ng-template pTemplate="caption">
             <div class="d-flex justify-content-between w-100">
                 <span class="p-input-icon-left w-75 pr-4">
@@ -54,17 +55,17 @@
                     <img width="60" height="60" src="assets/images/{{order?.cardType?.toLowerCase()}}.svg" alt="{{order?.cardType}}">
                 </td>
                 <td>
-                    {{order?.authDate}}
+                    {{order?.authDate | date: 'MM/dd/yyyy h:mm:ss a'}}
                 </td>
                 <td>
                     <span class="badge" [ngClass]="{
-                            'text-bg-success': (order?.status === 'Sent' || order?.status === 'created'),
-                            'text-bg-warning': order?.status === 'Refund',
-                            'text-bg-danger': order?.status === 'CaptureError'
-                          }">{{order?.status | titlecase}}</span>
+                        'text-bg-success': (order?.status === 'Sent' || order?.status === 'created' || order?.status === 'SentRefund'),
+                        'text-bg-warning': order?.status === 'Refund',
+                        'text-bg-danger': order?.status === 'CaptureError'
+                      }">{{order?.status | titlecase}}</span>
                 </td>
                 <td style="text-align:center">
-                    <button pButton pRipple type="button" (click)="refund(order)" icon="pi pi-replay"
+                    <button pButton pRipple type="button" (click)="refund(order)" icon="pi pi-replay" [disabled]="order?.status === 'SentRefund'"
                         class="p-button-text fw-semibold p-button-rounded" label="Refund"></button>
                 </td>
             </tr>

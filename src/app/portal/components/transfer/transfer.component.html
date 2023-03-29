@@ -41,66 +41,72 @@
             <div class="row mx-0">
                 <form [formGroup]="multiTransferBalanceForm">
                     <div class="col dataTableCustome" formArrayName="transfer">
-                        <div class="main-table p-datatable plain-data-table mt-3">
-                            <div class="p-datatable-header">
-                                <div class="d-flex justify-content-between w-100">
-                                    <h5>Multiple Balance Transfer</h5>
-                                    <button pButton label="Add" class="fw-semibold p-button-rounded" (click)="add()"
-                                        [disabled]="transferForm.controls?.length >= 5 || multiTransferBalanceForm.invalid"
-                                        icon="pi pi-plus"></button>
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="main-table p-datatable plain-data-table">
+                                    <div class="p-datatable-header">
+                                        <div class="d-flex justify-content-between w-100">
+                                            <h5>Multiple From</h5>
+                                            <button pButton label="Add" class="fw-semibold p-button-rounded"
+                                                (click)="add()"
+                                                [disabled]="transferForm.controls?.length >= 5 || multiTransferBalanceForm.invalid"
+                                                icon="pi pi-plus"></button>
+                                        </div>
+                                    </div>
+                                    <div class="p-datatable-wrapper">
+                                        <table class="p-datatable-table w-100">
+                                            <thead class="p-datatable-thead">
+                                                <tr>
+                                                    <th>PC Number</th>
+                                                    <th>Pin</th>
+                                                    <th>Balance</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="p-datatable-body">
+                                                <tr *ngFor="let item of transferForm.controls; let i=index">
+                                                    <ng-container [formGroupName]="i">
+                                                        <td>
+                                                            <input type="text" inputId="number" pKeyFilter="num"
+                                                                formControlName="number"
+                                                                class="p-inputtext p-component p-element" pInputText>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" maxlength="6" inputId="pin"
+                                                                pKeyFilter="num" formControlName="pin" pInputText
+                                                                class="p-inputtext p-component p-element">
+                                                        </td>
+                                                        <td class="d-flex align-items-center justify-content-between">
+                                                            <span>{{item?.value?.balance | currency:'USD'}}</span>
+                                                            <div>
+                                                                <button pButton type="button" icon="pi pi-sync"
+                                                                    class="p-button-rounded" label="Check Balance"
+                                                                    (click)="checkBalance(i)"
+                                                                    [disabled]="multiTransferBalanceForm.invalid"></button>
+                                                                <button pButton pRipple type="button"
+                                                                    *ngIf="transferForm.controls?.length > 1"
+                                                                    class="p-element p-button-outlined fw-semibold p-button-rounded p-button-danger ms-2 p-button p-component"
+                                                                    icon="pi pi-trash" label="Delete"
+                                                                    (click)="delete(i)"></button>
+                                                            </div>
+                                                        </td>
+                                                    </ng-container>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div
+                                    class="col-md-{{transferForm.controls?.length === 1 ? '6' : '5'}} offset-md-6 d-flex flex-row justify-content-between align-items-center mt-3 pr-3 pb-3">
+                                    <h3
+                                        [ngStyle]="{'padding-left': transferForm.controls?.length === 1 ? '9rem' : '1.4rem' }">
+                                        Total:
+                                        <span class="text-success">{{total | currency:'USD'}}</span>
+                                    </h3>
+                                    <button pButton type="button" icon="pi pi-credit-card" class="p-button-rounded"
+                                        style="width:'10rem'" label="Transfer" (click)="transfer()"
+                                        [disabled]="total <= 0 ||  balance <= 0"></button>
                                 </div>
                             </div>
-                            <div class="p-datatable-wrapper">
-                                <table class="p-datatable-table w-100">
-                                    <thead class="p-datatable-thead">
-                                        <tr>
-                                            <th>PC Number</th>
-                                            <th>Pin</th>
-                                            <th>Balance</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="p-datatable-body">
-                                        <tr *ngFor="let item of transferForm.controls; let i=index">
-                                            <ng-container [formGroupName]="i">
-                                                <td>
-                                                    <input type="text" inputId="number" pKeyFilter="num"
-                                                        formControlName="number"
-                                                        class="p-inputtext p-component p-element" pInputText>
-                                                </td>
-                                                <td>
-                                                    <input type="text" maxlength="6" inputId="pin" pKeyFilter="num"
-                                                        formControlName="pin" pInputText
-                                                        class="p-inputtext p-component p-element">
-                                                </td>
-                                                <td class="d-flex align-items-center justify-content-between">
-                                                    <span>{{item?.value?.balance | currency:'USD'}}</span>
-                                                    <div>
-                                                        <button pButton type="button" icon="pi pi-sync"
-                                                            class="p-button-rounded" label="Check Balance"
-                                                            (click)="checkBalance(i)"
-                                                            [disabled]="multiTransferBalanceForm.invalid"></button>
-                                                        <button pButton pRipple type="button"
-                                                            *ngIf="transferForm.controls?.length > 1"
-                                                            class="p-element p-button-outlined fw-semibold p-button-rounded p-button-danger ms-2 p-button p-component"
-                                                            icon="pi pi-trash" label="Delete"
-                                                            (click)="delete(i)"></button>
-                                                    </div>
-                                                </td>
-                                            </ng-container>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div
-                            class="col-md-6 offset-md-6 d-flex flex-row justify-content-between align-items-center mt-3">
-                            <h3
-                                [ngStyle]="{'padding-left': transferForm.controls?.length === 1 ? '14.6rem' : '6.6rem' }">
-                                Total:
-                                <span class="text-success">{{total | currency:'USD'}}</span>
-                            </h3>
-                            <button pButton type="button" icon="pi pi-credit-card" class="p-button-rounded"
-                                label="Transfer" (click)="transfer()" [disabled]="total <= 0 ||  balance <= 0"></button>
                         </div>
                     </div>
                 </form>

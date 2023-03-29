@@ -62,7 +62,7 @@ export class CustomerService {
     return this.http.delete<any>('assets/profileDetails.json', payload);
   }
 
-  refundOder(payload: any) {
+  refundOrder(payload: any) {
     return this.http.post<any>('assets/profileDetails.json', payload);
   }
 

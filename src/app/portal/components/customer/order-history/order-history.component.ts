@@ -63,7 +63,7 @@ export class OrderHistoryComponent implements OnInit {
       svCard: order?.storedValueNumber
     };
     this._loading.toggleLoading(true);
-    this.customerService.refundOder(payload).subscribe(data => {
+    this.customerService.refundOrder(payload).subscribe(data => {
       if (data?.message) {
         this.onErrorMessageEvent.emit(data?.message);
       } else {

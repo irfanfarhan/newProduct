@@ -58,6 +58,7 @@ export class CustomerComponent implements OnInit {
 
   changeProfileSearch = () => {
     console.log(this.selectedValue);
+    this.profileDetails = null;
     if (this.selectedValue === ProfileSearchDropDown[0].label) {
       this.searchOption = ProfileSearchDropDown[0].code;
       this.searchValue = new FormControl('', [
