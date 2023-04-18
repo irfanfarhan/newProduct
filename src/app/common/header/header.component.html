@@ -16,7 +16,10 @@
             <a class="nav-link" [routerLink]="['/portal/transfer']">Transfer </a><span>|</span>
           </li>
           <li *hasPermission="['olo-admin']" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <a class="nav-link" [routerLink]="['/portal/restaurants']">Restaurants</a>
+            <a class="nav-link" [routerLink]="['/portal/restaurants']">Restaurants</a><span>|</span>
+          </li>
+          <li  class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a class="nav-link" [routerLink]="['/portal/status']">Peet's Status</a>
           </li>
         </ul>
         <div class="vr-divider mx-3"></div>

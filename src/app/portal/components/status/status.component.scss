@@ -1,0 +1,7 @@
+:host ::ng-deep .p-chip.good-chip .p-chip-icon {
+    color: green;
+}
+
+:host ::ng-deep .p-chip.critical-chip .p-chip-icon {
+    color: #EF4444;
+}

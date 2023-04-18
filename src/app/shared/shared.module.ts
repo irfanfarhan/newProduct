@@ -33,6 +33,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { PasswordModule } from 'primeng/password';
 import { HasPermissionDirective } from './directives/hasPermission.directive';
+import { ChipModule } from 'primeng/chip';
 
 export const sharedModule = [
   CommonModule,
@@ -66,7 +67,8 @@ export const sharedModule = [
   CheckboxModule,
   SelectButtonModule,
   KeyFilterModule,
-  PasswordModule];
+  PasswordModule,
+  ChipModule];
 
 @NgModule({
   declarations: [CommonComponent, MonthPipePipe, LoadingComponent, HasPermissionDirective],

@@ -22,6 +22,11 @@ const routes: Routes = [
         path: 'restaurants',
         loadChildren: () => import('./components/restaurants/restaurants.module').then((m) => m.RestaurantsModule),
         //canActivate: [MsalGuard]
+      },
+      {
+        path: 'status',
+        loadChildren: () => import('./components/status/status.module').then((m) => m.StatusModule),
+        //canActivate: [MsalGuard]
       }
     ]
   }

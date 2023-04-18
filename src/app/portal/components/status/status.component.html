@@ -1,0 +1,188 @@
+<div class="container dtc-page-wrapper dtc-customer-page-wrapper">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body col-lg-12">
+                <div class="row mx-0">
+                    <div class="form-group col-6">
+                        <label class="form-label col-lg-4 fw-semibold">Refresh every 5 minutes</label>
+                    </div>
+                    <div class="form-group col-6">
+                        <div class="flex align-items-center justify-content-end">
+                            <p-chip label="Good" icon="bi bi-check-circle-fill" styleClass="good-chip mr-2"></p-chip>
+                            <p-chip label="Critical" icon="bi bi-x-circle-fill"
+                                styleClass="critical-chip mr-2"></p-chip>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 mt-4 tabViewCustome">
+                    <p-tabView styleClass="tabview-custom">
+                        <p-tabPanel header="Peets API">
+                            <ng-template pTemplate="header">
+                                <span>Peets API</span>
+                            </ng-template>
+                            <p-table [value]="peetsAPI" scrollHeight="400px" rowGroupMode="subheader"
+                                groupRowsBy="representative.name" [tableStyle]="{'min-width': '60rem'}">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Products And Services</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="groupheader" let-customer>
+                                    <tr pRowGroupHeader>
+                                        <td colspan="5">
+                                            <span class="font-bold ml-2">{{customer.representative.name}}</span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+                                    <tr>
+                                        <td>
+                                            {{customer.name}}
+                                        </td>
+                                        <td>
+                                            <span *ngIf="customer.status === 'Good'" class="bi bi-check-circle-fill"
+                                                style="color:green;font-size: 1.2rem;"></span>
+                                            <span *ngIf="customer.status === 'Critical'" class="bi bi-x-circle-fill"
+                                                style="color:#EF4444;font-size: 1.2rem;"></span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-tabPanel>
+                        <p-tabPanel header="OLO">
+                            <ng-template pTemplate="header">
+                                <span>OLO</span>
+                            </ng-template>
+                            <p-table styleClass="main-table" #dt2 [value]="oloData">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Products And Services</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-order>
+                                    <tr [pSelectableRow]="order">
+                                        <td>
+                                            {{order.name}}
+                                        </td>
+                                        <td>
+                                            <span *ngIf="order.status === 'Good'" class="bi bi-check-circle-fill"
+                                                style="color:green;font-size: 1.2rem;"></span>
+                                            <span *ngIf="order.status === 'Critical'" class="bi bi-x-circle-fill"
+                                                style="color:#EF4444;font-size: 1.2rem;"></span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-tabPanel>
+                        <p-tabPanel header="Okta">
+                            <ng-template pTemplate="header">
+                                <span>Okta</span>
+                            </ng-template>
+                            <p-table styleClass="main-table" #dt2 [value]="oktaData">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Products And Services</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-order>
+                                    <tr [pSelectableRow]="order">
+                                        <td>
+                                            {{order.name}}
+                                        </td>
+                                        <td>
+                                            <span *ngIf="order.status === 'Good'" class="bi bi-check-circle-fill"
+                                                style="color:green;font-size: 1.2rem;"></span>
+                                            <span *ngIf="order.status === 'Critical'" class="bi bi-x-circle-fill"
+                                                style="color:#EF4444;font-size: 1.2rem;"></span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-tabPanel>
+                        <p-tabPanel header="Paytronix">
+                            <ng-template pTemplate="header">
+                                <span>Paytronix</span>
+                            </ng-template>
+                            <p-table styleClass="main-table" #dt2 [value]="paytronixData">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Products And Services</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-order>
+                                    <tr [pSelectableRow]="order">
+                                        <td>
+                                            {{order.name}}
+                                        </td>
+                                        <td>
+                                            <span *ngIf="order.status === 'Good'" class="bi bi-check-circle-fill"
+                                                style="color:green;font-size: 1.2rem;"></span>
+                                            <span *ngIf="order.status === 'Critical'" class="bi bi-x-circle-fill"
+                                                style="color:#EF4444;font-size: 1.2rem;"></span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-tabPanel>
+                        <p-tabPanel header="Chase">
+                            <ng-template pTemplate="header">
+                                <span>Chase</span>
+                            </ng-template>
+                            <p-table styleClass="main-table" #dt2 [value]="chaseData">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Products And Services</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-order>
+                                    <tr [pSelectableRow]="order">
+                                        <td>
+                                            {{order.name}}
+                                        </td>
+                                        <td>
+                                            <span *ngIf="order.status === 'Good'" class="bi bi-check-circle-fill"
+                                                style="color:green;font-size: 1.2rem;"></span>
+                                            <span *ngIf="order.status === 'Critical'" class="bi bi-x-circle-fill"
+                                                style="color:#EF4444;font-size: 1.2rem;"></span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-tabPanel>
+                        <p-tabPanel header="Shopify">
+                            <ng-template pTemplate="header">
+                                <span>Shopify</span>
+                            </ng-template>
+                            <p-table styleClass="main-table" #dt2 [value]="shopifyData">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Products And Services</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-order>
+                                    <tr [pSelectableRow]="order">
+                                        <td>
+                                            {{order.name}}
+                                        </td>
+                                        <td>
+                                            <span *ngIf="order.status === 'Good'" class="bi bi-check-circle-fill"
+                                                style="color:green;font-size: 1.2rem;"></span>
+                                            <span *ngIf="order.status === 'Critical'" class="bi bi-x-circle-fill"
+                                                style="color:#EF4444;font-size: 1.2rem;"></span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-tabPanel>
+                    </p-tabView>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
