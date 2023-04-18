@@ -5,3 +5,9 @@
 :host ::ng-deep .p-chip.critical-chip .p-chip-icon {
     color: #EF4444;
 }
+
+:host ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: #2196F3;
+    border-color: #2196F3;
+    color: #fff;
+}

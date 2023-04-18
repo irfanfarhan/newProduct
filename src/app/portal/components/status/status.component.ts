@@ -33,7 +33,7 @@ export class StatusComponent implements OnInit {
       {
         "id": 1002,
         "name": "Reload Loyalty Card",
-        "status": "Good",
+        "status": "Critical",
         "representative": {
           "name": "Loyalty Card",
         }
@@ -49,7 +49,7 @@ export class StatusComponent implements OnInit {
       {
         "id": 1004,
         "name": "OLO Get Profile",
-        "status": "Critical",
+        "status": "Good",
         "representative": {
           "name": "OLO",
         }

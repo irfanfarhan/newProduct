@@ -4,7 +4,8 @@
             <div class="card-body col-lg-12">
                 <div class="row mx-0">
                     <div class="form-group col-6">
-                        <label class="form-label col-lg-4 fw-semibold">Refresh every 5 minutes</label>
+                        <label class="form-label col-lg-4 fw-semibold">Refresh every 5 minutes 
+                            <span class="bi bi-arrow-clockwise" style="font-size: 1.2rem;font-weight:500;"></span></label>
                     </div>
                     <div class="form-group col-6">
                         <div class="flex align-items-center justify-content-end">
@@ -18,18 +19,18 @@
                     <p-tabView styleClass="tabview-custom">
                         <p-tabPanel header="Peets API">
                             <ng-template pTemplate="header">
-                                <span>Peets API</span>
+                                <span>Peet's API</span>
                             </ng-template>
                             <p-table [value]="peetsAPI" scrollHeight="400px" rowGroupMode="subheader"
                                 groupRowsBy="representative.name" [tableStyle]="{'min-width': '60rem'}">
                                 <ng-template pTemplate="header">
                                     <tr>
-                                        <th>Products And Services</th>
+                                        <th>Products and Services</th>
                                         <th>Status</th>
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="groupheader" let-customer>
-                                    <tr pRowGroupHeader>
+                                    <tr pRowGroupHeader style="background: #eff3f8">
                                         <td colspan="5">
                                             <span class="font-bold ml-2">{{customer.representative.name}}</span>
                                         </td>
